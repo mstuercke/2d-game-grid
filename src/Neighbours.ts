@@ -1,52 +1,59 @@
 import {Direction, DIRECTIONS} from './Direction';
 import {Grid} from './Grid';
 import {Coordinate, NeighbourCoordinate} from './Coordinate';
+import {NeighbourDoesNotExistInGridError} from './errors/NeighbourDoesNotExistInGridError';
 
 export class Neighbours<T> {
-  constructor(private grid: Grid<T>, private coordinates: Coordinate) {
+  constructor(private grid: Grid<T>, private coordinate: Coordinate) {
   }
 
-  getCoordinate(direction: Direction): NeighbourCoordinate | undefined {
-    const {row, col} = this.coordinates;
-    let neighbour: NeighbourCoordinate | undefined = undefined;
-    switch (direction) {
-      case 'UP':
-        neighbour = {col: col, row: row - 1, direction: 'UP'};
-        break;
-      case 'DOWN':
-        neighbour = {col: col, row: row + 1, direction: 'DOWN'};
-        break;
-      case 'LEFT':
-        neighbour = {col: col - 1, row: row, direction: 'LEFT'};
-        break;
-      case 'RIGHT':
-        neighbour = {col: col + 1, row: row, direction: 'RIGHT'};
-        break;
-    }
+  exists(direction: Direction): boolean {
+    const offset = this.getOffsetCoordinate(direction);
+    const neighbour = {
+      row: this.coordinate.row + offset.row,
+      col: this.coordinate.col + offset.col,
+    };
 
-    return this.grid.cellExists(neighbour)
-        ? neighbour
-        : undefined;
+    return this.grid.cellExists(neighbour);
   }
 
-  getCoordinates(): NeighbourCoordinate[] {
-    return DIRECTIONS.reduce((neighbours, direction) => {
-      const neighbour = this.getCoordinate(direction);
-      return neighbour ? [...neighbours, neighbour] : neighbours;
-    }, []);
+  getCoordinate(direction: Direction): NeighbourCoordinate {
+    if (!this.exists(direction))
+      throw new NeighbourDoesNotExistInGridError(this.grid, this.coordinate, direction);
+
+    const offset = this.getOffsetCoordinate(direction);
+    return {
+      row: this.coordinate.row + offset.row,
+      col: this.coordinate.col + offset.col,
+      source: this.coordinate,
+      direction,
+    };
   }
 
-  get(direction: Direction): T | undefined {
+  listCoordinates(): NeighbourCoordinate[] {
+    return DIRECTIONS
+        .filter(direction => this.exists(direction))
+        .reduce((neighbours, direction) => [...neighbours, this.getCoordinate(direction)], []);
+  }
+
+  get(direction: Direction): T {
+    if (!this.exists(direction))
+      throw new NeighbourDoesNotExistInGridError(this.grid, this.coordinate, direction);
+
     const neighbour = this.getCoordinate(direction);
-    if (neighbour)
-      return this.grid.getCell(neighbour);
-    return undefined;
+    return neighbour && this.grid.getCell(neighbour);
   }
 
   list(): T[] {
-    return DIRECTIONS.reduce((neighbours, direction) => {
-      const neighbour = this.get(direction);
-      return neighbour ? [...neighbours, neighbour] : neighbours;
-    }, []);
+    return this.listCoordinates().map(coordinate => this.grid.getCell(coordinate));
+  }
+
+  private getOffsetCoordinate(direction: Direction): Coordinate {
+    return {
+      'UP': {col: 0, row: -1},
+      'DOWN': {col: 0, row: 1},
+      'LEFT': {col: -1, row: 0},
+      'RIGHT': {col: 1, row: 0},
+    }[direction];
   }
 }

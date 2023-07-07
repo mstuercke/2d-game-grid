@@ -5,5 +5,6 @@ export interface Coordinate {
   row: number;
 }
 export interface NeighbourCoordinate extends Coordinate {
+  source: Coordinate;
   direction: Direction;
 }
