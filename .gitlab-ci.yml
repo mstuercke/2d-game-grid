@@ -1,0 +1,6 @@
+test:
+  image: node:16.20.0-alpine
+  stage: test
+  script:
+    - yarn install
+    - yarn test:coverage
