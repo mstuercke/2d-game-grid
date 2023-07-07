@@ -2,7 +2,7 @@ import {Grid} from './Grid';
 import {Neighbours} from './Neighbours';
 import {Coordinate} from './Coordinate';
 import {getDistance} from './algorithms/distance/getDistance';
-import {gridOptionsFixture, preInitializedGridOptionsFixture} from './Grid.fixture';
+import {initializeGridOptionsFixture, preInitializedGridOptionsFixture} from './Grid.fixture';
 
 jest.mock('./Neighbours');
 const NeighboursMock = jest.mocked(Neighbours);
@@ -19,7 +19,7 @@ describe('Grid', () => {
 
   describe('constructor', () => {
     it('should create grid', async () => {
-      grid = new Grid<string>(gridOptionsFixture);
+      grid = new Grid<string>(initializeGridOptionsFixture);
       expect(grid.cells).toEqual([
         ['0-0', '0-1', '0-2'],
         ['1-0', '1-1', '1-2'],

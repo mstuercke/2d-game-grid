@@ -8,7 +8,7 @@ export const preInitializedGridOptionsFixture: PreInitializedGridOptions<string>
   ],
 };
 
-export const gridOptionsFixture: InitializeGridOptions<string> = {
+export const initializeGridOptionsFixture: InitializeGridOptions<string> = {
   width: 3,
   height: 3,
   initializeCell: ({row, col}) => `${row}-${col}`,
