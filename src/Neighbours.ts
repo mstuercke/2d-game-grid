@@ -3,8 +3,8 @@ import {Grid} from './Grid';
 import {Coordinate, NeighbourCoordinate} from './Coordinate';
 import {NeighbourDoesNotExistInGridError} from './errors/NeighbourDoesNotExistInGridError';
 
-export class Neighbours<T> {
-  constructor(private grid: Grid<T>, private coordinate: Coordinate) {
+export class Neighbours<Cell> {
+  constructor(private grid: Grid<Cell>, private coordinate: Coordinate) {
   }
 
   exists(direction: Direction): boolean {
@@ -36,7 +36,7 @@ export class Neighbours<T> {
         .reduce((neighbours, direction) => [...neighbours, this.getCoordinate(direction)], []);
   }
 
-  get(direction: Direction): T {
+  get(direction: Direction): Cell {
     if (!this.exists(direction))
       throw new NeighbourDoesNotExistInGridError(this.grid, this.coordinate, direction);
 
@@ -44,7 +44,7 @@ export class Neighbours<T> {
     return neighbour && this.grid.getCell(neighbour);
   }
 
-  list(): T[] {
+  list(): Cell[] {
     return this.listCoordinates().map(coordinate => this.grid.getCell(coordinate));
   }
 

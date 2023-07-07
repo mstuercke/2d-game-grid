@@ -1,18 +1,18 @@
 import {Grid} from './Grid';
 
-export class Row<T> {
-  constructor(private grid: Grid<T>, public row: number) {
+export class Row<Cell> {
+  constructor(private grid: Grid<Cell>, public row: number) {
   }
 
-  listCells(): T[] {
+  listCells(): Cell[] {
     return this.grid.cells[this.row]
   }
 
-  getCell(col: number): T {
+  getCell(col: number): Cell {
     return this.grid.getCell({row: this.row, col});
   }
 
-  setCell(col: number, value: T): void {
+  setCell(col: number, value: Cell): void {
     this.grid.setCell({row: this.row, col}, value);
   }
 }
