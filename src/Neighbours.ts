@@ -44,8 +44,8 @@ export class Neighbours<Cell> {
     return neighbour && this.grid.getCell(neighbour);
   }
 
-  list(): Cell[] {
-    return this.listCoordinates().map(coordinate => this.grid.getCell(coordinate));
+  list(directions: Direction[] = ALL_DIRECTIONS): Cell[] {
+    return this.listCoordinates(directions).map(coordinate => this.grid.getCell(coordinate));
   }
 
   private getOffsetCoordinate(direction: Direction): Coordinate {
