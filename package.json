@@ -2,7 +2,7 @@
   "name": "game-grid",
   "version": "0.0.1",
   "description": "Game Grid",
-  "main": "dist/index.ts",
+  "main": "dist/index.js",
   "author": "Marvin Stürcke",
   "license": "MIT",
   "scripts": {
