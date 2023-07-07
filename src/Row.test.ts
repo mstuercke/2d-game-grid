@@ -1,5 +1,6 @@
 import {Row} from './Row';
-import {gridFixture} from './Grid.fixture';
+import {Grid} from './Grid';
+import {preInitializedGridOptionsFixture} from './Grid.fixture';
 
 describe('Row', () => {
   beforeEach(() => {
@@ -7,18 +8,20 @@ describe('Row', () => {
   });
 
   it('should list cells', async () => {
-    const cells = new Row(gridFixture, 2).listCells();
+    const grid = new Grid<string>(preInitializedGridOptionsFixture);
+    const cells = new Row(grid, 2).listCells();
     expect(cells).toEqual(['2-0', '2-1', '2-2']);
   });
 
   it('should get cell', async () => {
-    const value = new Row(gridFixture, 2).getCell(1);
+    const grid = new Grid<string>(preInitializedGridOptionsFixture);
+    const value = new Row(grid, 2).getCell(1);
     expect(value).toEqual('2-1');
   });
 
   it('should set cell', async () => {
-    const grid = gridFixture.clone()
-    jest.spyOn(grid, 'setCell')
+    const grid = new Grid<string>(preInitializedGridOptionsFixture);
+    jest.spyOn(grid, 'setCell');
 
     new Row(grid, 2).setCell(1, 'foo');
 

@@ -5,19 +5,50 @@ import {Column} from './Column';
 import {CellDoesNotExistInGridError} from './errors/CellDoesNotExistInGridError';
 import {DistanceAlgorithm} from './algorithms/distance/DistanceAlgorithm';
 import {getDistance} from './algorithms/distance/getDistance';
+import {InvalidGridSizeError} from './errors/InvalidGridSizeError';
+
+export interface InitializeGridOptions<T> {
+  width: number,
+  height: number,
+  initializeCell: (coordinate: Coordinate) => T
+}
+
+export interface PreInitializedGridOptions<T> {
+  rows: T[][];
+}
 
 export class Grid<T> {
+  readonly width: number;
+  readonly height: number;
   readonly cells: T[][];
 
-  constructor(public width: number, public height: number, initialValue: (coordinate: Coordinate) => T) {
+  constructor(options: InitializeGridOptions<T> | PreInitializedGridOptions<T>) {
+    if ('initializeCell' in options) {
+      this.width = options.width;
+      this.height = options.height;
+      this.cells = this.initializeCells(this.width, this.height, options.initializeCell);
+    }
+
+    if ('rows' in options) {
+      const rows = options.rows;
+      this.height = rows.length;
+      this.width = Math.max(0, ...rows.map(row => row.length));
+      this.cells = this.initializeCells(this.width, this.height, ({row, col}) => rows[row][col]);
+    }
+  }
+
+  private initializeCells(width: number, height: number, initializeCell: (coordinate: Coordinate) => T): T[][] {
+    if (this.height === 0 || this.width === 0)
+      throw new InvalidGridSizeError(width, height);
+
     const cells = new Array(height);
     for (let row = 0; row < height; row++) {
       cells[row] = new Array(width);
       for (let col = 0; col < width; col++) {
-        cells[row][col] = initialValue({row, col});
+        cells[row][col] = initializeCell({row, col});
       }
     }
-    this.cells = cells;
+    return cells;
   }
 
   cellExists({row, col}: Coordinate): boolean {
@@ -70,6 +101,10 @@ export class Grid<T> {
   }
 
   clone(cloneValue: (value: T) => T = (value) => value): Grid<T> {
-    return new Grid(this.width, this.height, ({row, col}) => cloneValue(this.cells[row][col]));
+    return new Grid({
+      width: this.width,
+      height: this.height,
+      initializeCell: ({row, col}) => cloneValue(this.cells[row][col]),
+    });
   }
 }

@@ -1,8 +1,8 @@
 import {Grid} from './Grid';
-import {gridFixture} from './Grid.fixture';
 import {Neighbours} from './Neighbours';
 import {Coordinate} from './Coordinate';
 import {getDistance} from './algorithms/distance/getDistance';
+import {gridOptionsFixture, preInitializedGridOptionsFixture} from './Grid.fixture';
 
 jest.mock('./Neighbours');
 const NeighboursMock = jest.mocked(Neighbours);
@@ -14,7 +14,37 @@ describe('Grid', () => {
   let grid: Grid<string>;
 
   beforeEach(() => {
-    grid = gridFixture.clone();
+    grid = new Grid<string>(preInitializedGridOptionsFixture);
+  });
+
+  describe('constructor', () => {
+    it('should create grid', async () => {
+      grid = new Grid<string>(gridOptionsFixture);
+      expect(grid.cells).toEqual([
+        ['0-0', '0-1', '0-2'],
+        ['1-0', '1-1', '1-2'],
+        ['2-0', '2-1', '2-2'],
+      ]);
+    });
+
+    it('should create grid with pre-initialized rows', async () => {
+      grid = new Grid<string>(preInitializedGridOptionsFixture);
+      expect(grid.cells).toEqual([
+        ['0-0', '0-1', '0-2'],
+        ['1-0', '1-1', '1-2'],
+        ['2-0', '2-1', '2-2'],
+      ]);
+    });
+
+    it('should throw error, when width is 0', async () => {
+      expect(() => new Grid({width: 0, height: 1, initializeCell: () => null})).toThrowError();
+      expect(() => new Grid({rows: [[]]})).toThrowError();
+    });
+
+    it('should throw error, when height is 0', async () => {
+      expect(() => new Grid({width: 1, height: 0, initializeCell: () => null})).toThrowError();
+      expect(() => new Grid({rows: []})).toThrowError();
+    });
   });
 
   it('should get all cells', async () => {
@@ -72,7 +102,6 @@ describe('Grid', () => {
     expect(() => grid.setCell(coordinates, 'foo')).toThrowError();
   });
 
-
   it('should initialize Neighbours', async () => {
     const coordinate: Coordinate = {row: 1, col: 2};
     const neighbours = {} as Neighbours<any>;
@@ -100,12 +129,23 @@ describe('Grid', () => {
     expect(distance).toEqual(7);
   });
 
-  it('should clone grid', async () => {
-    const clone = grid.clone((value) => `${value} (clone)`);
-    expect(clone.listCells()).toEqual([
-      '0-0 (clone)', '0-1 (clone)', '0-2 (clone)',
-      '1-0 (clone)', '1-1 (clone)', '1-2 (clone)',
-      '2-0 (clone)', '2-1 (clone)', '2-2 (clone)',
-    ]);
+  describe('should clone', () => {
+    it('with same values', async () => {
+      const clone = grid.clone();
+      expect(clone.listCells()).toEqual([
+        '0-0', '0-1', '0-2',
+        '1-0', '1-1', '1-2',
+        '2-0', '2-1', '2-2',
+      ]);
+    });
+
+    it('with manipulated values', async () => {
+      const clone = grid.clone((value) => `${value} (clone)`);
+      expect(clone.listCells()).toEqual([
+        '0-0 (clone)', '0-1 (clone)', '0-2 (clone)',
+        '1-0 (clone)', '1-1 (clone)', '1-2 (clone)',
+        '2-0 (clone)', '2-1 (clone)', '2-2 (clone)',
+      ]);
+    });
   });
 });

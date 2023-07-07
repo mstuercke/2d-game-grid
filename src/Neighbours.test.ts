@@ -1,12 +1,12 @@
 import {Grid} from './Grid';
-import {gridFixture} from './Grid.fixture';
 import {Neighbours} from './Neighbours';
+import {preInitializedGridOptionsFixture} from './Grid.fixture';
 
 describe('Neighbours', () => {
   let grid: Grid<string>;
 
   beforeEach(() => {
-    grid = gridFixture.clone();
+    grid = new Grid<string>(preInitializedGridOptionsFixture);
   });
 
   it.each`

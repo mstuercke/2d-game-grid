@@ -1,3 +1,15 @@
-import {Grid} from './Grid';
+import {InitializeGridOptions, PreInitializedGridOptions} from './Grid';
 
-export const gridFixture = new Grid(3, 3, ({row, col}) => `${row}-${col}`);
+export const preInitializedGridOptionsFixture: PreInitializedGridOptions<string> = {
+  rows: [
+    ['0-0', '0-1', '0-2'],
+    ['1-0', '1-1', '1-2'],
+    ['2-0', '2-1', '2-2'],
+  ],
+};
+
+export const gridOptionsFixture: InitializeGridOptions<string> = {
+  width: 3,
+  height: 3,
+  initializeCell: ({row, col}) => `${row}-${col}`,
+};
