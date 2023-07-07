@@ -1,4 +1,6 @@
 export * from './errors/CellDoesNotExistInGridError';
+export * from './errors/InvalidGridSizeError';
+export * from './errors/NeighbourDoesNotExistInGridError';
 export * from './Column';
 export * from './Coordinate';
 export * from './Direction';
