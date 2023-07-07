@@ -1,13 +1,14 @@
 import {Direction, DIRECTIONS} from './Direction';
-import {Coordinates, Grid, NeighbourCoordinates} from './Grid';
+import {Grid} from './Grid';
+import {Coordinate, NeighbourCoordinate} from './Coordinate';
 
-export class Neighbours<T>{
-  constructor(private grid: Grid<T>) {
+export class Neighbours<T> {
+  constructor(private grid: Grid<T>, private coordinates: Coordinate) {
   }
 
-  getCoordinate(coordinates: Coordinates, direction: Direction): NeighbourCoordinates | undefined {
-    const {row, col} = coordinates;
-    let neighbour: NeighbourCoordinates | undefined = undefined;
+  getCoordinate(direction: Direction): NeighbourCoordinate | undefined {
+    const {row, col} = this.coordinates;
+    let neighbour: NeighbourCoordinate | undefined = undefined;
     switch (direction) {
       case 'UP':
         neighbour = {col: col, row: row - 1, direction: 'UP'};
@@ -23,28 +24,28 @@ export class Neighbours<T>{
         break;
     }
 
-    return this.grid.isInGrid(neighbour)
+    return this.grid.cellExists(neighbour)
         ? neighbour
         : undefined;
   }
 
-  getCoordinates(coordinates: Coordinates): NeighbourCoordinates[] {
+  getCoordinates(): NeighbourCoordinate[] {
     return DIRECTIONS.reduce((neighbours, direction) => {
-      const neighbour = this.getCoordinate(coordinates, direction);
+      const neighbour = this.getCoordinate(direction);
       return neighbour ? [...neighbours, neighbour] : neighbours;
     }, []);
   }
 
-  get(coordinates: Coordinates, direction: Direction): T | undefined {
-    const neighbour = this.getCoordinate(coordinates, direction);
+  get(direction: Direction): T | undefined {
+    const neighbour = this.getCoordinate(direction);
     if (neighbour)
       return this.grid.getCell(neighbour);
     return undefined;
   }
 
-  list(coordinates: Coordinates): T[] {
+  list(): T[] {
     return DIRECTIONS.reduce((neighbours, direction) => {
-      const neighbour = this.get(coordinates, direction);
+      const neighbour = this.get(direction);
       return neighbour ? [...neighbours, neighbour] : neighbours;
     }, []);
   }

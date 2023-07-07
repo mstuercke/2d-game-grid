@@ -2,13 +2,12 @@ import {Grid} from './Grid';
 import {gridFixture} from './Grid.fixture';
 import {Neighbours} from './Neighbours';
 
-describe('grid', () => {
+describe('Neighbours', () => {
   let grid: Grid<string>;
   let neighbours: Neighbours<string>;
 
   beforeEach(() => {
     grid = gridFixture.clone();
-    neighbours = new Neighbours(grid)
   });
 
   it.each`
@@ -18,12 +17,12 @@ describe('grid', () => {
     ${{row: 1, col: 1}} | ${'LEFT'}   | ${{row: 1, col: 0, direction: 'LEFT'}}
     ${{row: 1, col: 1}} | ${'RIGHT'}  | ${{row: 1, col: 2, direction: 'RIGHT'}}
   `('should get neighbour coordinates ($direction)', async ({startCoordinates, direction, neighbourCoordinates}) => {
-    const result = neighbours.getCoordinate(startCoordinates, direction);
+    const result = new Neighbours(grid, startCoordinates).getCoordinate(direction);
     expect(result).toEqual(neighbourCoordinates);
   });
 
   it('should get neighbours coordinates ', async () => {
-    const result = neighbours.getCoordinates({row: 1, col: 1});
+    const result = new Neighbours(grid, {row: 1, col: 1}).getCoordinates();
     expect(result).toEqual([
       {row: 0, col: 1, direction: 'UP'},
       {row: 2, col: 1, direction: 'DOWN'},
@@ -33,7 +32,7 @@ describe('grid', () => {
   });
 
   it('should not get neighbours coordinates out of bounds ', async () => {
-    const result = neighbours.getCoordinates({row: 2, col: 2});
+    const result = new Neighbours(grid, {row: 2, col: 2}).getCoordinates();
     expect(result).toEqual([
       {row: 1, col: 2, direction: 'UP'},
       {row: 2, col: 1, direction: 'LEFT'},
@@ -47,7 +46,7 @@ describe('grid', () => {
     ${{row: 1, col: 1}} | ${'LEFT'}   | ${'1-0'}
     ${{row: 1, col: 1}} | ${'RIGHT'}  | ${'1-2'}
   `('should get neighbour cell', async ({startCoordinates, direction, neighbourValue}) => {
-    const result = neighbours.get(startCoordinates, direction);
+    const result = new Neighbours(grid, startCoordinates).get(direction);
     expect(result).toEqual(neighbourValue);
   });
 
@@ -58,12 +57,12 @@ describe('grid', () => {
     ${{row: 0, col: 0}} | ${'LEFT'}
     ${{row: 2, col: 2}} | ${'RIGHT'}
   `('should not get neighbour out of bounds ($direction)', async ({coordinates, direction}) => {
-    const neighbour = neighbours.get(coordinates, direction);
+    const neighbour = new Neighbours(grid, coordinates).get(direction);
     expect(neighbour).not.toBeDefined();
   });
 
   it('should get neighbour cells', async () => {
-    const result = neighbours.list({row: 1, col: 1});
+    const result = new Neighbours(grid, {row: 1, col: 1}).list();
     expect(result).toEqual(['0-1', '2-1', '1-0', '1-2']);
   });
 
@@ -72,16 +71,7 @@ describe('grid', () => {
     ${{row: 0, col: 0}} | ${['1-0', '0-1']}
     ${{row: 2, col: 2}} | ${['1-2', '2-1']}
     `('should not get neighbours out of bounds ($coordinates)', async ({coordinates, expectedNeighbours}) => {
-    const result = neighbours.list(coordinates);
+    const result = new Neighbours(grid, coordinates).list();
     expect(result).toEqual(expectedNeighbours);
-  });
-
-  it('should clone grid', async () => {
-    const clone = grid.clone((value) => `${value} (clone)`);
-    expect(clone.listCells()).toEqual([
-      '0-0 (clone)', '0-1 (clone)', '0-2 (clone)',
-      '1-0 (clone)', '1-1 (clone)', '1-2 (clone)',
-      '2-0 (clone)', '2-1 (clone)', '2-2 (clone)',
-    ]);
   });
 });
