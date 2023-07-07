@@ -3,6 +3,8 @@ import {Coordinate} from './Coordinate';
 import {Row} from './Row';
 import {Column} from './Column';
 import {CellDoesNotExistInGridError} from './errors/CellDoesNotExistInGridError';
+import {DistanceAlgorithm} from './algorithms/distance/DistanceAlgorithm';
+import {getDistance} from './algorithms/distance/getDistance';
 
 export class Grid<T> {
   readonly cells: T[][];
@@ -61,6 +63,10 @@ export class Grid<T> {
       cols.push(new Column<T>(this, col));
     }
     return cols;
+  }
+
+  getCellDistance(start: Coordinate, end: Coordinate, algorithm: DistanceAlgorithm = 'MANHATTAN'): number {
+    return getDistance(start, end, algorithm);
   }
 
   clone(cloneValue: (value: T) => T = (value) => value): Grid<T> {

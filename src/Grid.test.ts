@@ -2,9 +2,13 @@ import {Grid} from './Grid';
 import {gridFixture} from './Grid.fixture';
 import {Neighbours} from './Neighbours';
 import {Coordinate} from './Coordinate';
+import {getDistance} from './algorithms/distance/getDistance';
 
 jest.mock('./Neighbours');
 const NeighboursMock = jest.mocked(Neighbours);
+
+jest.mock('./algorithms/distance/getDistance');
+const getDistanceMock = jest.mocked(getDistance);
 
 describe('Grid', () => {
   let grid: Grid<string>;
@@ -78,6 +82,22 @@ describe('Grid', () => {
 
     expect(NeighboursMock).toHaveBeenCalledWith(grid, coordinate);
     expect(response).toBe(neighbours);
+  });
+
+  it.each`
+    passedAlgorithm | usedAlgorithm 
+    ${undefined}    | ${'MANHATTAN'}
+    ${'MANHATTAN'}  | ${'MANHATTAN'} 
+    ${'EUCLIDEAN'}  | ${'EUCLIDEAN'}
+  `('should get distance', async ({passedAlgorithm, usedAlgorithm}) => {
+    getDistanceMock.mockReturnValueOnce(7);
+    const start: Coordinate = {row: 1, col: 2};
+    const end: Coordinate = {row: 2, col: 2};
+
+    const distance = grid.getCellDistance(start, end, passedAlgorithm);
+
+    expect(getDistanceMock).toHaveBeenCalledWith(start, end, usedAlgorithm);
+    expect(distance).toEqual(7);
   });
 
   it('should clone grid', async () => {
