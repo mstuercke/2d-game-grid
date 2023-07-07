@@ -1,4 +1,4 @@
-import {Direction, DIRECTIONS} from './Direction';
+import {Direction, ALL_DIRECTIONS} from './Direction';
 import {Grid} from './Grid';
 import {Coordinate, NeighbourCoordinate} from './Coordinate';
 import {NeighbourDoesNotExistInGridError} from './errors/NeighbourDoesNotExistInGridError';
@@ -30,8 +30,8 @@ export class Neighbours<T> {
     };
   }
 
-  listCoordinates(): NeighbourCoordinate[] {
-    return DIRECTIONS
+  listCoordinates(directions: Direction[] = ALL_DIRECTIONS): NeighbourCoordinate[] {
+    return directions
         .filter(direction => this.exists(direction))
         .reduce((neighbours, direction) => [...neighbours, this.getCoordinate(direction)], []);
   }
@@ -54,6 +54,10 @@ export class Neighbours<T> {
       'DOWN': {col: 0, row: 1},
       'LEFT': {col: -1, row: 0},
       'RIGHT': {col: 1, row: 0},
+      'TOP_LEFT': {col: -1, row: -1},
+      'TOP_RIGHT': {col: 1, row: -1},
+      'BOTTOM_LEFT': {col: -1, row: 1},
+      'BOTTOM_RIGHT': {col: 1, row: 1},
     }[direction];
   }
 }

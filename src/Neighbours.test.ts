@@ -37,6 +37,10 @@ describe('Neighbours', () => {
       {row: 2, col: 1, direction: 'DOWN', source: {row: 1, col: 1}},
       {row: 1, col: 0, direction: 'LEFT', source: {row: 1, col: 1}},
       {row: 1, col: 2, direction: 'RIGHT', source: {row: 1, col: 1}},
+      {row: 0, col: 0, direction: 'TOP_LEFT', source: {col: 1, row: 1}},
+      {row: 0, col: 2, direction: 'TOP_RIGHT', source: {col: 1, row: 1}},
+      {row: 2, col: 0, direction: 'BOTTOM_LEFT', source: {col: 1, row: 1}},
+      {row: 2, col: 2, direction: 'BOTTOM_RIGHT', source: {col: 1, row: 1}},
     ]);
   });
 
@@ -45,6 +49,7 @@ describe('Neighbours', () => {
     expect(result).toEqual([
       {row: 1, col: 2, direction: 'UP', source: {row: 2, col: 2}},
       {row: 2, col: 1, direction: 'LEFT', source: {row: 2, col: 2}},
+      {row: 1, col: 1, direction: 'TOP_LEFT', source: {col: 2, row: 2}},
     ]);
   });
 
@@ -71,13 +76,13 @@ describe('Neighbours', () => {
 
   it('should get neighbour cells', async () => {
     const result = new Neighbours(grid, {row: 1, col: 1}).list();
-    expect(result).toEqual(['0-1', '2-1', '1-0', '1-2']);
+    expect(result).toEqual(['0-1', '2-1', '1-0', '1-2', '0-0', '0-2', '2-0', '2-2']);
   });
 
   it.each`
     coordinates         | expectedNeighbours
-    ${{row: 0, col: 0}} | ${['1-0', '0-1']}
-    ${{row: 2, col: 2}} | ${['1-2', '2-1']}
+    ${{row: 0, col: 0}} | ${['1-0', '0-1', '1-1']}
+    ${{row: 2, col: 2}} | ${['1-2', '2-1', '1-1']}
     `('should not get neighbours out of bounds ($coordinates)', async ({coordinates, expectedNeighbours}) => {
     const result = new Neighbours(grid, coordinates).list();
     expect(result).toEqual(expectedNeighbours);

@@ -1,2 +1,7 @@
-export type Direction = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT'
-export const DIRECTIONS: Direction[] = ['UP', 'DOWN', 'LEFT', 'RIGHT'];
+export type StraightDirection = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT'
+export type DiagonalDirection = 'TOP_LEFT' | 'TOP_RIGHT' | 'BOTTOM_LEFT' | 'BOTTOM_RIGHT'
+export type Direction = StraightDirection | DiagonalDirection
+
+export const STRAIGHT_DIRECTIONS: StraightDirection[] = ['UP', 'DOWN', 'LEFT', 'RIGHT'];
+export const DIAGONAL_DIRECTIONS: DiagonalDirection[] = ['TOP_LEFT', 'TOP_RIGHT', 'BOTTOM_LEFT', 'BOTTOM_RIGHT'];
+export const ALL_DIRECTIONS: Direction[] = [...STRAIGHT_DIRECTIONS, ...DIAGONAL_DIRECTIONS];
