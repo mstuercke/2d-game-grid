@@ -50,8 +50,8 @@ export class Neighbours<Cell> {
 
   private getOffsetCoordinate(direction: Direction): Coordinate {
     return {
-      'UP': {col: 0, row: -1},
-      'DOWN': {col: 0, row: 1},
+      'TOP': {col: 0, row: -1},
+      'BOTTOM': {col: 0, row: 1},
       'LEFT': {col: -1, row: 0},
       'RIGHT': {col: 1, row: 0},
       'TOP_LEFT': {col: -1, row: -1},
