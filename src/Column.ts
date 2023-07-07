@@ -5,7 +5,7 @@ export class Column<T> {
   }
 
   listCells(): T[] {
-    let cells: T[] = [];
+    const cells: T[] = [];
     for (let row = 0; row < this.grid.height; row++) {
       cells.push(this.getCell(row));
     }

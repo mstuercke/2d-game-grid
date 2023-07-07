@@ -81,7 +81,7 @@ export class Grid<T> {
   }
 
   listRows(): Row<T>[] {
-    let rows: Row<T>[] = [];
+    const rows: Row<T>[] = [];
     for (let row = 0; row < this.height; row++) {
       rows.push(new Row<T>(this, row));
     }
@@ -89,7 +89,7 @@ export class Grid<T> {
   }
 
   listColumns(): Column<T>[] {
-    let cols: Column<T>[] = [];
+    const cols: Column<T>[] = [];
     for (let col = 0; col < this.width; col++) {
       cols.push(new Column<T>(this, col));
     }

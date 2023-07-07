@@ -3,4 +3,5 @@ test:
   stage: test
   script:
     - yarn install
+    - yarn lint
     - yarn test:coverage

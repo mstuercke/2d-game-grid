@@ -104,7 +104,7 @@ describe('Grid', () => {
 
   it('should initialize Neighbours', async () => {
     const coordinate: Coordinate = {row: 1, col: 2};
-    const neighbours = {} as Neighbours<any>;
+    const neighbours = {} as Neighbours<null>;
     NeighboursMock.mockReturnValueOnce(neighbours);
 
     const response = grid.getNeighbours(coordinate);
