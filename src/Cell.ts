@@ -7,11 +7,13 @@ import {getDistance} from './algorithms/distance/getDistance';
 import {Grid} from './Grid';
 
 export class Cell<Value> {
+  public readonly id: string;
   public readonly coordinate: Coordinate;
   protected readonly grid: Grid<Value>;
   private _value: Value;
 
   constructor(grid: Grid<Value>, coordinate: Coordinate, value: Value) {
+    this.id = `cell|${coordinate.row}-${coordinate.col}`;
     this.grid = grid;
     this.coordinate = coordinate;
     this._value = value;

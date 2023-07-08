@@ -2,7 +2,10 @@ import {Grid} from './Grid';
 import {Cell} from './Cell';
 
 export class Row<Value> {
+  public readonly id: string;
+
   constructor(private grid: Grid<Value>, public row: number) {
+    this.id = `row|${row}`;
   }
 
   get cells(): Cell<Value>[] {

@@ -3,16 +3,25 @@ import {Grid} from './Grid';
 import {preInitializedGridOptionsFixture} from './Grid.fixture';
 
 describe('Column', () => {
-  it('should list cells', async () => {
+  let column: Column<string>;
+
+  beforeEach(() => {
     const grid = new Grid<string>(preInitializedGridOptionsFixture);
-    const cells = new Column(grid, 2).listCells();
+    column = new Column(grid, 2);
+  });
+
+  it('should have correct id', async () => {
+    expect(column.id).toEqual('column|2');
+  });
+
+  it('should list cells', async () => {
+    const cells = column.listCells();
     const cellValues = cells.map(cell => cell.value);
     expect(cellValues).toEqual(['0-2', '1-2', '2-2']);
   });
 
   it('should get cell', async () => {
-    const grid = new Grid<string>(preInitializedGridOptionsFixture);
-    const cell = new Column(grid, 2).getCell(1);
+    const cell = column.getCell(1);
     expect(cell.value).toEqual('1-2');
   });
 });

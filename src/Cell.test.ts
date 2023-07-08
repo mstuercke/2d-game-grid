@@ -20,6 +20,10 @@ describe('Cell', () => {
     cell = new Cell<string>(grid, {row: 1, col: 2}, 'foo');
   });
 
+  it('should have correct id', async () => {
+    expect(cell.id).toEqual('cell|1-2');
+  });
+
   it('should get cell value', async () => {
     expect(cell.value).toEqual('foo');
   });
