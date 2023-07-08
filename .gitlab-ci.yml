@@ -1,3 +1,7 @@
+stages:
+  - test
+  - publish
+
 test:
   image: node:16.20.0-alpine
   stage: test
@@ -5,3 +9,12 @@ test:
     - yarn install
     - yarn lint
     - yarn test:coverage
+
+publish:
+  image: node:16.20.0-alpine
+  stage: publish
+  script:
+    - yarn install
+    - yarn run publish
+  only:
+    - master
