@@ -2,6 +2,7 @@ import {Grid} from './Grid';
 import {Neighbours} from './Neighbours';
 import {preInitializedGridOptionsFixture} from './Grid.fixture';
 import {Coordinate} from './Coordinate';
+import {Cell} from './Cell';
 
 describe('Neighbours', () => {
   let grid: Grid<string>;
@@ -75,8 +76,8 @@ describe('Neighbours', () => {
     ${'BOTTOM_RIGHT'} | ${'2-2'}
   `('should get neighbour cell', async ({direction, neighbourValue}) => {
     const startCoordinates: Coordinate = {row: 1, col: 1};
-    const result = new Neighbours(grid, startCoordinates).get(direction);
-    expect(result).toEqual(neighbourValue);
+    const cell = new Neighbours(grid, startCoordinates).get(direction);
+    expect(cell.value).toEqual(neighbourValue);
   });
 
   it.each`
@@ -95,7 +96,7 @@ describe('Neighbours', () => {
 
   it('should get neighbour cells', async () => {
     const result = new Neighbours(grid, {row: 1, col: 1}).list();
-    expect(result).toEqual(['0-1', '2-1', '1-0', '1-2', '0-0', '0-2', '2-0', '2-2']);
+    expect(toValues(result)).toEqual(['0-1', '2-1', '1-0', '1-2', '0-0', '0-2', '2-0', '2-2']);
   });
 
   it.each`
@@ -104,6 +105,10 @@ describe('Neighbours', () => {
     ${{row: 2, col: 2}} | ${['1-2', '2-1', '1-1']}
     `('should not get neighbours out of bounds ($coordinates)', async ({coordinates, expectedNeighbours}) => {
     const result = new Neighbours(grid, coordinates).list();
-    expect(result).toEqual(expectedNeighbours);
+    expect(toValues(result)).toEqual(expectedNeighbours);
   });
 });
+
+function toValues<T>(cells: Cell<T>[]): T[] {
+  return cells.map(cell => cell.value);
+}

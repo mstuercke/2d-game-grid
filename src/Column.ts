@@ -1,22 +1,19 @@
 import {Grid} from './Grid';
+import {Cell} from './Cell';
 
-export class Column<Cell> {
-  constructor(private grid: Grid<Cell>, public col: number) {
+export class Column<Value> {
+  constructor(private grid: Grid<Value>, public col: number) {
   }
 
-  listCells(): Cell[] {
-    const cells: Cell[] = [];
+  listCells(): Cell<Value>[] {
+    const cells: Cell<Value>[] = [];
     for (let row = 0; row < this.grid.height; row++) {
       cells.push(this.getCell(row));
     }
     return cells;
   }
 
-  getCell(row: number): Cell {
+  getCell(row: number): Cell<Value> {
     return this.grid.getCell({col: this.col, row});
-  }
-
-  setCell(row: number, value: Cell): void {
-    this.grid.setCell({col: this.col, row}, value);
   }
 }

@@ -1,43 +1,41 @@
-import {Neighbours} from './Neighbours';
 import {Coordinate} from './Coordinate';
 import {Row} from './Row';
 import {Column} from './Column';
 import {CellDoesNotExistInGridError} from './errors/CellDoesNotExistInGridError';
-import {DistanceAlgorithm} from './algorithms/distance/DistanceAlgorithm';
-import {getDistance} from './algorithms/distance/getDistance';
 import {InvalidGridSizeError} from './errors/InvalidGridSizeError';
+import {Cell} from './Cell';
 
-export interface InitializeGridOptions<Cell> {
+export interface InitializeGridOptions<Value> {
   width: number,
   height: number,
-  initializeCell: (coordinate: Coordinate) => Cell
+  initializeCellValue: (coordinate: Coordinate) => Value
 }
 
-export interface PreInitializedGridOptions<Cell> {
-  rows: Cell[][];
+export interface PreInitializedGridOptions<Value> {
+  grid: Value[][];
 }
 
-export class Grid<Cell> {
+export class Grid<Value> {
   readonly width: number;
   readonly height: number;
-  readonly cells: Cell[][];
+  readonly grid: Cell<Value>[][];
 
-  constructor(options: InitializeGridOptions<Cell> | PreInitializedGridOptions<Cell>) {
-    if ('initializeCell' in options) {
+  constructor(options: InitializeGridOptions<Value> | PreInitializedGridOptions<Value>) {
+    if ('initializeCellValue' in options) {
       this.width = options.width;
       this.height = options.height;
-      this.cells = this.initializeCells(this.width, this.height, options.initializeCell);
+      this.grid = this.initializeCells(this.width, this.height, options.initializeCellValue);
     }
 
-    if ('rows' in options) {
-      const rows = options.rows;
+    if ('grid' in options) {
+      const rows = options.grid;
       this.height = rows.length;
       this.width = Math.max(0, ...rows.map(row => row.length));
-      this.cells = this.initializeCells(this.width, this.height, ({row, col}) => rows[row][col]);
+      this.grid = this.initializeCells(this.width, this.height, ({row, col}) => rows[row][col]);
     }
   }
 
-  private initializeCells(width: number, height: number, initializeCell: (coordinate: Coordinate) => Cell): Cell[][] {
+  private initializeCells(width: number, height: number, initializeCellValue: (coordinate: Coordinate) => Value): Cell<Value>[][] {
     if (this.height === 0 || this.width === 0)
       throw new InvalidGridSizeError(width, height);
 
@@ -45,7 +43,9 @@ export class Grid<Cell> {
     for (let row = 0; row < height; row++) {
       cells[row] = new Array(width);
       for (let col = 0; col < width; col++) {
-        cells[row][col] = initializeCell({row, col});
+        const coordinate: Coordinate = {row, col};
+        const value = initializeCellValue(coordinate);
+        cells[row][col] = new Cell(this, coordinate, value);
       }
     }
     return cells;
@@ -58,53 +58,46 @@ export class Grid<Cell> {
         && col < this.width;
   }
 
-  listCells(): Cell[] {
-    return this.cells.flat();
+  get cells(): Cell<Value>[] {
+    return this.grid.flat();
   }
 
-  getCell({row, col}: Coordinate): Cell {
+  getCell({row, col}: Coordinate): Cell<Value> {
     if (!this.cellExists({row, col}))
       throw new CellDoesNotExistInGridError(this, {row, col});
 
-    return this.cells[row][col];
+    return this.grid[row][col];
   }
 
-  setCell({row, col}: Coordinate, value: Cell): void {
-    if (!this.cellExists({row, col}))
-      throw new CellDoesNotExistInGridError(this, {row, col});
-
-    this.cells[row][col] = value;
+  getRow(row: number): Row<Value> {
+    return new Row<Value>(this, row);
   }
 
-  getNeighbours(coordinate: Coordinate): Neighbours<Cell> {
-    return new Neighbours(this, coordinate);
-  }
-
-  listRows(): Row<Cell>[] {
-    const rows: Row<Cell>[] = [];
+  get rows(): Row<Value>[] {
+    const rows: Row<Value>[] = [];
     for (let row = 0; row < this.height; row++) {
-      rows.push(new Row<Cell>(this, row));
+      rows.push(new Row<Value>(this, row));
     }
     return rows;
   }
 
-  listColumns(): Column<Cell>[] {
-    const cols: Column<Cell>[] = [];
+  getColumn(col: number): Column<Value> {
+    return new Column<Value>(this, col);
+  }
+
+  get columns(): Column<Value>[] {
+    const cols: Column<Value>[] = [];
     for (let col = 0; col < this.width; col++) {
-      cols.push(new Column<Cell>(this, col));
+      cols.push(new Column<Value>(this, col));
     }
     return cols;
   }
 
-  getCellDistance(start: Coordinate, end: Coordinate, algorithm: DistanceAlgorithm = 'MANHATTAN'): number {
-    return getDistance(start, end, algorithm);
-  }
-
-  clone(cloneValue: (value: Cell) => Cell = (value) => value): Grid<Cell> {
+  clone(cloneValue: (value: Value) => Value = (value) => value): Grid<Value> {
     return new Grid({
       width: this.width,
       height: this.height,
-      initializeCell: ({row, col}) => cloneValue(this.cells[row][col]),
+      initializeCellValue: ({row, col}) => cloneValue(this.grid[row][col].value),
     });
   }
 }
