@@ -8,16 +8,18 @@ import {Grid} from './Grid';
 import {getPath} from './algorithms/pathfinding/getPath';
 import {PathfindingOptions} from './algorithms/pathfinding/PathfindingOptions';
 
-export class Cell<Value> {
+export class Cell<Value> implements Coordinate {
   public readonly id: string;
-  public readonly coordinate: Coordinate;
+  public readonly row: number;
+  public readonly col: number;
   protected readonly grid: Grid<Value>;
   private _value: Value;
 
   constructor(grid: Grid<Value>, coordinate: Coordinate, value: Value) {
     this.id = `cell|${coordinate.row}-${coordinate.col}`;
     this.grid = grid;
-    this.coordinate = coordinate;
+    this.row = coordinate.row;
+    this.col = coordinate.col;
     this._value = value;
   }
 
@@ -29,29 +31,27 @@ export class Cell<Value> {
     this._value = value;
   }
 
-  get row(): Row<Value> {
-    return this.grid.getRow(this.coordinate.row);
+  getRow(): Row<Value> {
+    return this.grid.getRow(this.row);
   }
 
-  get column(): Column<Value> {
-    return this.grid.getColumn(this.coordinate.col);
+  getColumn(): Column<Value> {
+    return this.grid.getColumn(this.col);
   }
 
   get neighbours(): Neighbours<Value> {
-    return new Neighbours(this.grid, this.coordinate);
+    return new Neighbours(this.grid, this);
   }
 
-  getDistance(target: Coordinate | Cell<Value>, algorithm: DistanceAlgorithm = 'MANHATTAN'): number {
-    const end = 'coordinate' in target ? target.coordinate : target;
-    return getDistance(this.coordinate, end, algorithm);
+  getDistance(target: Coordinate, algorithm: DistanceAlgorithm = 'MANHATTAN'): number {
+    return getDistance(this, target, algorithm);
   }
 
-  getPath(target: Coordinate | Cell<Value>, options?: PathfindingOptions<Value>): Cell<Value>[] {
-    const end = 'coordinate' in target ? target.coordinate : target;
-    return getPath(this.grid, this.coordinate, end, options);
+  getPath(target: Coordinate, options?: PathfindingOptions<Value>): Cell<Value>[] {
+    return getPath(this.grid, this, target, options);
   }
 
   clone(cloneValue: (value: Value) => Value = (value) => value): Cell<Value> {
-    return new Cell<Value>(this.grid, this.coordinate, cloneValue(this.value));
+    return new Cell<Value>(this.grid, this, cloneValue(this.value));
   }
 }

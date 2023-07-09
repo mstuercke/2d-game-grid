@@ -39,11 +39,11 @@ describe('Cell', () => {
   });
 
   it('should get row', async () => {
-    expect(cell.row.row).toEqual(1);
+    expect(cell.getRow().row).toEqual(1);
   });
 
   it('should get column', async () => {
-    expect(cell.column.col).toEqual(2);
+    expect(cell.getColumn().col).toEqual(2);
   });
 
   it('should initialize neighbours', async () => {
@@ -51,50 +51,29 @@ describe('Cell', () => {
     NeighboursMock.mockReturnValueOnce(neighbours);
 
     expect(cell.neighbours).toBe(neighbours);
-    expect(NeighboursMock).toHaveBeenCalledWith(grid, cell.coordinate);
+    expect(NeighboursMock).toHaveBeenCalledWith(grid, cell);
   });
 
-  describe.each`
+  it.each`
     passedAlgorithm | usedAlgorithm 
     ${undefined}    | ${'MANHATTAN'}
     ${'MANHATTAN'}  | ${'MANHATTAN'} 
     ${'EUCLIDEAN'}  | ${'EUCLIDEAN'}
   `('should get $usedAlgorithm ($passedAlgorithm) distance', ({passedAlgorithm, usedAlgorithm}) => {
-    it('with coordinate', async () => {
-      getDistanceMock.mockReturnValueOnce(7);
-      const target: Coordinate = {row: 2, col: 2};
+    getDistanceMock.mockReturnValueOnce(7);
+    const target: Coordinate = {row: 2, col: 2};
 
-      const distance = cell.getDistance(target, passedAlgorithm);
+    const distance = cell.getDistance(target, passedAlgorithm);
 
-      expect(getDistanceMock).toHaveBeenCalledWith(cell.coordinate, target, usedAlgorithm);
-      expect(distance).toEqual(7);
-    });
-
-    it('with cell', async () => {
-      getDistanceMock.mockReturnValueOnce(7);
-      const target: Cell<string> = new Cell<string>(grid, {row: 2, col: 2}, 'foo');
-
-      const distance = cell.getDistance(target, passedAlgorithm);
-
-      expect(getDistanceMock).toHaveBeenCalledWith(cell.coordinate, target.coordinate, usedAlgorithm);
-      expect(distance).toEqual(7);
-    });
+    expect(getDistanceMock).toHaveBeenCalledWith(cell, target, usedAlgorithm);
+    expect(distance).toEqual(7);
   });
 
-  describe('should get path', () => {
-    const options: PathfindingOptions<string> = {}
-
-    it('with coordinate', async () => {
-      const target: Coordinate = {row: 2, col: 2};
-      cell.getPath(target, options)
-      expect(getPathMock).toHaveBeenCalledWith(grid, cell.coordinate, target, options)
-    });
-
-    it('with cell', async () => {
-      const target: Cell<string> = new Cell<string>(grid, {row: 2, col: 2}, 'foo');
-      cell.getPath(target, options)
-      expect(getPathMock).toHaveBeenCalledWith(grid, cell.coordinate, target.coordinate, options)
-    });
+  it('should get path', () => {
+    const options: PathfindingOptions<string> = {};
+    const target: Coordinate = {row: 2, col: 2};
+    cell.getPath(target, options);
+    expect(getPathMock).toHaveBeenCalledWith(grid, cell, target, options);
   });
 
   describe('should clone', () => {

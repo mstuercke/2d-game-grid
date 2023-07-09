@@ -23,7 +23,7 @@ describe('getPath', () => {
       algorithm: 'BREADTH_FIRST',
       diagonalMovement: 'NEVER',
       heuristic: 'EUCLIDEAN',
-      isWalkable: ({coordinate: {row, col}}: Cell<string>) => !(row !== 2 && col === 1),
+      isWalkable: ({row, col}: Cell<string>) => !(row !== 2 && col === 1),
     };
 
     const path = getPath(grid, start, end, options);
