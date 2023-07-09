@@ -5,6 +5,8 @@ import {Column} from './Column';
 import {DistanceAlgorithm} from './algorithms/distance/DistanceAlgorithm';
 import {getDistance} from './algorithms/distance/getDistance';
 import {Grid} from './Grid';
+import {getPath} from './algorithms/pathfinding/getPath';
+import {PathfindingOptions} from './algorithms/pathfinding/PathfindingOptions';
 
 export class Cell<Value> {
   public readonly id: string;
@@ -42,6 +44,11 @@ export class Cell<Value> {
   getDistance(target: Coordinate | Cell<Value>, algorithm: DistanceAlgorithm = 'MANHATTAN'): number {
     const end = 'coordinate' in target ? target.coordinate : target;
     return getDistance(this.coordinate, end, algorithm);
+  }
+
+  getPath(target: Coordinate | Cell<Value>, options?: PathfindingOptions<Value>): Cell<Value>[] {
+    const end = 'coordinate' in target ? target.coordinate : target;
+    return getPath(this.grid, this.coordinate, end, options);
   }
 
   clone(cloneValue: (value: Value) => Value = (value) => value): Cell<Value> {

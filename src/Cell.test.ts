@@ -4,12 +4,17 @@ import {Coordinate} from './Coordinate';
 import {getDistance} from './algorithms/distance/getDistance';
 import {preInitializedGridOptionsFixture} from './Grid.fixture';
 import {Cell} from './Cell';
+import {getPath} from './algorithms/pathfinding/getPath';
+import {PathfindingOptions} from './algorithms/pathfinding/PathfindingOptions';
 
 jest.mock('./Neighbours');
 const NeighboursMock = jest.mocked(Neighbours);
 
 jest.mock('./algorithms/distance/getDistance');
 const getDistanceMock = jest.mocked(getDistance);
+
+jest.mock('./algorithms/pathfinding/getPath');
+const getPathMock = jest.mocked(getPath);
 
 describe('Cell', () => {
   let grid: Grid<string>;
@@ -73,6 +78,22 @@ describe('Cell', () => {
 
       expect(getDistanceMock).toHaveBeenCalledWith(cell.coordinate, target.coordinate, usedAlgorithm);
       expect(distance).toEqual(7);
+    });
+  });
+
+  describe('should get path', () => {
+    const options: PathfindingOptions<string> = {}
+
+    it('with coordinate', async () => {
+      const target: Coordinate = {row: 2, col: 2};
+      cell.getPath(target, options)
+      expect(getPathMock).toHaveBeenCalledWith(grid, cell.coordinate, target, options)
+    });
+
+    it('with cell', async () => {
+      const target: Cell<string> = new Cell<string>(grid, {row: 2, col: 2}, 'foo');
+      cell.getPath(target, options)
+      expect(getPathMock).toHaveBeenCalledWith(grid, cell.coordinate, target.coordinate, options)
     });
   });
 

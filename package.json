@@ -18,9 +18,12 @@
     "prepublish": "yarn build",
     "publish": "chmod +x ./publish.sh && ./publish.sh"
   },
-  "dependencies": {},
+  "dependencies": {
+    "pathfinding": "^0.4.18"
+  },
   "devDependencies": {
     "@types/jest": "^29.5.2",
+    "@types/pathfinding": "^0.0.6",
     "@typescript-eslint/eslint-plugin": "^5.61.0",
     "@typescript-eslint/parser": "^5.61.0",
     "eslint": "^8.44.0",
