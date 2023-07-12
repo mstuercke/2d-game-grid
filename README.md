@@ -6,6 +6,7 @@ Features:
 - Distance calculation
 - Pathfinding
 
+You can find a live demo [here](https://3ms9ky.csb.app/).
 
 ## Usage
 ### Installation
