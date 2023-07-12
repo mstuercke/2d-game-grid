@@ -1,4 +1,8 @@
 # 2D Game Grid
+[![npm version](https://badge.fury.io/js/2d-game-grid.svg)](https://www.npmjs.com/package/2d-game-grid)
+![pipeline status](https://gitlab.com/mstuercke/2d-game-grid/badges/master/pipeline.svg)
+![coverage](https://gitlab.com/mstuercke/2d-game-grid/badges/master/coverage.svg?job=test)
+
 A simple grid made for games.
 
 Features:
