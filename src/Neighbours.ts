@@ -1,7 +1,7 @@
-import {Direction, ALL_DIRECTIONS} from './Direction';
+import {ALL_DIRECTIONS, Direction} from './Direction';
 import {Grid} from './Grid';
 import {Coordinate, NeighbourCoordinate} from './Coordinate';
-import {NeighbourDoesNotExistInGridError} from './errors/NeighbourDoesNotExistInGridError';
+import {NeighbourDoesNotExistInGridError} from './errors';
 import {Cell} from './Cell';
 
 export class Neighbours<Value> {

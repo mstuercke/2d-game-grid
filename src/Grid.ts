@@ -1,8 +1,7 @@
 import {Coordinate} from './Coordinate';
 import {Row} from './Row';
 import {Column} from './Column';
-import {CellDoesNotExistInGridError} from './errors/CellDoesNotExistInGridError';
-import {InvalidGridSizeError} from './errors/InvalidGridSizeError';
+import {CellDoesNotExistInGridError, InvalidGridSizeError} from './errors';
 import {Cell} from './Cell';
 
 export interface InitializeGridOptions<Value> {

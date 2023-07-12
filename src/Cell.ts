@@ -2,11 +2,10 @@ import {Coordinate} from './Coordinate';
 import {Neighbours} from './Neighbours';
 import {Row} from './Row';
 import {Column} from './Column';
-import {DistanceAlgorithm} from './algorithms/distance/DistanceAlgorithm';
+import {DistanceAlgorithm, PathfindingOptions} from './algorithms';
 import {getDistance} from './algorithms/distance/getDistance';
 import {Grid} from './Grid';
 import {getPath} from './algorithms/pathfinding/getPath';
-import {PathfindingOptions} from './algorithms/pathfinding/PathfindingOptions';
 
 export class Cell<Value> implements Coordinate {
   public readonly id: string;

@@ -5,7 +5,7 @@ import {getDistance} from './algorithms/distance/getDistance';
 import {preInitializedGridOptionsFixture} from './Grid.fixture';
 import {Cell} from './Cell';
 import {getPath} from './algorithms/pathfinding/getPath';
-import {PathfindingOptions} from './algorithms/pathfinding/PathfindingOptions';
+import {PathfindingOptions} from './algorithms';
 
 jest.mock('./Neighbours');
 const NeighboursMock = jest.mocked(Neighbours);
