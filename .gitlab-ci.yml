@@ -2,7 +2,7 @@ stages:
   - test
   - publish
 
-test:
+test with coverage:
   image: node:16.20.0-alpine
   stage: test
   script:
