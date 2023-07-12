@@ -12,8 +12,9 @@
   "license": "MIT",
   "author": "Marvin Stürcke",
   "repository": "https://gitlab.com/mstuercke/2d-game-grid",
-  "main": "dist/index.js",
+  "main": "index.js",
   "files": [
+    "index.js",
     "dist/",
     "README.md"
   ],
