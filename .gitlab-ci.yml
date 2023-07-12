@@ -9,6 +9,7 @@ test:
     - yarn install
     - yarn lint
     - yarn test:coverage
+  coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
 
 publish:
   image: node:16.20.0-alpine
