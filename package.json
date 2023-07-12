@@ -1,6 +1,6 @@
 {
   "name": "2d-game-grid",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A simple grid made for games",
   "keywords": [
     "grid",
@@ -12,12 +12,14 @@
   "license": "MIT",
   "author": "Marvin Stürcke",
   "repository": "https://gitlab.com/mstuercke/2d-game-grid",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "files": [
-    "index.js",
     "dist/",
     "README.md"
   ],
+  "exports": {
+    ".": "./dist/index.js"
+  },
   "scripts": {
     "build": "tsc -p tsconfig-build.json",
     "lint": "eslint . --ext .ts",
