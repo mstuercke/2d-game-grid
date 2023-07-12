@@ -91,13 +91,13 @@ Hint: The returned path will always include the start and the end.
 #### Diagonal movement
 You can decide which diagonal movements should be allowed: 
 - Always  
-  ![Always](./images/always.jpg)
+  ![Always](https://gitlab.com/mstuercke/2d-game-grid/-/raw/master/images/always.jpg)
 - Never  
-  ![Never](./images/never.jpg)
+  ![Never](https://gitlab.com/mstuercke/2d-game-grid/-/raw/master/images/never.jpg)
 - If at most one obstacle  
-  ![If at most one obstacle](./images/if-at-most-one-obstacle.jpg)
+  ![If at most one obstacle](https://gitlab.com/mstuercke/2d-game-grid/-/raw/master/images/if-at-most-one-obstacle.jpg)
 - Only when no obstacles  
-  ![Only when no obstacles](./images/only-when-no-obstacles.jpg)
+  ![Only when no obstacles](https://gitlab.com/mstuercke/2d-game-grid/-/raw/master/images/only-when-no-obstacles.jpg)
 
 #### Heuristic
 You can either choose between the following heuristic algorithms:
