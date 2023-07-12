@@ -1,5 +1,5 @@
 # 2D Game Grid
-[![npm version](https://badge.fury.io/js/2d-game-grid.svg)](https://www.npmjs.com/package/2d-game-grid)
+![npm version](https://badge.fury.io/js/2d-game-grid.svg)
 ![pipeline status](https://gitlab.com/mstuercke/2d-game-grid/badges/master/pipeline.svg)
 ![coverage](https://gitlab.com/mstuercke/2d-game-grid/badges/master/coverage.svg?job=test)
 
@@ -14,7 +14,7 @@ You can find a live demo [here](https://3ms9ky.csb.app/).
 
 ## Usage
 ### Installation
-Install the package to your project with either `npm install 2d-game-grid` or `yarn add 2d-game-grid`
+Install [2d-game-grid](https://www.npmjs.com/package/2d-game-grid) to your project with either `npm install 2d-game-grid` or `yarn add 2d-game-grid`
 
 ### Create a grid
 Both examples will create the exact same grid
