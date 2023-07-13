@@ -26,8 +26,7 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
-    "prepublish": "yarn build",
-    "publish": "chmod +x ./publish.sh && ./publish.sh"
+    "release": "chmod +x ./release.sh && ./release.sh"
   },
   "dependencies": {
     "pathfinding": "^0.4.18"

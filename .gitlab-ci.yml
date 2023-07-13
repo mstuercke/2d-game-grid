@@ -1,6 +1,6 @@
 stages:
   - test
-  - publish
+  - release
 
 test:
   image: node:16.20.0-alpine
@@ -11,11 +11,11 @@ test:
     - yarn test:coverage
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
 
-publish:
+release:
   image: node:16.20.0-alpine
-  stage: publish
+  stage: release
   script:
     - yarn install
-    - yarn run publish
+    - yarn run release
   only:
     - master

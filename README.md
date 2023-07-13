@@ -121,7 +121,7 @@ cell.getDistance({row: 1, col: 0}, {
 ## Collaboration
 Feel free to create issues or merge requests
 
-### Publish package
+### Release package
 Modify the version in `package.json`. When running the pipeline on `master` a new package will be deployed with that version. 
 
 
