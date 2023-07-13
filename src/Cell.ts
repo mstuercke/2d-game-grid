@@ -6,6 +6,7 @@ import {DistanceAlgorithm, PathfindingOptions} from './algorithms';
 import {getDistance} from './algorithms/distance/getDistance';
 import {Grid} from './Grid';
 import {getPath} from './algorithms/pathfinding/getPath';
+import {listCellsInDistance} from './algorithms/distance/listCellsInDistance';
 
 /**
  * A Cell is part of a grid. It contains meta information like its coordinates inside the grid and the corresponding value.
@@ -14,6 +15,12 @@ export class Cell<Value> implements Coordinate {
   public readonly id: string;
   public readonly row: number;
   public readonly col: number;
+
+  /**
+   * An instance of the cells' neighbors
+   */
+  public readonly neighbors: Neighbors<Value>;
+
   protected readonly grid: Grid<Value>;
   private _value: Value;
 
@@ -29,6 +36,7 @@ export class Cell<Value> implements Coordinate {
     this.row = coordinate.row;
     this.col = coordinate.col;
     this._value = value;
+    this.neighbors = new Neighbors<Value>(grid, this);
   }
 
   /**
@@ -60,19 +68,21 @@ export class Cell<Value> implements Coordinate {
   }
 
   /**
-   * @returns An instance of the cells neighbors
-   */
-  get neighbors(): Neighbors<Value> {
-    return new Neighbors(this.grid, this);
-  }
-
-  /**
    * @param target The coordinate that the distance should be calculated for
    * @param algorithm The used algorithm for the distance calculation
    * @returns The distance
    */
   getDistance(target: Coordinate, algorithm: DistanceAlgorithm = 'MANHATTAN'): number {
     return getDistance(this, target, algorithm);
+  }
+
+  /**
+   * @param maxDistance The maximum distance (including) to a cell that should be returned
+   * @param algorithm The used algorithm for the distance calculation
+   * @returns All cells that are in the distance (excluding this cell)
+   */
+  listCellsInDistance(maxDistance: number, algorithm: DistanceAlgorithm = 'MANHATTAN'): Cell<Value>[] {
+    return listCellsInDistance(this, maxDistance, algorithm);
   }
 
   /**

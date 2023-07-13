@@ -6,12 +6,16 @@ import {preInitializedGridOptionsFixture} from './Grid.fixture';
 import {Cell} from './Cell';
 import {getPath} from './algorithms/pathfinding/getPath';
 import {PathfindingOptions} from './algorithms';
+import {listCellsInDistance} from './algorithms/distance/listCellsInDistance';
 
 jest.mock('./Neighbors');
 const NeighborsMock = jest.mocked(Neighbors);
 
 jest.mock('./algorithms/distance/getDistance');
 const getDistanceMock = jest.mocked(getDistance);
+
+jest.mock('./algorithms/distance/listCellsInDistance');
+const listCellsInDistanceMock = jest.mocked(listCellsInDistance);
 
 jest.mock('./algorithms/pathfinding/getPath');
 const getPathMock = jest.mocked(getPath);
@@ -50,6 +54,8 @@ describe('Cell', () => {
     const neighbors = {} as Neighbors<null>;
     NeighborsMock.mockReturnValueOnce(neighbors);
 
+    const cell = new Cell<string>(grid, {row: 1, col: 2}, 'foo');
+
     expect(cell.neighbors).toBe(neighbors);
     expect(NeighborsMock).toHaveBeenCalledWith(grid, cell);
   });
@@ -67,6 +73,21 @@ describe('Cell', () => {
 
     expect(getDistanceMock).toHaveBeenCalledWith(cell, target, usedAlgorithm);
     expect(distance).toEqual(7);
+  });
+
+  it.each`
+    passedAlgorithm | usedAlgorithm 
+    ${undefined}    | ${'MANHATTAN'}
+    ${'MANHATTAN'}  | ${'MANHATTAN'} 
+    ${'EUCLIDEAN'}  | ${'EUCLIDEAN'}
+  `('should list cells in distance with $usedAlgorithm ($passedAlgorithm) distance', ({passedAlgorithm, usedAlgorithm}) => {
+    const cellsInDistance: Cell<string>[] = [];
+    listCellsInDistanceMock.mockReturnValueOnce([]);
+
+    const result = cell.listCellsInDistance(2, passedAlgorithm);
+
+    expect(listCellsInDistanceMock).toHaveBeenCalledWith(cell, 2, usedAlgorithm);
+    expect(result).toEqual(cellsInDistance);
   });
 
   it('should get path', () => {

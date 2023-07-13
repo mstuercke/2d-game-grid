@@ -28,18 +28,19 @@ describe('Neighbors', () => {
   });
 
   it.each`
-    coordinates         | direction
+    coordinate         | direction
     ${{row: 0, col: 0}} | ${'TOP'}
     ${{row: 2, col: 2}} | ${'BOTTOM'}
     ${{row: 0, col: 0}} | ${'LEFT'}
-    ${{row: 2, col: 2}} | ${'RIGHT'}
+    ${{row: 2, col: 3}} | ${'RIGHT'}
     ${{row: 0, col: 0}} | ${'TOP_LEFT'}
     ${{row: 0, col: 0}} | ${'TOP_RIGHT'}
     ${{row: 2, col: 2}} | ${'BOTTOM_LEFT'}
     ${{row: 2, col: 2}} | ${'BOTTOM_RIGHT'}
-  `('should not get neighbor coordinate out of bounds', async ({coordinates, direction}) => {
-    expect(() => new Neighbors(grid, coordinates).getCoordinate(direction)).toThrowError();
-  });
+  `('should not get neighbor coordinate out of bounds for $coordinate in direction $direction',
+      async ({coordinate, direction}) => {
+        expect(() => new Neighbors(grid, coordinate).getCoordinate(direction)).toThrowError();
+      });
 
   it('should get neighbors coordinates ', async () => {
     const result = new Neighbors(grid, {row: 1, col: 1}).listCoordinates();
@@ -55,12 +56,12 @@ describe('Neighbors', () => {
     ]);
   });
 
-  it('should not get neighbors coordinates out of bounds ', async () => {
-    const result = new Neighbors(grid, {row: 2, col: 2}).listCoordinates();
+  it('should not get neighbors coordinates out of bounds', async () => {
+    const result = new Neighbors(grid, {row: 2, col: 3}).listCoordinates();
     expect(result).toEqual([
-      {row: 1, col: 2, direction: 'TOP', source: {row: 2, col: 2}},
-      {row: 2, col: 1, direction: 'LEFT', source: {row: 2, col: 2}},
-      {row: 1, col: 1, direction: 'TOP_LEFT', source: {col: 2, row: 2}},
+      {row: 1, col: 3, direction: 'TOP', source: {row: 2, col: 3}},
+      {row: 2, col: 2, direction: 'LEFT', source: {row: 2, col: 3}},
+      {row: 1, col: 2, direction: 'TOP_LEFT', source: {row: 2, col: 3}},
     ]);
   });
 
@@ -85,7 +86,7 @@ describe('Neighbors', () => {
     ${{row: 0, col: 0}} | ${'TOP'}
     ${{row: 2, col: 2}} | ${'BOTTOM'}
     ${{row: 0, col: 0}} | ${'LEFT'}
-    ${{row: 2, col: 2}} | ${'RIGHT'}
+    ${{row: 2, col: 3}} | ${'RIGHT'}
     ${{row: 0, col: 0}} | ${'TOP_LEFT'}
     ${{row: 0, col: 0}} | ${'TOP_RIGHT'}
     ${{row: 2, col: 2}} | ${'BOTTOM_LEFT'}
@@ -102,7 +103,7 @@ describe('Neighbors', () => {
   it.each`
     coordinates         | expectedNeighbors
     ${{row: 0, col: 0}} | ${['1-0', '0-1', '1-1']}
-    ${{row: 2, col: 2}} | ${['1-2', '2-1', '1-1']}
+    ${{row: 2, col: 3}} | ${['1-3', '2-2', '1-2']}
     `('should not get neighbors out of bounds ($coordinates)', async ({coordinates, expectedNeighbors}) => {
     const result = new Neighbors(grid, coordinates).list();
     expect(toValues(result)).toEqual(expectedNeighbors);

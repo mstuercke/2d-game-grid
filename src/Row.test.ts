@@ -17,7 +17,7 @@ describe('Row', () => {
   it('should list cells', async () => {
     const cells = row.cells;
     const cellValues = cells.map(cell => cell.value);
-    expect(cellValues).toEqual(['2-0', '2-1', '2-2']);
+    expect(cellValues).toEqual(['2-0', '2-1', '2-2', '2-3']);
   });
 
   it('should get cell', async () => {
