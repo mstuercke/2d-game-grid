@@ -1,5 +1,5 @@
 import {Coordinate} from './Coordinate';
-import {Neighbours} from './Neighbours';
+import {Neighbors} from './Neighbors';
 import {Row} from './Row';
 import {Column} from './Column';
 import {DistanceAlgorithm, PathfindingOptions} from './algorithms';
@@ -60,10 +60,10 @@ export class Cell<Value> implements Coordinate {
   }
 
   /**
-   * @returns An instance of the cells neighbours
+   * @returns An instance of the cells neighbors
    */
-  get neighbours(): Neighbours<Value> {
-    return new Neighbours(this.grid, this);
+  get neighbors(): Neighbors<Value> {
+    return new Neighbors(this.grid, this);
   }
 
   /**

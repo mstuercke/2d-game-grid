@@ -1,13 +1,13 @@
 import {ALL_DIRECTIONS, Direction} from './Direction';
 import {Grid} from './Grid';
-import {Coordinate, NeighbourCoordinate} from './Coordinate';
-import {NeighbourDoesNotExistInGridError} from './errors';
+import {Coordinate, NeighborCoordinate} from './Coordinate';
+import {NeighborDoesNotExistInGridError} from './errors';
 import {Cell} from './Cell';
 
 /**
- * The representation of all neighbours of a cell
+ * The representation of all neighbors of a cell
  */
-export class Neighbours<Value> {
+export class Neighbors<Value> {
 
   /**
    * @param grid The grid the cell is part of
@@ -17,27 +17,27 @@ export class Neighbours<Value> {
   }
 
   /**
-   * @param direction The direction to the neighbour cell
+   * @param direction The direction to the neighbor cell
    * @returns true if a cell in the given direction exists in the grid
    */
   exists(direction: Direction): boolean {
     const offset = this.getOffsetCoordinate(direction);
-    const neighbour = {
+    const neighbor = {
       row: this.coordinate.row + offset.row,
       col: this.coordinate.col + offset.col,
     };
 
-    return this.grid.cellExists(neighbour);
+    return this.grid.cellExists(neighbor);
   }
 
   /**
-   * @param direction The direction to the neighbour cell
-   * @returns The coordinate of the neighbour cell
-   * @throws {NeighbourDoesNotExistInGridError} when the neighbour cell does not exist in the grid
+   * @param direction The direction to the neighbor cell
+   * @returns The coordinate of the neighbor cell
+   * @throws {NeighborDoesNotExistInGridError} when the neighbor cell does not exist in the grid
    */
-  getCoordinate(direction: Direction): NeighbourCoordinate {
+  getCoordinate(direction: Direction): NeighborCoordinate {
     if (!this.exists(direction))
-      throw new NeighbourDoesNotExistInGridError(this.grid, this.coordinate, direction);
+      throw new NeighborDoesNotExistInGridError(this.grid, this.coordinate, direction);
 
     const offset = this.getOffsetCoordinate(direction);
     return {
@@ -50,30 +50,30 @@ export class Neighbours<Value> {
 
   /**
    * @param directions The allowed directions
-   * @returns An array of all existing neighbour cell coordinates
+   * @returns An array of all existing neighbor cell coordinates
    */
-  listCoordinates(directions: Direction[] = ALL_DIRECTIONS): NeighbourCoordinate[] {
+  listCoordinates(directions: Direction[] = ALL_DIRECTIONS): NeighborCoordinate[] {
     return directions
         .filter(direction => this.exists(direction))
-        .reduce((neighbours, direction) => [...neighbours, this.getCoordinate(direction)], []);
+        .reduce((neighbors, direction) => [...neighbors, this.getCoordinate(direction)], []);
   }
 
   /**
-   * @param direction The direction to the neighbour cell
-   * @returns The neighbour cell
-   * @throws {NeighbourDoesNotExistInGridError} when the neighbour cell does not exist in the grid
+   * @param direction The direction to the neighbor cell
+   * @returns The neighbor cell
+   * @throws {NeighborDoesNotExistInGridError} when the neighbor cell does not exist in the grid
    */
   get(direction: Direction): Cell<Value> {
     if (!this.exists(direction))
-      throw new NeighbourDoesNotExistInGridError(this.grid, this.coordinate, direction);
+      throw new NeighborDoesNotExistInGridError(this.grid, this.coordinate, direction);
 
-    const neighbour = this.getCoordinate(direction);
-    return neighbour && this.grid.getCell(neighbour);
+    const neighbor = this.getCoordinate(direction);
+    return neighbor && this.grid.getCell(neighbor);
   }
 
   /**
    * @param directions The allowed directions
-   * @returns An array of all existing neighbour cells
+   * @returns An array of all existing neighbor cells
    */
   list(directions: Direction[] = ALL_DIRECTIONS): Cell<Value>[] {
     return this.listCoordinates(directions).map(coordinate => this.grid.getCell(coordinate));

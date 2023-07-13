@@ -18,7 +18,7 @@ export interface Coordinate {
 /**
  * The Coordinate defines the position of a cell inside a grid
  */
-export interface NeighbourCoordinate extends Coordinate {
+export interface NeighborCoordinate extends Coordinate {
   /**
    * The coordinate that points to this coordinate
    */

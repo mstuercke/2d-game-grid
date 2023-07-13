@@ -1,5 +1,5 @@
 import {Grid} from './Grid';
-import {Neighbours} from './Neighbours';
+import {Neighbors} from './Neighbors';
 import {Coordinate} from './Coordinate';
 import {getDistance} from './algorithms/distance/getDistance';
 import {preInitializedGridOptionsFixture} from './Grid.fixture';
@@ -7,8 +7,8 @@ import {Cell} from './Cell';
 import {getPath} from './algorithms/pathfinding/getPath';
 import {PathfindingOptions} from './algorithms';
 
-jest.mock('./Neighbours');
-const NeighboursMock = jest.mocked(Neighbours);
+jest.mock('./Neighbors');
+const NeighborsMock = jest.mocked(Neighbors);
 
 jest.mock('./algorithms/distance/getDistance');
 const getDistanceMock = jest.mocked(getDistance);
@@ -46,12 +46,12 @@ describe('Cell', () => {
     expect(cell.getColumn().col).toEqual(2);
   });
 
-  it('should initialize neighbours', async () => {
-    const neighbours = {} as Neighbours<null>;
-    NeighboursMock.mockReturnValueOnce(neighbours);
+  it('should initialize neighbors', async () => {
+    const neighbors = {} as Neighbors<null>;
+    NeighborsMock.mockReturnValueOnce(neighbors);
 
-    expect(cell.neighbours).toBe(neighbours);
-    expect(NeighboursMock).toHaveBeenCalledWith(grid, cell);
+    expect(cell.neighbors).toBe(neighbors);
+    expect(NeighborsMock).toHaveBeenCalledWith(grid, cell);
   });
 
   it.each`

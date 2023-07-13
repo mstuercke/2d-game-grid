@@ -1,4 +1,4 @@
 /**
  * An algorithm that could be used for distance calculation
  */
-export type DistanceAlgorithm = 'MANHATTAN' | "EUCLIDEAN"
+export type DistanceAlgorithm = 'MANHATTAN' | 'EUCLIDEAN'

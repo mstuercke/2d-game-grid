@@ -6,7 +6,7 @@
 A simple grid made for games.
 
 Features:
-- Cell Neighbours
+- Cell Neighbors
 - Distance calculation
 - Pathfinding
 
@@ -14,15 +14,23 @@ You can find a live demo [here](https://3ms9ky.csb.app/).
 
 ## Usage
 ### Installation
-Install [2d-game-grid](https://www.npmjs.com/package/2d-game-grid) to your project with either `npm install 2d-game-grid` or `yarn add 2d-game-grid`
+Install [2d-game-grid](https://www.npmjs.com/package/2d-game-grid) to your project with one of the following commands: 
+#### npm
+```
+npm install 2d-game-grid
+``` 
+#### yarn
+```
+yarn add 2d-game-grid
+```
 
 ### Create a grid
 Both examples will create the exact same grid
-#### Use pregenerated cells
+#### Use pre-generated cells
 ```ts
 import {Grid} from '2d-game-grid';
 
-new Grid<string>([
+new Grid([
   ['0-0', '0-1', '0-2'],
   ['1-0', '1-1', '1-2'],
   ['2-0', '2-1', '2-2'],
@@ -33,7 +41,7 @@ new Grid<string>([
 ```ts
 import {Grid} from '2d-game-grid';
 
-new Grid<string>({
+new Grid({
   width: 3,
   height: 3,
   initializeCellValue: ({row, col}) => `${row}-${col}`,
@@ -58,11 +66,11 @@ const column = grid.getColumn(1);
 console.log(column.cells.map(cell => cell.value)) // ['0-1', '1-1', '2-1']
 ```
 
-### Get neighbours of cell
+### Get neighbors of cell
 ```ts
 const cell = grid.getCell({row: 1, col: 2});
-const leftNeighbour = cell.neighbours.get('LEFT');
-console.log(leftNeighbour.value); // '1-1'
+const leftNeighbor = cell.neighbors.get('LEFT');
+console.log(leftNeighbor.value); // '1-1'
 ```
 
 
