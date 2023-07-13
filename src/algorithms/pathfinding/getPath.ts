@@ -9,6 +9,13 @@ import {mapWalkableMatrix} from './mapper/mapWalkableMatrix';
 import {mapFinder} from './mapper/mapFinder';
 import {mapHeuristic} from './mapper/mapHeuristic';
 
+/**
+ * @param grid The grid
+ * @param start The coordinate that the path should start
+ * @param end The coordinate that the path should end
+ * @param options The options to customize the pathfinding
+ * @returns The shortest path including the start and the end cell
+ */
 export function getPath<Value>(
     grid: Grid<Value>,
     start: Coordinate,

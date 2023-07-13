@@ -1,6 +1,10 @@
 import {DiagonalMovement as PathfindingDiagonalMovement} from 'pathfinding';
 import {DiagonalMovement} from '../PathfindingOptions';
 
+/**
+ * @param diagonalMovement The allowed diagonal movements
+ * @returns The DiagonalMovement value of the pathfinding lib
+ */
 export function mapPathfindingDiagonalMovement(diagonalMovement: DiagonalMovement): PathfindingDiagonalMovement {
   return {
     'ALWAYS': PathfindingDiagonalMovement.Always,

@@ -4,10 +4,22 @@ import {Coordinate, NeighbourCoordinate} from './Coordinate';
 import {NeighbourDoesNotExistInGridError} from './errors';
 import {Cell} from './Cell';
 
+/**
+ * The representation of all neighbours of a cell
+ */
 export class Neighbours<Value> {
+
+  /**
+   * @param grid The grid the cell is part of
+   * @param coordinate The coordinate in the grid
+   */
   constructor(private grid: Grid<Value>, private coordinate: Coordinate) {
   }
 
+  /**
+   * @param direction The direction to the neighbour cell
+   * @returns true if a cell in the given direction exists in the grid
+   */
   exists(direction: Direction): boolean {
     const offset = this.getOffsetCoordinate(direction);
     const neighbour = {
@@ -18,6 +30,11 @@ export class Neighbours<Value> {
     return this.grid.cellExists(neighbour);
   }
 
+  /**
+   * @param direction The direction to the neighbour cell
+   * @returns The coordinate of the neighbour cell
+   * @throws {NeighbourDoesNotExistInGridError} when the neighbour cell does not exist in the grid
+   */
   getCoordinate(direction: Direction): NeighbourCoordinate {
     if (!this.exists(direction))
       throw new NeighbourDoesNotExistInGridError(this.grid, this.coordinate, direction);
@@ -31,12 +48,21 @@ export class Neighbours<Value> {
     };
   }
 
+  /**
+   * @param directions The allowed directions
+   * @returns An array of all existing neighbour cell coordinates
+   */
   listCoordinates(directions: Direction[] = ALL_DIRECTIONS): NeighbourCoordinate[] {
     return directions
         .filter(direction => this.exists(direction))
         .reduce((neighbours, direction) => [...neighbours, this.getCoordinate(direction)], []);
   }
 
+  /**
+   * @param direction The direction to the neighbour cell
+   * @returns The neighbour cell
+   * @throws {NeighbourDoesNotExistInGridError} when the neighbour cell does not exist in the grid
+   */
   get(direction: Direction): Cell<Value> {
     if (!this.exists(direction))
       throw new NeighbourDoesNotExistInGridError(this.grid, this.coordinate, direction);
@@ -45,6 +71,10 @@ export class Neighbours<Value> {
     return neighbour && this.grid.getCell(neighbour);
   }
 
+  /**
+   * @param directions The allowed directions
+   * @returns An array of all existing neighbour cells
+   */
   list(directions: Direction[] = ALL_DIRECTIONS): Cell<Value>[] {
     return this.listCoordinates(directions).map(coordinate => this.grid.getCell(coordinate));
   }

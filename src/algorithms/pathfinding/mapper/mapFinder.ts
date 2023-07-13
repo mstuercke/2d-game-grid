@@ -1,6 +1,11 @@
 import {AStarFinder, BestFirstFinder, BreadthFirstFinder, DijkstraFinder, Finder, FinderOptions} from 'pathfinding';
 import {PathfindingAlgorithm} from '../PathfindingOptions';
 
+/**
+ * @param algorithm The path algorithm
+ * @param finderOptions The finder options
+ * @returns An initialized Finder
+ */
 export function mapFinder(algorithm: PathfindingAlgorithm, finderOptions: FinderOptions): Finder {
   return new {
     A_STAR: AStarFinder,
