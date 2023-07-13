@@ -113,7 +113,7 @@ You can either choose between the following heuristic algorithms:
 
 Or pass your own heuristic function:
 ```ts
-cell.getDistance({row: 1, col: 0}, {
+cell.getPath({row: 1, col: 0}, {
   heuristic: (cell) => {/* your implementation */}
 });
 ```
