@@ -1,16 +1,21 @@
+![Always](https://gitlab.com/mstuercke/2d-game-grid/-/raw/master/images/header.jpg)
+
 # 2D Game Grid
 ![npm version](https://badge.fury.io/js/2d-game-grid.svg)
 ![pipeline status](https://gitlab.com/mstuercke/2d-game-grid/badges/master/pipeline.svg)
 ![coverage](https://gitlab.com/mstuercke/2d-game-grid/badges/master/coverage.svg?job=test)
 
-A simple grid made for games.
+A simple grid made for games with built-in features like:
+- pathfinding
+- getting cell neighbors
+- calculate distance between cells
+- list cells in distance
 
-Features:
-- Cell Neighbors
-- Distance calculation
-- Pathfinding
-
-You can find a live demo [here](https://3ms9ky.csb.app/).
+## Examples & Demos
+- [example code](https://codesandbox.io/s/y3xt8s)  
+  a basic implementation
+- [interactive demo](https://3ms9ky.csb.app/)  
+  a customizable playground to visualize all the features
 
 ## Usage
 ### Installation
