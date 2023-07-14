@@ -15,7 +15,7 @@ describe('Column', () => {
   });
 
   it('should list cells', async () => {
-    const cells = column.listCells();
+    const cells = column.cells;
     const cellValues = cells.map(cell => cell.value);
     expect(cellValues).toEqual(['0-2', '1-2', '2-2']);
   });

@@ -18,7 +18,7 @@ export class Column<Value> {
   /**
    * @returns all cells of this column
    */
-  listCells(): Cell<Value>[] {
+  get cells(): Cell<Value>[] {
     const cells: Cell<Value>[] = [];
     for (let row = 0; row < this.grid.height; row++) {
       cells.push(this.getCell(row));

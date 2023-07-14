@@ -30,10 +30,10 @@ Both examples will create the exact same grid
 ```ts
 import {Grid} from '2d-game-grid';
 
-new Grid([
-  ['0-0', '0-1', '0-2'],
-  ['1-0', '1-1', '1-2'],
-  ['2-0', '2-1', '2-2'],
+const grid = new Grid([
+  ['0-0', '0-1', '0-2', '0-3'],
+  ['1-0', '1-1', '1-2', '1-3'],
+  ['2-0', '2-1', '2-2', '2-3'],
 ])
 ```
 
@@ -41,8 +41,8 @@ new Grid([
 ```ts
 import {Grid} from '2d-game-grid';
 
-new Grid({
-  width: 3,
+const grid = new Grid({
+  width: 4,
   height: 3,
   initializeCellValue: ({row, col}) => `${row}-${col}`,
 });
@@ -54,31 +54,37 @@ const cell = grid.getCell({row: 1, col: 2});
 console.log(cell.value) // '1-2'
 ```
 
-### Get cells of row
+### Get cells of a row
 ```ts
 const row = grid.getRow(1);
-console.log(row.cells.map(cell => cell.value)) // ['1-0', '1-1', '1-2']
+console.log(row.cells.map(cell => cell.value)) // ['1-0', '1-1', '1-2', '1-3']
 ```
 
-### Get cells of column
+### Get cells of a column
 ```ts
 const column = grid.getColumn(1);
 console.log(column.cells.map(cell => cell.value)) // ['0-1', '1-1', '2-1']
 ```
 
-### Get neighbors of cell
+### Get neighbors of a cell
 ```ts
 const cell = grid.getCell({row: 1, col: 2});
 const leftNeighbor = cell.neighbors.get('LEFT');
 console.log(leftNeighbor.value); // '1-1'
 ```
 
-
-### Get distance between cells
+### Get the distance between cells
 ```ts
 const cell = grid.getCell({row: 1, col: 2});
 const distance = cell.getDistance({row: 1, col: 0});
 console.log(distance); // 2
+```
+
+### List all cells in distance
+```ts
+const cell = grid.getCell({row: 0, col: 3});
+const cells = cell.listCellsInDistance(2);
+console.log(cells); // ['0-2', '1-3', '0-1', '2-3', '1-2']
 ```
 
 #### Algorithms
