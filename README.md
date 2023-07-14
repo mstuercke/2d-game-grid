@@ -35,11 +35,13 @@ Both examples will create the exact same grid
 ```ts
 import {Grid} from '2d-game-grid';
 
-const grid = new Grid([
-  ['0-0', '0-1', '0-2', '0-3'],
-  ['1-0', '1-1', '1-2', '1-3'],
-  ['2-0', '2-1', '2-2', '2-3'],
-])
+const grid = new Grid({
+  grid: [
+    ['0-0', '0-1', '0-2', '0-3'],
+    ['1-0', '1-1', '1-2', '1-3'],
+    ['2-0', '2-1', '2-2', '2-3']
+  ]
+})
 ```
 
 #### Generate cells on initialization
