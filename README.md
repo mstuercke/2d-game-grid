@@ -1,10 +1,11 @@
 ![Always](https://gitlab.com/mstuercke/2d-game-grid/-/raw/master/images/header.jpg)
 
 # 2D Game Grid
-A simple grid made for games with built-in features like:
-- pathfinding
-- getting cell neighbors
-- calculate distance between cells
+A simple square grid made for games with built-in features like:
+- get the shortest path between cells
+- list reachable cells (pathfinding)
+- list cell neighbors
+- get distance between cells
 - list cells in distance
 
 Missing a feature? [Create an issue](https://gitlab.com/mstuercke/2d-game-grid/-/issues)!
@@ -89,7 +90,7 @@ console.log(distance); // 2
 ```ts
 const cell = grid.getCell({row: 0, col: 3});
 const cells = cell.listCellsInDistance(2);
-console.log(cells); // ['0-2', '1-3', '0-1', '2-3', '1-2']
+console.log(cells); // ['1-2', '2-3', '0-1', '0-2', '1-3']
 ```
 
 #### Algorithms
@@ -135,6 +136,13 @@ Or pass your own heuristic function:
 cell.getPath({row: 1, col: 0}, {
   heuristic: (cell) => {/* your implementation */}
 });
+```
+
+### List all reachable cells (pathfinding)
+```ts
+const cell = grid.getCell({row: 0, col: 3});
+const cells = cell.listReachableCells(3);
+console.log(cells); // ['1-1', '2-0', '0-2', '0-1', '1-0']
 ```
 
 ## Collaboration

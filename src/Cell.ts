@@ -7,6 +7,7 @@ import {getDistance} from './algorithms/distance/getDistance';
 import {Grid} from './Grid';
 import {getPath} from './algorithms/pathfinding/getPath';
 import {listCellsInDistance} from './algorithms/distance/listCellsInDistance';
+import {listReachableCells} from './algorithms/pathfinding/listReachableCells';
 
 /**
  * A Cell is part of a grid. It contains meta information like its coordinates inside the grid and the corresponding value.
@@ -92,6 +93,15 @@ export class Cell<Value> implements Coordinate {
    */
   getPath(target: Coordinate, options?: PathfindingOptions<Value>): Cell<Value>[] {
     return getPath(this.grid, this, target, options);
+  }
+
+  /**
+   * @param maxPathSteps The maximum amount of steps to a cell that should be returned (start and end cell included)
+   * @param options The options to customize the pathfinding
+   * @returns All cells that are reachable (excluding the start cell)
+   */
+  listReachableCells(maxPathSteps: number, options?: PathfindingOptions<Value>): Cell<Value>[] {
+    return listReachableCells(this, maxPathSteps, options);
   }
 
   /**

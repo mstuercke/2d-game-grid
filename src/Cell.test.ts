@@ -7,6 +7,7 @@ import {Cell} from './Cell';
 import {getPath} from './algorithms/pathfinding/getPath';
 import {PathfindingOptions} from './algorithms';
 import {listCellsInDistance} from './algorithms/distance/listCellsInDistance';
+import {listReachableCells} from './algorithms/pathfinding/listReachableCells';
 
 jest.mock('./Neighbors');
 const NeighborsMock = jest.mocked(Neighbors);
@@ -19,6 +20,10 @@ const listCellsInDistanceMock = jest.mocked(listCellsInDistance);
 
 jest.mock('./algorithms/pathfinding/getPath');
 const getPathMock = jest.mocked(getPath);
+
+
+jest.mock('./algorithms/pathfinding/listReachableCells');
+const listReachableCellsMock = jest.mocked(listReachableCells);
 
 describe('Cell', () => {
   let grid: Grid<string>;
@@ -80,7 +85,10 @@ describe('Cell', () => {
     ${undefined}    | ${'MANHATTAN'}
     ${'MANHATTAN'}  | ${'MANHATTAN'} 
     ${'EUCLIDEAN'}  | ${'EUCLIDEAN'}
-  `('should list cells in distance with $usedAlgorithm ($passedAlgorithm) distance', ({passedAlgorithm, usedAlgorithm}) => {
+  `('should list cells in distance with $usedAlgorithm ($passedAlgorithm) distance', ({
+                                                                                                                                                                                                              passedAlgorithm,
+                                                                                                                                                                                                              usedAlgorithm,
+                                                                                                                                                                                                            }) => {
     const cellsInDistance: Cell<string>[] = [];
     listCellsInDistanceMock.mockReturnValueOnce([]);
 
@@ -95,6 +103,12 @@ describe('Cell', () => {
     const target: Coordinate = {row: 2, col: 2};
     cell.getPath(target, options);
     expect(getPathMock).toHaveBeenCalledWith(grid, cell, target, options);
+  });
+
+  it('should list reachable cells', () => {
+    const options: PathfindingOptions<string> = {};
+    cell.listReachableCells(2, options);
+    expect(listReachableCellsMock).toHaveBeenCalledWith(cell, 2, options);
   });
 
   describe('should clone', () => {
