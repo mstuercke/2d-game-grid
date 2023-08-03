@@ -1,9 +1,15 @@
 import {Coordinate} from './Coordinate';
 import {Row} from './Row';
 import {Column} from './Column';
-import {CellDoesNotExistInGridError, InvalidGridSizeError} from './errors';
+import {
+  CellDoesNotExistInGridError,
+  InvalidGridSizeError,
+  UnequalGridHeightError,
+  UnequalGridWidthError,
+} from './errors';
 import {Cell} from './Cell';
-import {GridEventDispatcher, CellValueChangedEvent} from './utils/GridEventDispatcher';
+import {CellValueChangedEvent, GridEventDispatcher} from './utils/GridEventDispatcher';
+import {StraightDirection} from './Direction';
 
 /**
  * Options to generate a new grid
@@ -161,6 +167,77 @@ export class Grid<Value> {
    */
   onCellValueChanged(callback: (event: CellValueChangedEvent<Value>) => void): () => void {
     return this.eventDispatcher.onCellValueChanged(callback);
+  }
+
+  /**
+   * @param gridToAdd The grid that should be added to this grid at the given direction
+   * @param addDirection The direction at that the given grid should be placed
+   * @returns a new grid
+   */
+  extend(gridToAdd: Grid<Value>, addDirection: StraightDirection): Grid<Value> {
+    if ((addDirection === 'LEFT' || addDirection === 'RIGHT') && this.height !== gridToAdd.height)
+      throw new UnequalGridHeightError(this.height, gridToAdd.height);
+
+    if ((addDirection === 'TOP' || addDirection === 'BOTTOM') && this.width !== gridToAdd.width)
+      throw new UnequalGridWidthError(this.width, gridToAdd.width);
+
+    const extractValues = (row: Row<Value>) => row.cells.map(cell => cell.value);
+
+    switch (addDirection) {
+      case 'TOP':
+        return new Grid<Value>({
+          grid: [
+            ...gridToAdd.rows.map(extractValues),
+            ...this.rows.map(extractValues),
+          ],
+        });
+
+      case 'BOTTOM':
+        return new Grid<Value>({
+          grid: [
+            ...this.rows.map(extractValues),
+            ...gridToAdd.rows.map(extractValues),
+          ],
+        });
+
+      case 'LEFT':
+        return new Grid<Value>({
+          grid: this.rows.map((row) => [
+            ...extractValues(gridToAdd.getRow(row.row)),
+            ...extractValues(row),
+          ]),
+        });
+
+      case 'RIGHT':
+        return new Grid<Value>({
+          grid: this.rows.map((row) => [
+            ...extractValues(row),
+            ...extractValues(gridToAdd.getRow(row.row)),
+          ]),
+        });
+    }
+  }
+
+  /**
+   * @param topLeft The coordinate of the top/left where the new grid should begin
+   * @param bottomRight The coordinate of the bottom/right where the new grid should end
+   * @returns a new grid
+   */
+  crop(topLeft: Coordinate, bottomRight: Coordinate): Grid<Value> {
+    const width = bottomRight.col - topLeft.col;
+    const height = bottomRight.row - topLeft.row;
+    if (width <= 0 || height <= 0)
+      throw new InvalidGridSizeError(width, height);
+
+    return new Grid<Value>({
+      grid: this.rows
+          .filter(({row}) => row >= topLeft.row)
+          .filter(({row}) => row <= bottomRight.row)
+          .map(row => row.cells
+              .filter(({col}) => col >= topLeft.col)
+              .filter(({col}) => col <= bottomRight.col))
+          .map(cells => cells.map(cell => cell.value)),
+    });
   }
 
   /**

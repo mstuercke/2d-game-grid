@@ -114,6 +114,91 @@ describe('Grid', () => {
     });
   });
 
+  describe('extend', () => {
+    const gridA = new Grid<string>({
+      width: 2,
+      height: 3,
+      initializeCellValue: ({row, col}) => `A-${row}-${col}`,
+    });
+    const gridB = new Grid<string>({
+      width: 2,
+      height: 3,
+      initializeCellValue: ({row, col}) => `B-${row}-${col}`,
+    });
+    const gridC = new Grid<string>({
+      width: 3,
+      height: 4,
+      initializeCellValue: ({row, col}) => `C-${row}-${col}`,
+    });
+
+    it.each`
+    direction   | expectedValues
+    ${'TOP'}    | ${[
+      ['B-0-0', 'B-0-1'],
+      ['B-1-0', 'B-1-1'],
+      ['B-2-0', 'B-2-1'],
+      ['A-0-0', 'A-0-1'],
+      ['A-1-0', 'A-1-1'],
+      ['A-2-0', 'A-2-1'],
+    ]}
+    ${'BOTTOM'} | ${[
+      ['A-0-0', 'A-0-1'],
+      ['A-1-0', 'A-1-1'],
+      ['A-2-0', 'A-2-1'],
+      ['B-0-0', 'B-0-1'],
+      ['B-1-0', 'B-1-1'],
+      ['B-2-0', 'B-2-1'],
+    ]}
+    ${'LEFT'}   | ${[
+      ['B-0-0', 'B-0-1', 'A-0-0', 'A-0-1'],
+      ['B-1-0', 'B-1-1', 'A-1-0', 'A-1-1'],
+      ['B-2-0', 'B-2-1', 'A-2-0', 'A-2-1'],
+    ]}
+    ${'RIGHT'}  | ${[
+      ['A-0-0', 'A-0-1', 'B-0-0', 'B-0-1'],
+      ['A-1-0', 'A-1-1', 'B-1-0', 'B-1-1'],
+      ['A-2-0', 'A-2-1', 'B-2-0', 'B-2-1'],
+    ]}
+    `('should extend to $direction', async ({direction, expectedValues}) => {
+      const extendedGrid = gridA.extend(gridB, direction);
+      expect(toValues(extendedGrid.grid)).toEqual(expectedValues);
+    });
+
+    it.each(['LEFT', 'RIGHT'])('should throw error if width of both grids does not match (direction: %s)', async (direction) => {
+      expect(() => gridA.extend(gridC, direction as any)).toThrowError();
+    });
+
+    it.each(['TOP', 'BOTTOM'])('should throw error if height of both grids does not match (direction: %s)', async (direction) => {
+      expect(() => gridA.extend(gridC, direction as any)).toThrowError();
+    });
+
+  });
+
+  describe('crop', () => {
+    it('should crop', async () => {
+      const grid = new Grid<string>({
+        width: 10,
+        height: 10,
+        initializeCellValue: ({row, col}) => `${row}-${col}`,
+      });
+
+      const newGrid = grid.crop({row: 1, col: 2}, {row: 3, col: 4});
+
+      expect(toValues(newGrid.grid)).toEqual([
+        ['1-2', '1-3', '1-4'],
+        ['2-2', '2-3', '2-4'],
+        ['3-2', '3-3', '3-4'],
+      ]);
+    });
+
+    it('should throw error when coordinates mismatch', async () => {
+      expect(() => grid.crop(
+          {row: 3, col: 4},
+          {row: 1, col: 2},
+      )).toThrowError();
+    });
+  });
+
   describe('should clone', () => {
     it('with same values', async () => {
       const clone = grid.clone();

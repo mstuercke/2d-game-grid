@@ -90,7 +90,7 @@ console.log(distance); // 2
 ```ts
 const cell = grid.getCell({row: 0, col: 3});
 const cells = cell.listCellsInDistance(2);
-console.log(cells); // ['1-2', '2-3', '0-1', '0-2', '1-3']
+console.log(cells.map(cell => cell.value)); // ['1-2', '2-3', '0-1', '0-2', '1-3']
 ```
 
 #### Algorithms
@@ -142,8 +142,24 @@ cell.getPath({row: 1, col: 0}, {
 ```ts
 const cell = grid.getCell({row: 0, col: 3});
 const cells = cell.listReachableCells(3);
-console.log(cells); // ['1-1', '2-0', '0-2', '0-1', '1-0']
+console.log(cells.map(cell => cell.value)); // ['1-1', '2-0', '0-2', '0-1', '1-0']
 ```
+
+### Extend grid with another grid
+```ts
+const gridA = new Grid({grid: [["A"]]})
+const gridB = new Grid({grid: [["B"]]})
+
+gridA.extend(gridB, 'LEFT')  // B A
+gridA.extend(gridB, 'RIGHT') // A B
+```
+
+### Crop grid
+```ts
+const cells = grid.crop({row: 0, col: 1}, {row: 1, col: 2}).cells;
+console.log(cells.map(cell => cell.value)); // [['0-1', '0-2'], ['1-1', '1-2']]
+```
+
 
 ### Listen for cell value changes
 #### Register
