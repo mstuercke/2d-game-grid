@@ -142,7 +142,7 @@ cell.getPath({row: 1, col: 0}, {
 ```ts
 const cell = grid.getCell({row: 0, col: 3});
 const cells = cell.listReachableCells(3);
-console.log(cells.map(cell => cell.value)); // ['1-1', '2-0', '0-2', '0-1', '1-0']
+console.log(cells.map(cell => cell.value)); // ['1-2', '2-3', '2-1', '0-1', '1-1', '2-2', '0-2', '1-3']
 ```
 
 ### Extend grid with another grid
@@ -156,7 +156,7 @@ gridA.extend(gridB, 'RIGHT') // A B
 
 ### Crop grid
 ```ts
-const cells = grid.crop({row: 0, col: 1}, {row: 1, col: 2}).cells;
+const cells = grid.crop({row: 0, col: 1}, {row: 1, col: 2}).grid;
 console.log(cells.map(cell => cell.value)); // [['0-1', '0-2'], ['1-1', '1-2']]
 ```
 
