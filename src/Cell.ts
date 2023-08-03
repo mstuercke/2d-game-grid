@@ -8,6 +8,7 @@ import {Grid} from './Grid';
 import {getPath} from './algorithms/pathfinding/getPath';
 import {listCellsInDistance} from './algorithms/distance/listCellsInDistance';
 import {listReachableCells} from './algorithms/pathfinding/listReachableCells';
+import {GridEventDispatcher, CellValueChangedEvent} from './utils/GridEventDispatcher';
 
 /**
  * A Cell is part of a grid. It contains meta information like its coordinates inside the grid and the corresponding value.
@@ -24,6 +25,7 @@ export class Cell<Value> implements Coordinate {
 
   protected readonly grid: Grid<Value>;
   private _value: Value;
+  private readonly eventDispatcher: GridEventDispatcher<Value>;
 
   /**
    *
@@ -38,6 +40,7 @@ export class Cell<Value> implements Coordinate {
     this.col = coordinate.col;
     this._value = value;
     this.neighbors = new Neighbors<Value>(grid, this);
+    this.eventDispatcher = new GridEventDispatcher<Value>();
   }
 
   /**
@@ -48,10 +51,20 @@ export class Cell<Value> implements Coordinate {
   }
 
   /**
-   * Replaces the value of the cell
+   * Changes the value of the cell
    */
   set value(value: Value) {
+    const previousValue = this._value;
     this._value = value;
+    this.eventDispatcher.dispatchCellValueChangedEvent({cell: this, previousValue});
+  }
+
+  /**
+   * @param callback A function that should be called, when the cell value changes
+   * @returns a function to unregister the callback
+   */
+  onValueChanged(callback: (event: CellValueChangedEvent<Value>) => void): () => void {
+    return this.eventDispatcher.onCellValueChanged(callback);
   }
 
   /**

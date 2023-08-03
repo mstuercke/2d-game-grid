@@ -1,11 +1,21 @@
 import {Grid} from './Grid';
 import {initializeGridOptionsFixture, preInitializedGridOptionsFixture} from './Grid.fixture';
 import {Cell} from './Cell';
+import {GridEventDispatcher} from './utils/GridEventDispatcher';
+
+jest.mock('./utils/GridEventDispatcher');
+const GridEventDispatcherMock = jest.mocked(GridEventDispatcher);
 
 describe('Grid', () => {
   let grid: Grid<string>;
+  let eventDispatcherMock = {
+    onCellValueChanged: jest.fn(),
+    dispatchCellValueChangedEvent: jest.fn(),
+  };
 
   beforeEach(() => {
+    jest.clearAllMocks();
+    GridEventDispatcherMock.mockReturnValue(eventDispatcherMock as any);
     grid = new Grid<string>(preInitializedGridOptionsFixture);
   });
 
@@ -72,6 +82,36 @@ describe('Grid', () => {
     ${{row: 3, col: 3}}
 `('should not get cell that is out of bounds ($coordinate)', async ({coordinate}) => {
     expect(() => grid.getCell(coordinate)).toThrowError();
+  });
+
+  describe('event: OnCellValueChanged', function () {
+    it('should register callback', async () => {
+      const onCellValueChangedSpy = jest.spyOn(grid['eventDispatcher'], 'onCellValueChanged');
+      const callback = jest.fn();
+      grid.onCellValueChanged(callback);
+      expect(onCellValueChangedSpy).toHaveBeenCalledWith(callback);
+    });
+
+    it('should unregister callback', async () => {
+      const onCellValueChangedSpy = jest.spyOn(grid['eventDispatcher'], 'onCellValueChanged');
+      const unregisterFn = jest.fn();
+      onCellValueChangedSpy.mockReturnValueOnce(unregisterFn);
+
+      const unregister = grid.onCellValueChanged(jest.fn());
+      unregister();
+
+      expect(unregisterFn).toHaveBeenCalled();
+    });
+
+    it('should forward events of all cells', async () => {
+      const dispatchCellValueChangedEventSpy = jest.spyOn(grid['eventDispatcher'], 'dispatchCellValueChangedEvent');
+      for (let cell of grid.cells) {
+        const previousValue = cell.value;
+        cell.value = `${previousValue} (changed)`;
+        expect(dispatchCellValueChangedEventSpy).toHaveBeenCalledWith({cell, previousValue});
+      }
+      expect(dispatchCellValueChangedEventSpy).toHaveBeenCalledTimes(grid.cells.length);
+    });
   });
 
   describe('should clone', () => {

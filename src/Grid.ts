@@ -3,6 +3,7 @@ import {Row} from './Row';
 import {Column} from './Column';
 import {CellDoesNotExistInGridError, InvalidGridSizeError} from './errors';
 import {Cell} from './Cell';
+import {GridEventDispatcher, CellValueChangedEvent} from './utils/GridEventDispatcher';
 
 /**
  * Options to generate a new grid
@@ -43,6 +44,10 @@ export class Grid<Value> {
   readonly height: number;
   readonly grid: Cell<Value>[][];
 
+  private readonly _rows: Row<Value>[] = [];
+  private readonly _columns: Column<Value>[] = [];
+  private readonly eventDispatcher: GridEventDispatcher<Value>;
+
   /**
    * @param options The initialization configuration
    */
@@ -59,6 +64,18 @@ export class Grid<Value> {
       this.width = Math.max(0, ...rows.map(row => row.length));
       this.grid = this.initializeCells(this.width, this.height, ({row, col}) => rows[row][col]);
     }
+
+    for (let row = 0; row < this.height; row++) {
+      this._rows.push(new Row<Value>(this, row));
+    }
+
+    for (let col = 0; col < this.width; col++) {
+      this._columns.push(new Column<Value>(this, col));
+    }
+
+    this.eventDispatcher = new GridEventDispatcher<Value>();
+    const forwardEvent = (event: CellValueChangedEvent<Value>) => this.eventDispatcher.dispatchCellValueChangedEvent(event);
+    this.cells.forEach(cell => cell.onValueChanged(forwardEvent));
   }
 
   private initializeCells(width: number, height: number, initializeCellValue: (coordinate: Coordinate) => Value): Cell<Value>[][] {
@@ -90,7 +107,7 @@ export class Grid<Value> {
   }
 
   /**
-   * @returns All cells in the grid
+   * @returns All cells in the grid in ascending order by row and column
    */
   get cells(): Cell<Value>[] {
     return this.grid.flat();
@@ -113,18 +130,14 @@ export class Grid<Value> {
    * @returns The row
    */
   getRow(row: number): Row<Value> {
-    return new Row<Value>(this, row);
+    return this._rows[row];
   }
 
   /**
-   * @returns All rows of the grid
+   * @returns All rows of the grid in ascending order
    */
   get rows(): Row<Value>[] {
-    const rows: Row<Value>[] = [];
-    for (let row = 0; row < this.height; row++) {
-      rows.push(new Row<Value>(this, row));
-    }
-    return rows;
+    return this._rows;
   }
 
   /**
@@ -132,18 +145,22 @@ export class Grid<Value> {
    * @returns The column
    */
   getColumn(col: number): Column<Value> {
-    return new Column<Value>(this, col);
+    return this._columns[col];
   }
 
   /**
-   * @returns All columns of the grid
+   * @returns All columns of the grid in ascending order
    */
   get columns(): Column<Value>[] {
-    const cols: Column<Value>[] = [];
-    for (let col = 0; col < this.width; col++) {
-      cols.push(new Column<Value>(this, col));
-    }
-    return cols;
+    return this._columns;
+  }
+
+  /**
+   * @param callback A function that should be called, when a cell value of this grid changes
+   * @returns a function to unregister the callback
+   */
+  onCellValueChanged(callback: (event: CellValueChangedEvent<Value>) => void): () => void {
+    return this.eventDispatcher.onCellValueChanged(callback);
   }
 
   /**
