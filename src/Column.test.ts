@@ -1,7 +1,6 @@
 import {Column} from './Column';
 import {Grid} from './Grid';
 import {preInitializedGridOptionsFixture} from './Grid.fixture';
-import {GridEventDispatcher} from './utils/GridEventDispatcher';
 
 describe('Column', () => {
   let column: Column<string>;
@@ -48,7 +47,7 @@ describe('Column', () => {
 
     it('should forward events of all cells', async () => {
       const dispatchCellValueChangedEventSpy = jest.spyOn(column['eventDispatcher'], 'dispatchCellValueChangedEvent');
-      for (let cell of column.cells) {
+      for (const cell of column.cells) {
         const previousValue = cell.value;
         cell.value = `${previousValue} (changed)`;
         expect(dispatchCellValueChangedEventSpy).toHaveBeenCalledWith({cell, previousValue});

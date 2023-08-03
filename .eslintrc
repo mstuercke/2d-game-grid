@@ -3,7 +3,8 @@
   "parser": "@typescript-eslint/parser",
   "plugins": [
     "@typescript-eslint",
-    "jsdoc"
+    "jsdoc",
+    "import"
   ],
   "extends": [
     "eslint:recommended",
@@ -12,6 +13,24 @@
     "plugin:jsdoc/recommended-typescript"
   ],
   "rules": {
+    "semi": [
+      "error",
+      "always"
+    ],
+    "@typescript-eslint/semi": [
+      "error",
+      "always"
+    ],
+    "max-len": [
+      "error",
+      {
+        "code": 150,
+        "ignorePattern": "^import.*from.*$",
+        "ignoreUrls": true,
+        "ignoreTemplateLiterals": true
+      }
+    ],
+    "import/order": "error",
     "jsdoc/require-jsdoc": [
       "error",
       {
@@ -40,8 +59,17 @@
       }
     ]
   },
-  "ignorePatterns": [
-    "*.test.ts",
-    "*.fixture.ts"
+  "overrides": [
+    {
+      "files": [
+        "*.test.ts",
+        "*.fixture.ts"
+      ],
+      "rules": {
+        "max-len": "off",
+        "jsdoc/require-jsdoc": "off",
+        "@typescript-eslint/no-explicit-any": "off"
+      }
+    }
   ]
 }

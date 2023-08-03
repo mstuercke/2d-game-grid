@@ -8,7 +8,7 @@ const GridEventDispatcherMock = jest.mocked(GridEventDispatcher);
 
 describe('Grid', () => {
   let grid: Grid<string>;
-  let eventDispatcherMock = {
+  const eventDispatcherMock = {
     onCellValueChanged: jest.fn(),
     dispatchCellValueChangedEvent: jest.fn(),
   };
@@ -105,7 +105,7 @@ describe('Grid', () => {
 
     it('should forward events of all cells', async () => {
       const dispatchCellValueChangedEventSpy = jest.spyOn(grid['eventDispatcher'], 'dispatchCellValueChangedEvent');
-      for (let cell of grid.cells) {
+      for (const cell of grid.cells) {
         const previousValue = cell.value;
         cell.value = `${previousValue} (changed)`;
         expect(dispatchCellValueChangedEventSpy).toHaveBeenCalledWith({cell, previousValue});

@@ -1,7 +1,7 @@
-import {DistanceAlgorithm} from './DistanceAlgorithm';
 import {Cell} from '../../Cell';
 import {ALL_DIRECTIONS} from '../../Direction';
 import {UniqueCellQueue} from '../../utils/UniqueCellQueue';
+import {DistanceAlgorithm} from './DistanceAlgorithm';
 
 /**
  * @param cell The start cell

@@ -1,8 +1,8 @@
+import {Grid as FinderGrid} from 'pathfinding';
 import {Coordinate} from '../../Coordinate';
-import {PathfindingOptions} from './PathfindingOptions';
 import {Cell} from '../../Cell';
 import {Grid} from '../../Grid';
-import {Grid as FinderGrid} from 'pathfinding';
+import {PathfindingOptions} from './PathfindingOptions';
 import {mapCells} from './mapper/mapCells';
 import {mapPathfindingDiagonalMovement} from './mapper/mapPathfindingDiagonalMovement';
 import {mapWalkableMatrix} from './mapper/mapWalkableMatrix';

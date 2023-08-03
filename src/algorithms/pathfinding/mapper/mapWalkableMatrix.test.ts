@@ -1,7 +1,7 @@
-import {mapWalkableMatrix} from './mapWalkableMatrix';
 import {Grid} from '../../../Grid';
 import {preInitializedGridOptionsFixture} from '../../../Grid.fixture';
 import {Cell} from '../../../Cell';
+import {mapWalkableMatrix} from './mapWalkableMatrix';
 
 describe('mapWalkableMatrix', () => {
   it('should map correctly', async () => {

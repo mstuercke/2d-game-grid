@@ -31,7 +31,7 @@ const GridEventDispatcherMock = jest.mocked(GridEventDispatcher);
 describe('Cell', () => {
   let grid: Grid<string>;
   let cell: Cell<string>;
-  let eventDispatcherMock = {
+  const eventDispatcherMock = {
     onCellValueChanged: jest.fn(),
     dispatchCellValueChangedEvent: jest.fn(),
   };

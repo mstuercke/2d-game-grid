@@ -1,8 +1,8 @@
 import {Grid} from '../../Grid';
 import {preInitializedGridOptionsFixture} from '../../Grid.fixture';
+import {Cell} from '../../Cell';
 import {listReachableCells} from './listReachableCells';
 import {PathfindingOptions} from './PathfindingOptions';
-import {Cell} from '../../Cell';
 
 describe('listReachableCells', () => {
   let grid: Grid<string>;

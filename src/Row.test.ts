@@ -47,7 +47,7 @@ describe('Row', () => {
 
     it('should forward events of all cells', async () => {
       const dispatchCellValueChangedEventSpy = jest.spyOn(row['eventDispatcher'], 'dispatchCellValueChangedEvent');
-      for (let cell of row.cells) {
+      for (const cell of row.cells) {
         const previousValue = cell.value;
         cell.value = `${previousValue} (changed)`;
         expect(dispatchCellValueChangedEventSpy).toHaveBeenCalledWith({cell, previousValue});

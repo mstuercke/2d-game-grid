@@ -3,22 +3,22 @@ import {Cell} from '../../Cell';
 /**
  * An algorithm that could be used for pathfinding
  */
-export type PathfindingAlgorithm = 'A_STAR' | 'BEST_FIRST' | 'BREADTH_FIRST' | 'DIJKSTRA'
+export type PathfindingAlgorithm = 'A_STAR' | 'BEST_FIRST' | 'BREADTH_FIRST' | 'DIJKSTRA';
 
 /**
  * An algorithm that could be used for pathfinding heuristics
  */
-export type HeuristicAlgorithm = 'MANHATTAN' | 'CHEBYSHEV' | 'EUCLIDEAN' | 'OCTILE'
+export type HeuristicAlgorithm = 'MANHATTAN' | 'CHEBYSHEV' | 'EUCLIDEAN' | 'OCTILE';
 
 /**
  * A custom function that could be used for pathfinding heuristics
  */
-export type HeuristicFunction<Value> = (cell: Cell<Value>) => number
+export type HeuristicFunction<Value> = (cell: Cell<Value>) => number;
 
 /**
  * The allowed diagonal movements in pathfinding
  */
-export type DiagonalMovement = 'ALWAYS' | 'NEVER' | 'IF_AT_MOST_ONE_OBSTACLE' | 'ONLY_WHEN_NO_OBSTACLES'
+export type DiagonalMovement = 'ALWAYS' | 'NEVER' | 'IF_AT_MOST_ONE_OBSTACLE' | 'ONLY_WHEN_NO_OBSTACLES';
 
 /**
  * The configuration for pathfinding

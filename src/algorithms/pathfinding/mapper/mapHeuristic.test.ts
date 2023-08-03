@@ -1,7 +1,7 @@
-import {mapHeuristic} from './mapHeuristic';
+import {Heuristic} from 'pathfinding';
 import {Grid} from '../../../Grid';
 import {preInitializedGridOptionsFixture} from '../../../Grid.fixture';
-import {Heuristic} from 'pathfinding';
+import {mapHeuristic} from './mapHeuristic';
 
 describe('mapHeuristic', () => {
   let grid: Grid<string>;

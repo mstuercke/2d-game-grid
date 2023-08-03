@@ -40,7 +40,7 @@ const grid = new Grid({
     ['1-0', '1-1', '1-2', '1-3'],
     ['2-0', '2-1', '2-2', '2-3']
   ]
-})
+});
 ```
 
 #### Generate cells on initialization
@@ -178,7 +178,7 @@ When you execute this unregister function, the callback will not be called anymo
 
 ```ts
 const unregister = grid.onCellValueChanged((event) => {/* your implementation */});
-unregister()
+unregister();
 ```
 
 ## Collaboration

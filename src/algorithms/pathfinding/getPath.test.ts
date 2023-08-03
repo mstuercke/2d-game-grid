@@ -1,9 +1,9 @@
-import {getPath} from './getPath';
 import {Grid} from '../../Grid';
 import {preInitializedGridOptionsFixture} from '../../Grid.fixture';
 import {Coordinate} from '../../Coordinate';
-import {PathfindingOptions} from './PathfindingOptions';
 import {Cell} from '../../Cell';
+import {PathfindingOptions} from './PathfindingOptions';
+import {getPath} from './getPath';
 import * as mapPathfindingDiagonalMovementModule from './mapper/mapPathfindingDiagonalMovement';
 import * as mapWalkableMatrixModule from './mapper/mapWalkableMatrix';
 import * as mapFinderModule from './mapper/mapFinder';
