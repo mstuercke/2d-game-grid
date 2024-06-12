@@ -6,6 +6,8 @@ import type {Cell} from '../Cell'
  * An error that is thrown when the cell does not exist in the grid
  */
 export class CellDoesNotExistInGridError<Value, CellWithValue extends Cell<Value>> extends Error {
+  readonly type = CellDoesNotExistInGridError.name
+
   /**
    * @param grid The grid
    * @param coordinate The coordinate of the not existing cell

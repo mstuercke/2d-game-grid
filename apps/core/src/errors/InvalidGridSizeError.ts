@@ -2,6 +2,8 @@
  * An error that is thrown when the grid size is invalid
  */
 export class InvalidGridSizeError extends Error {
+  readonly type = InvalidGridSizeError.name
+
   /**
    * @param width The actual width of the grid
    * @param height The actual height of the grid

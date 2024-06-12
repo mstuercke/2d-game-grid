@@ -5,6 +5,8 @@ import type {Coordinate, Direction} from '@2d-game-grid/core'
  * An error that is thrown when the neighbor does not exist in the grid
  */
 export class NeighborDoesNotExistInGridError<Value> extends Error {
+  readonly type = NeighborDoesNotExistInGridError.name
+
   /**
    * @param grid The grid
    * @param coordinate The coordinate of the source cell
