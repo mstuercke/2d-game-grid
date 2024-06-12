@@ -9,6 +9,8 @@
     "lint:fix": "bunx biome check --fix && eslint ./apps/*/src --fix --max-warnings 0",
     "test:unit": "turbo run test:unit",
     "build": "turbo run build --env-mode=loose",
+    "prerelease": "bun run versions:fix",
+    "release": "turbo run release --env-mode=loose",
     "versions:fix": "syncpack fix-mismatches"
   },
   "devDependencies": {

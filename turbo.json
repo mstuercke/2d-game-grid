@@ -1,19 +1,25 @@
 {
-	"$schema": "https://turbo.build/schema.v2.json",
-	"globalDependencies": [".env"],
-	"tasks": {
-		"build": {
-			"dependsOn": ["^build"],
-			"outputs": ["dist/**"],
-			"outputLogs": "new-only"
-		},
-		"test:unit": {
-			"dependsOn": ["^build"],
-			"outputs": ["coverage/**"],
-			"outputLogs": "new-only"
-		},
-		"versions:fix": {
-			"cache": false
-		}
-	}
+  "$schema": "https://turbo.build/schema.v2.json",
+  "globalDependencies": [".env"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"],
+      "outputLogs": "new-only"
+    },
+    "test:unit": {
+      "dependsOn": ["^build"],
+      "outputs": ["coverage/**"],
+      "outputLogs": "new-only"
+    },
+    "versions:fix": {
+      "cache": false
+    },
+    "release": {
+      "dependsOn": [
+        "build"
+      ],
+      "outputLogs": "new-only"
+    }
+  }
 }
