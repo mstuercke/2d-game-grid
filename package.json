@@ -1,52 +1,31 @@
 {
-  "name": "2d-game-grid",
-  "version": "1.0.6",
-  "description": "A simple square grid made for games",
-  "keywords": [
-    "grid",
-    "game",
-    "pathfinding",
-    "distance",
-    "2d",
-    "square"
-  ],
-  "license": "MIT",
-  "author": "Marvin Stürcke",
-  "repository": "https://gitlab.com/mstuercke/2d-game-grid",
-  "main": "./dist/index.js",
-  "files": [
-    "dist/",
-    "README.md"
-  ],
-  "exports": {
-    ".": "./dist/index.js"
-  },
+  "name": "root",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
   "scripts": {
-    "build": "tsc -p tsconfig-build.json",
-    "lint": "eslint src --ext .ts",
-    "lint:fix": "eslint --fix src --ext .ts",
-    "test": "jest",
-    "test:coverage": "jest --coverage",
-    "test:watch": "jest --watch",
-    "release": "chmod +x ./release.sh && ./release.sh"
-  },
-  "dependencies": {
-    "pathfinding": "^0.4.18"
+    "postinstall": "git config --local core.hooksPath .githooks",
+    "lint": "bunx biome check && eslint ./apps/*/src --max-warnings 0",
+    "lint:fix": "bunx biome check --fix && eslint ./apps/*/src --fix --max-warnings 0",
+    "test:unit": "turbo run test:unit",
+    "build": "turbo run build --env-mode=loose",
+    "versions:fix": "syncpack fix-mismatches"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.2",
-    "@types/pathfinding": "^0.0.6",
-    "@typescript-eslint/eslint-plugin": "^5.61.0",
-    "@typescript-eslint/parser": "^5.61.0",
-    "eslint": "^8.44.0",
-    "eslint-plugin-import": "^2.28.0",
-    "eslint-plugin-jsdoc": "^46.4.3",
-    "jest": "^29.6.1",
-    "ts-jest": "^29.1.1",
-    "ts-loader": "^9.4.4",
-    "typescript": "^5.1.6"
+    "@mstuercke/biome-config": "0.0.4",
+    "@mstuercke/bun-utils": "6.1.0",
+    "@mstuercke/eslint-config": "1.3.0",
+    "@mstuercke/typescript-config": "2.0.1",
+    "@types/bun": "1.1.3",
+    "syncpack": "12.3.2",
+    "turbo": "2.0.3",
+    "typescript": "5.4.5"
   },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  }
+  "workspaces": {
+    "packages": [
+      "apps/*",
+      "examples/*"
+    ]
+  },
+  "packageManager": "bun@1.0.30"
 }

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", ":disableDependencyDashboard"],
+  "timezone": "Europe/Berlin",
+  "ignoreDeps": [
+    "mime",
+    "@types/mime",
+    "eslint"
+  ],
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["*"],
+      "matchUpdateTypes": ["major"]
+    },
+    {
+      "groupName": "minor/patch dependencies",
+      "groupSlug": "minor-patch",
+      "matchPackagePatterns": ["*"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true,
+      "automergeType": "branch"
+    }
+  ]
+}

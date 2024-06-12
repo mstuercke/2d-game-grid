@@ -1,0 +1,45 @@
+name: Test
+
+on:
+  workflow_call:
+  push:
+    branches-ignore:
+      - master
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  TURBO_LOG_ORDER: stream
+
+jobs:
+  deploy:
+    name: "Test"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+
+      - uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: 1.x
+
+      - name: Install
+        uses: ./.github/workflows/actions/install
+
+      - name: Fix versions
+        run: bun run versions:fix
+
+      - name: Cache turbo
+        uses: actions/cache@v4
+        with:
+          path: .turbo/cache
+          key: turbo|test|test|${{ github.sha }}
+          restore-keys: turbo|test|
+
+      - name: Run test:unit
+        run: bun run test:unit
