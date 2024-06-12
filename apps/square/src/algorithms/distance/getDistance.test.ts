@@ -1,4 +1,4 @@
-import type {Coordinate} from '../../Coordinate'
+import type {Coordinate} from '@2d-game-grid/core'
 import {getDistance} from './getDistance'
 import {manhattanDistance} from './manhattanDistance'
 import {euclideanDistance} from './euclideanDistance'

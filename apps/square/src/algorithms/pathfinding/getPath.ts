@@ -1,7 +1,7 @@
 import {Grid as FinderGrid} from 'pathfinding'
-import type {Coordinate} from '../../Coordinate'
-import type {Cell} from '../../Cell'
-import type {Grid} from '../../Grid'
+import type {Coordinate} from '@2d-game-grid/core'
+import type {SquareCell} from '../../SquareCell'
+import type {SquareGrid} from '../../SquareGrid'
 import type {PathfindingOptions} from './PathfindingOptions'
 import {mapCells} from './mapper/mapCells'
 import {mapPathfindingDiagonalMovement} from './mapper/mapPathfindingDiagonalMovement'
@@ -17,11 +17,11 @@ import {mapHeuristic} from './mapper/mapHeuristic'
  * @returns The shortest path including the start and the end cell
  */
 export function getPath<Value>(
-  grid: Grid<Value>,
+  grid: SquareGrid<Value>,
   start: Coordinate,
   end: Coordinate,
   options?: PathfindingOptions<Value>,
-): Cell<Value>[] {
+): SquareCell<Value>[] {
   const {
     algorithm = 'A_STAR',
     diagonalMovement = 'ALWAYS',

@@ -1,5 +1,5 @@
-import type {Grid} from '../../../Grid'
-import type {Cell} from '../../../Cell'
+import type {SquareGrid} from '../../../SquareGrid'
+import type {SquareCell} from '../../../SquareCell'
 
 /**
  * Converts the path coordinates into an array of cells
@@ -7,6 +7,6 @@ import type {Cell} from '../../../Cell'
  * @param path An array of path coordinates ([x, y])
  * @returns An array of cells in the same order as the path
  */
-export function mapCells<Value>(grid: Grid<Value>, path: number[][]): Cell<Value>[] {
+export function mapCells<Value>(grid: SquareGrid<Value>, path: number[][]): SquareCell<Value>[] {
   return path.map(([col, row]) => grid.getCell({row, col}))
 }

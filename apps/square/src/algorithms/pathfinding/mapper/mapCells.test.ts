@@ -1,10 +1,10 @@
-import {Grid} from '../../../Grid'
-import {preInitializedGridOptionsFixture} from '../../../Grid.fixture'
+import {SquareGrid} from '../../../SquareGrid'
+import {preInitializedGridOptionsFixture} from '../../../SquareGrid.fixture'
 import {mapCells} from './mapCells'
 
 describe('mapCells', () => {
   it('should map path to cells', async () => {
-    const grid = new Grid(preInitializedGridOptionsFixture)
+    const grid = new SquareGrid(preInitializedGridOptionsFixture)
     const path = [
       [0, 0],
       [1, 0],

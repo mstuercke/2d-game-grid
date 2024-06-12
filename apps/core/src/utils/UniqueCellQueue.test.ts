@@ -1,13 +1,14 @@
-import {Grid} from '../Grid'
-import {preInitializedGridOptionsFixture} from '../Grid.fixture'
+import type {Grid} from '../Grid'
+import {preInitializedGridOptionsFixture, TestGrid} from '../Grid.fixture'
 import {UniqueCellQueue} from './UniqueCellQueue'
+import type {Cell} from '../Cell'
 
 describe('UniqueCellQueue', () => {
-  let grid: Grid<string>
-  let queue: UniqueCellQueue<string>
+  let grid: Grid<string, Cell<string>>
+  let queue: UniqueCellQueue<string, Cell<string>>
 
   beforeEach(() => {
-    grid = new Grid<string>(preInitializedGridOptionsFixture)
+    grid = new TestGrid(preInitializedGridOptionsFixture)
     queue = new UniqueCellQueue()
   })
 

@@ -1,12 +1,12 @@
 import {Heuristic} from 'pathfinding'
-import {Grid} from '../../../Grid'
-import {preInitializedGridOptionsFixture} from '../../../Grid.fixture'
+import {SquareGrid} from '../../../SquareGrid'
+import {preInitializedGridOptionsFixture} from '../../../SquareGrid.fixture'
 import {mapHeuristic} from './mapHeuristic'
 
 describe('mapHeuristic', () => {
-  let grid: Grid<string>
+  let grid: SquareGrid<string>
   beforeEach(() => {
-    grid = new Grid(preInitializedGridOptionsFixture)
+    grid = new SquareGrid(preInitializedGridOptionsFixture)
   })
 
   it('should return manhattan heuristic', async () => {

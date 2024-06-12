@@ -1,14 +1,14 @@
-import {Grid} from './Grid'
+import {SquareGrid} from './SquareGrid'
 import {Neighbors} from './Neighbors'
-import {preInitializedGridOptionsFixture} from './Grid.fixture'
-import type {Coordinate} from './Coordinate'
-import type {Cell} from './Cell'
+import {preInitializedGridOptionsFixture} from './SquareGrid.fixture'
+import type {Coordinate} from '@2d-game-grid/core'
+import type {SquareCell} from './SquareCell'
 
 describe('Neighbors', () => {
-  let grid: Grid<string>
+  let grid: SquareGrid<string>
 
   beforeEach(() => {
-    grid = new Grid<string>(preInitializedGridOptionsFixture)
+    grid = new SquareGrid<string>(preInitializedGridOptionsFixture)
   })
 
   it.each`
@@ -37,12 +37,9 @@ describe('Neighbors', () => {
     ${{row: 0, col: 0}} | ${'TOP_RIGHT'}
     ${{row: 2, col: 2}} | ${'BOTTOM_LEFT'}
     ${{row: 2, col: 2}} | ${'BOTTOM_RIGHT'}
-  `(
-    'should not get neighbor coordinate out of bounds for $coordinate in direction $direction',
-    async ({coordinate, direction}) => {
-      expect(() => new Neighbors(grid, coordinate).getCoordinate(direction)).toThrowError()
-    },
-  )
+  `('should not get neighbor coordinate out of bounds for $coordinate in direction $direction', async ({coordinate, direction}) => {
+    expect(() => new Neighbors(grid, coordinate).getCoordinate(direction)).toThrowError()
+  })
 
   it('should get neighbors coordinates ', async () => {
     const result = new Neighbors(grid, {row: 1, col: 1}).listCoordinates()
@@ -112,6 +109,6 @@ describe('Neighbors', () => {
   })
 })
 
-function toValues<T>(cells: Cell<T>[]): T[] {
+function toValues<T>(cells: SquareCell<T>[]): T[] {
   return cells.map((cell) => cell.value)
 }

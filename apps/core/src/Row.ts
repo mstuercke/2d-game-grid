@@ -1,13 +1,13 @@
 import type {Grid} from './Grid'
 import type {Cell} from './Cell'
-import {type CellValueChangedEvent, GridEventDispatcher} from './utils/GridEventDispatcher'
+import {type CellValueChangedEvent, GridEventDispatcher} from './utils'
 
 /**
  * The row of a grid contains all information of the rows' cells
  */
-export class Row<Value> {
+export class Row<Value, CellWithValue extends Cell<Value>> {
   public readonly id: string
-  private readonly _cells: Cell<Value>[] = []
+  private readonly _cells: CellWithValue[] = []
   private readonly eventDispatcher: GridEventDispatcher<Value>
 
   /**
@@ -15,7 +15,7 @@ export class Row<Value> {
    * @param row The row coordinate inside the grid
    */
   constructor(
-    private grid: Grid<Value>,
+    private grid: Grid<Value, CellWithValue>,
     public row: number,
   ) {
     this.id = `row|${row}`
@@ -33,7 +33,7 @@ export class Row<Value> {
   /**
    * @returns all cells of this row
    */
-  get cells(): Cell<Value>[] {
+  get cells(): CellWithValue[] {
     return this._cells
   }
 
@@ -41,7 +41,7 @@ export class Row<Value> {
    * @param col The column coordinate of the grid
    * @returns A cell
    */
-  getCell(col: number): Cell<Value> {
+  getCell(col: number): CellWithValue {
     return this.grid.getCell({row: this.row, col})
   }
 

@@ -1,4 +1,4 @@
-# 2D Game Grid
+# 2D Game Grid (square)
 A simple square grid made for games with built-in features like:
 - get the shortest path between cells
 - list reachable cells (pathfinding)

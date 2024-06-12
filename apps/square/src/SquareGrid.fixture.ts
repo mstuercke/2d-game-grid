@@ -1,4 +1,4 @@
-import type {InitializeGridOptions, PreInitializedGridOptions} from './Grid'
+import type {InitializeGridOptions, PreInitializedGridOptions} from '@2d-game-grid/core'
 
 export const preInitializedGridOptionsFixture: PreInitializedGridOptions<string> = {
   grid: [

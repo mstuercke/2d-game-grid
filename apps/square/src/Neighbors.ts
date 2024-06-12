@@ -1,8 +1,8 @@
-import {ALL_DIRECTIONS, type Direction} from './Direction'
-import type {Grid} from './Grid'
-import type {Coordinate, NeighborCoordinate} from './Coordinate'
+import type {Coordinate, NeighborCoordinate} from '@2d-game-grid/core'
+import {ALL_DIRECTIONS, type Direction} from '@2d-game-grid/core'
+import type {SquareGrid} from './SquareGrid'
+import type {SquareCell} from './SquareCell'
 import {NeighborDoesNotExistInGridError} from './errors'
-import type {Cell} from './Cell'
 
 /**
  * The representation of all neighbors of a cell
@@ -13,7 +13,7 @@ export class Neighbors<Value> {
    * @param coordinate The coordinate in the grid
    */
   constructor(
-    private grid: Grid<Value>,
+    private grid: SquareGrid<Value>,
     private coordinate: Coordinate,
   ) {}
 
@@ -63,7 +63,7 @@ export class Neighbors<Value> {
    * @returns The neighbor cell
    * @throws {NeighborDoesNotExistInGridError} when the neighbor cell does not exist in the grid
    */
-  get(direction: Direction): Cell<Value> {
+  get(direction: Direction): SquareCell<Value> {
     if (!this.exists(direction)) throw new NeighborDoesNotExistInGridError(this.grid, this.coordinate, direction)
 
     const neighbor = this.getCoordinate(direction)
@@ -74,7 +74,7 @@ export class Neighbors<Value> {
    * @param directions The allowed directions
    * @returns An array of all existing neighbor cells
    */
-  list(directions: Direction[] = ALL_DIRECTIONS): Cell<Value>[] {
+  list(directions: Direction[] = ALL_DIRECTIONS): SquareCell<Value>[] {
     return this.listCoordinates(directions).map((coordinate) => this.grid.getCell(coordinate))
   }
 

@@ -1,14 +1,14 @@
-import {Grid} from '../../Grid'
-import {preInitializedGridOptionsFixture} from '../../Grid.fixture'
-import type {Cell} from '../../Cell'
+import {SquareGrid} from '../../SquareGrid'
+import {preInitializedGridOptionsFixture} from '../../SquareGrid.fixture'
+import type {SquareCell} from '../../SquareCell'
 import {listReachableCells} from './listReachableCells'
 import type {PathfindingOptions} from './PathfindingOptions'
 
 describe('listReachableCells', () => {
-  let grid: Grid<string>
+  let grid: SquareGrid<string>
 
   beforeEach(() => {
-    grid = new Grid<string>(preInitializedGridOptionsFixture)
+    grid = new SquareGrid<string>(preInitializedGridOptionsFixture)
   })
 
   it.each`
@@ -43,6 +43,6 @@ describe('listReachableCells', () => {
   })
 })
 
-function toValues(cells: Cell<string>[]): string[] {
+function toValues(cells: SquareCell<string>[]): string[] {
   return cells.map((cell) => cell.value)
 }

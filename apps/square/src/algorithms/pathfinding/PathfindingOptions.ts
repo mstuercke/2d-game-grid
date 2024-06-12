@@ -1,4 +1,4 @@
-import type {Cell} from '../../Cell'
+import type {SquareCell} from '../../SquareCell'
 
 /**
  * An algorithm that could be used for pathfinding
@@ -13,7 +13,7 @@ export type HeuristicAlgorithm = 'MANHATTAN' | 'CHEBYSHEV' | 'EUCLIDEAN' | 'OCTI
 /**
  * A custom function that could be used for pathfinding heuristics
  */
-export type HeuristicFunction<Value> = (cell: Cell<Value>) => number
+export type HeuristicFunction<Value> = (cell: SquareCell<Value>) => number
 
 /**
  * The allowed diagonal movements in pathfinding
@@ -39,7 +39,7 @@ export interface PathfindingOptions<Value> {
    * true = walkable
    * false = wall
    */
-  isWalkable?: (cell: Cell<Value>) => boolean
+  isWalkable?: (cell: SquareCell<Value>) => boolean
 
   /**
    * The allowed diagonal movements in pathfinding

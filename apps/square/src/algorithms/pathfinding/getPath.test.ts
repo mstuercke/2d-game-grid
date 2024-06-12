@@ -1,7 +1,7 @@
-import {Grid} from '../../Grid'
-import {preInitializedGridOptionsFixture} from '../../Grid.fixture'
-import type {Coordinate} from '../../Coordinate'
-import type {Cell} from '../../Cell'
+import {SquareGrid} from '../../SquareGrid'
+import {preInitializedGridOptionsFixture} from '../../SquareGrid.fixture'
+import type {Coordinate} from '@2d-game-grid/core'
+import type {SquareCell} from '../../SquareCell'
 import type {PathfindingOptions} from './PathfindingOptions'
 import {getPath} from './getPath'
 import * as mapPathfindingDiagonalMovementModule from './mapper/mapPathfindingDiagonalMovement'
@@ -10,12 +10,12 @@ import * as mapFinderModule from './mapper/mapFinder'
 import * as mapHeuristicModule from './mapper/mapHeuristic'
 
 describe('getPath', () => {
-  let grid: Grid<string>
+  let grid: SquareGrid<string>
   const start: Coordinate = {row: 0, col: 0}
   const end: Coordinate = {row: 1, col: 2}
 
   beforeEach(() => {
-    grid = new Grid(preInitializedGridOptionsFixture)
+    grid = new SquareGrid(preInitializedGridOptionsFixture)
   })
 
   it('should calculate path', async () => {
@@ -23,7 +23,7 @@ describe('getPath', () => {
       algorithm: 'BREADTH_FIRST',
       diagonalMovement: 'NEVER',
       heuristic: 'EUCLIDEAN',
-      isWalkable: ({row, col}: Cell<string>) => !(row !== 2 && col === 1),
+      isWalkable: ({row, col}: SquareCell<string>) => !(row !== 2 && col === 1),
     }
 
     const path = getPath(grid, start, end, options)
