@@ -4,15 +4,15 @@ import {QueueIsEmptyError} from '../errors'
 /**
  * This queue will return each cell only once
  */
-export class UniqueCellQueue<Value> {
-  private queue: Cell<Value>[] = []
+export class UniqueCellQueue<Value, CellWithValue extends Cell<Value>> {
+  private queue: CellWithValue[] = []
   private cellIds: string[] = []
 
   /**
    * Adds a cell to the queue. If the given cell was in the queue already, it will not be added to the queue
    * @param cell The cell that should be added to the queue
    */
-  add(cell: Cell<Value>): void {
+  add(cell: CellWithValue): void {
     if (this.cellIds.includes(cell.id)) return
 
     this.ignore(cell)
@@ -23,7 +23,7 @@ export class UniqueCellQueue<Value> {
    * Adds an array of cells to the queue. If a given cell was in the queue already, it will not be added to the queue
    * @param cells The cells that should be added to the queue
    */
-  addAll(cells: Cell<Value>[]): void {
+  addAll(cells: CellWithValue[]): void {
     for (const cell of cells) {
       this.add(cell)
     }
@@ -32,7 +32,7 @@ export class UniqueCellQueue<Value> {
   /**
    * @param cell The cell that should never be added to the queue
    */
-  ignore(cell: Cell<Value>): void {
+  ignore(cell: CellWithValue): void {
     this.cellIds.push(cell.id)
   }
 
@@ -47,7 +47,7 @@ export class UniqueCellQueue<Value> {
    * @returns The next cell in the queue
    * @throws {QueueIsEmptyError} when the queue has no more cells
    */
-  getNext(): Cell<Value> {
+  getNext(): CellWithValue {
     const cell = this.queue.pop()
     if (!cell) throw new QueueIsEmptyError()
     return cell

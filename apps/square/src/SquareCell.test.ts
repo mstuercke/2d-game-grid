@@ -1,14 +1,14 @@
-import {Grid} from './Grid'
+import {SquareGrid} from './SquareGrid'
 import {Neighbors} from './Neighbors'
-import type {Coordinate} from './Coordinate'
+import type {Coordinate} from '@2d-game-grid/core'
+import {GridEventDispatcher} from '@2d-game-grid/core'
 import {getDistance} from './algorithms/distance/getDistance'
-import {preInitializedGridOptionsFixture} from './Grid.fixture'
-import {Cell} from './Cell'
+import {preInitializedGridOptionsFixture} from './SquareGrid.fixture'
+import {SquareCell} from './SquareCell'
 import {getPath} from './algorithms/pathfinding/getPath'
 import type {PathfindingOptions} from './algorithms'
 import {listCellsInDistance} from './algorithms/distance/listCellsInDistance'
 import {listReachableCells} from './algorithms/pathfinding/listReachableCells'
-import {GridEventDispatcher} from './utils/GridEventDispatcher'
 
 jest.mock('./Neighbors')
 const NeighborsMock = jest.mocked(Neighbors)
@@ -25,12 +25,15 @@ const getPathMock = jest.mocked(getPath)
 jest.mock('./algorithms/pathfinding/listReachableCells')
 const listReachableCellsMock = jest.mocked(listReachableCells)
 
-jest.mock('./utils/GridEventDispatcher')
+jest.mock('@2d-game-grid/core', () => ({
+  ...jest.requireActual('@2d-game-grid/core'),
+  GridEventDispatcher: jest.fn(),
+}))
 const GridEventDispatcherMock = jest.mocked(GridEventDispatcher)
 
-describe('Cell', () => {
-  let grid: Grid<string>
-  let cell: Cell<string>
+describe('SquareCell', () => {
+  let grid: SquareGrid<string>
+  let cell: SquareCell<string>
   const eventDispatcherMock = {
     onCellValueChanged: jest.fn(),
     dispatchCellValueChangedEvent: jest.fn(),
@@ -39,21 +42,8 @@ describe('Cell', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     GridEventDispatcherMock.mockReturnValue(eventDispatcherMock as any)
-    grid = new Grid<string>(preInitializedGridOptionsFixture)
-    cell = new Cell<string>(grid, {row: 1, col: 2}, 'foo')
-  })
-
-  it('should have correct id', async () => {
-    expect(cell.id).toEqual('cell|1-2')
-  })
-
-  it('should get cell value', async () => {
-    expect(cell.value).toEqual('foo')
-  })
-
-  it('should set cell value', async () => {
-    cell.value = 'bar'
-    expect(cell.value).toEqual('bar')
+    grid = new SquareGrid<string>(preInitializedGridOptionsFixture)
+    cell = new SquareCell<string>(grid, {row: 1, col: 2}, 'foo')
   })
 
   it('should get row', async () => {
@@ -68,7 +58,7 @@ describe('Cell', () => {
     const neighbors = {} as Neighbors<unknown>
     NeighborsMock.mockReturnValueOnce(neighbors)
 
-    const cell = new Cell<string>(grid, {row: 1, col: 2}, 'foo')
+    const cell = new SquareCell<string>(grid, {row: 1, col: 2}, 'foo')
 
     expect(cell.neighbors).toBe(neighbors)
     expect(NeighborsMock).toHaveBeenCalledWith(grid, cell)
@@ -94,18 +84,15 @@ describe('Cell', () => {
     ${undefined}    | ${'MANHATTAN'}
     ${'MANHATTAN'}  | ${'MANHATTAN'}
     ${'EUCLIDEAN'}  | ${'EUCLIDEAN'}
-  `(
-    'should list cells in distance with $usedAlgorithm ($passedAlgorithm) distance',
-    ({passedAlgorithm, usedAlgorithm}) => {
-      const cellsInDistance: Cell<string>[] = []
-      listCellsInDistanceMock.mockReturnValueOnce([])
+  `('should list cells in distance with $usedAlgorithm ($passedAlgorithm) distance', ({passedAlgorithm, usedAlgorithm}) => {
+    const cellsInDistance: SquareCell<string>[] = []
+    listCellsInDistanceMock.mockReturnValueOnce([])
 
-      const result = cell.listCellsInDistance(2, passedAlgorithm)
+    const result = cell.listCellsInDistance(2, passedAlgorithm)
 
-      expect(listCellsInDistanceMock).toHaveBeenCalledWith(cell, 2, usedAlgorithm)
-      expect(result).toEqual(cellsInDistance)
-    },
-  )
+    expect(listCellsInDistanceMock).toHaveBeenCalledWith(cell, 2, usedAlgorithm)
+    expect(result).toEqual(cellsInDistance)
+  })
 
   it('should get path', () => {
     const options: PathfindingOptions<string> = {}
@@ -118,32 +105,6 @@ describe('Cell', () => {
     const options: PathfindingOptions<string> = {}
     cell.listReachableCells(2, options)
     expect(listReachableCellsMock).toHaveBeenCalledWith(cell, 2, options)
-  })
-
-  describe('event: OnCellValueChanged', () => {
-    it('should register callback', async () => {
-      const callback = jest.fn()
-      cell.onValueChanged(callback)
-      expect(eventDispatcherMock.onCellValueChanged).toHaveBeenCalledWith(callback)
-    })
-
-    it('should unregister callback', async () => {
-      const unregisterFn = jest.fn()
-      eventDispatcherMock.onCellValueChanged.mockReturnValueOnce(unregisterFn)
-
-      const unregister = cell.onValueChanged(jest.fn())
-      unregister()
-
-      expect(unregisterFn).toHaveBeenCalled()
-    })
-
-    it('should dispatch event when value has changed', async () => {
-      cell.value = 'updated'
-      expect(eventDispatcherMock.dispatchCellValueChangedEvent).toHaveBeenCalledWith({
-        cell: cell,
-        previousValue: 'foo',
-      })
-    })
   })
 
   describe('should clone', () => {

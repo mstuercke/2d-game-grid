@@ -1,13 +1,13 @@
 import {Row} from './Row'
-import {Grid} from './Grid'
-import {preInitializedGridOptionsFixture} from './Grid.fixture'
+import type {Cell} from './Cell'
+import {preInitializedGridOptionsFixture, TestGrid} from './Grid.fixture'
 
 describe('Row', () => {
-  let row: Row<string>
+  let row: Row<string, Cell<string>>
 
   beforeEach(() => {
     jest.clearAllMocks()
-    const grid = new Grid<string>(preInitializedGridOptionsFixture)
+    const grid = new TestGrid(preInitializedGridOptionsFixture)
     row = new Row(grid, 2)
   })
 

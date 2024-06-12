@@ -1,13 +1,13 @@
 import {Column} from './Column'
-import {Grid} from './Grid'
-import {preInitializedGridOptionsFixture} from './Grid.fixture'
+import {preInitializedGridOptionsFixture, TestGrid} from './Grid.fixture'
+import type {Cell} from './Cell'
 
 describe('Column', () => {
-  let column: Column<string>
+  let column: Column<string, Cell<string>>
 
   beforeEach(() => {
     jest.clearAllMocks()
-    const grid = new Grid<string>(preInitializedGridOptionsFixture)
+    const grid = new TestGrid(preInitializedGridOptionsFixture)
     column = new Column(grid, 2)
   })
 

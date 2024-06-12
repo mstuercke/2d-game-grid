@@ -1,6 +1,5 @@
-import type {Cell} from '../../Cell'
-import {ALL_DIRECTIONS} from '../../Direction'
-import {UniqueCellQueue} from '../../utils/UniqueCellQueue'
+import type {SquareCell} from '../../SquareCell'
+import {ALL_DIRECTIONS, UniqueCellQueue} from '@2d-game-grid/core'
 import type {DistanceAlgorithm} from './DistanceAlgorithm'
 
 /**
@@ -10,16 +9,16 @@ import type {DistanceAlgorithm} from './DistanceAlgorithm'
  * @returns All cells that are in the distance (excluding the start cell)
  */
 export function listCellsInDistance<Value>(
-  cell: Cell<Value>,
+  cell: SquareCell<Value>,
   maxDistance: number,
   algorithm: DistanceAlgorithm,
-): Cell<Value>[] {
-  const queue = new UniqueCellQueue<Value>()
+): SquareCell<Value>[] {
+  const queue = new UniqueCellQueue<Value, SquareCell<Value>>()
   const neighbors = cell.neighbors.list(ALL_DIRECTIONS)
   queue.ignore(cell)
   queue.addAll(neighbors)
 
-  const cellsInDistance: Cell<Value>[] = []
+  const cellsInDistance: SquareCell<Value>[] = []
   while (queue.hasNext()) {
     const nextCell = queue.getNext()
     if (nextCell.getDistance(cell, algorithm) <= maxDistance) {

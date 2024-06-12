@@ -1,4 +1,4 @@
-import type {Coordinate} from '../../Coordinate'
+import type {Coordinate} from '@2d-game-grid/core'
 
 /**
  * @param start The start coordinate

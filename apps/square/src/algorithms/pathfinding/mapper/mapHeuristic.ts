@@ -1,5 +1,5 @@
 import {Heuristic} from 'pathfinding'
-import type {Grid} from '../../../Grid'
+import type {SquareGrid} from '../../../SquareGrid'
 import type {HeuristicAlgorithm, HeuristicFunction} from '../PathfindingOptions'
 
 /**
@@ -7,7 +7,7 @@ import type {HeuristicAlgorithm, HeuristicFunction} from '../PathfindingOptions'
  * @param heuristic The heuristic algorithm or a custom heuristic function
  * @returns A heuristic function for the pathfinding
  */
-export function mapHeuristic<Value>(grid: Grid<Value>, heuristic: HeuristicAlgorithm | HeuristicFunction<Value>) {
+export function mapHeuristic<Value>(grid: SquareGrid<Value>, heuristic: HeuristicAlgorithm | HeuristicFunction<Value>) {
   return typeof heuristic === 'function'
     ? (col: number, row: number) => heuristic(grid.getCell({row, col}))
     : {
