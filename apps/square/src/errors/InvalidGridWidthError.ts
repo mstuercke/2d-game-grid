@@ -2,6 +2,8 @@
  * An error that is thrown when the actual grid width is not the same as the expected grid width
  */
 export class UnequalGridWidthError extends Error {
+  readonly type = UnequalGridWidthError.name
+
   /**
    @param expectedWidth The expected width of the grid
    @param actualWidth The actual width of the grid
