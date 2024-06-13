@@ -25,14 +25,14 @@ export class FlatTopHexagonCell<Value> extends Cell<Value> {
   /**
    * @returns The row of the cell
    */
-  getRow(): Row<Value, Cell<Value>> {
+  getRow(): Row<Value, FlatTopHexagonCell<Value>> {
     return this.grid.getRow(this.row)
   }
 
   /**
    @returns The column of the cell
    */
-  getColumn(): Column<Value, Cell<Value>> {
+  getColumn(): Column<Value, FlatTopHexagonCell<Value>> {
     return this.grid.getColumn(this.col)
   }
 

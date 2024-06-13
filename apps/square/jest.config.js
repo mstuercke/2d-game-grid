@@ -1,14 +1,14 @@
 module.exports = {
-  "roots": [
+  roots: [
     "<rootDir>/src"
   ],
-  "testMatch": [
-    "**/__tests__/**/*.+(ts|tsx|js)",
-    "**/?(*.)+(spec|test).+(ts|tsx|js)"
+  testMatch: [
+    "**/*.test.ts"
   ],
-  "transform": {
+  transform: {
     "^.+\\.(ts|tsx)$": "ts-jest"
   },
+  collectCoverageFrom: ["**/*.ts", "!**/*.{fixture,mock}.ts", "!**/index.ts"],
   coverageThreshold: {
     global: {
       branches: 100,

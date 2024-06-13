@@ -60,10 +60,7 @@ export abstract class Grid<Value, CellWithValue extends Cell<Value>> {
    * @param options The initialization configuration
    * @param initializeCell This function will initialize a cell
    */
-  constructor(
-    private options: InitializeGridOptions<Value>,
-    private initializeCell: (coordinate: Coordinate, value: Value) => CellWithValue,
-  ) {
+  constructor(private options: InitializeGridOptions<Value>) {
     if ('initializeCellValue' in this.options) {
       this.width = this.options.width
       this.height = this.options.height
@@ -76,14 +73,14 @@ export abstract class Grid<Value, CellWithValue extends Cell<Value>> {
     }
   }
 
-  protected initialize() {
+  protected initialize(initializeCell: (coordinate: Coordinate, value: Value) => CellWithValue) {
     if ('initializeCellValue' in this.options) {
-      this._grid.push(...this.initializeCells(this.options.initializeCellValue))
+      this._grid.push(...this.initializeCells(initializeCell, this.options.initializeCellValue))
     }
 
     if ('grid' in this.options) {
       const rows = this.options.grid
-      this._grid.push(...this.initializeCells(({row, col}) => rows[row][col]))
+      this._grid.push(...this.initializeCells(initializeCell, ({row, col}) => rows[row][col]))
     }
 
     for (let row = 0; row < this.height; row++) {
@@ -101,7 +98,10 @@ export abstract class Grid<Value, CellWithValue extends Cell<Value>> {
     }
   }
 
-  private initializeCells(initializeCellValue: (coordinate: Coordinate) => Value): CellWithValue[][] {
+  private initializeCells(
+    initializeCell: (coordinate: Coordinate, value: Value) => CellWithValue,
+    initializeCellValue: (coordinate: Coordinate) => Value,
+  ): CellWithValue[][] {
     if (this.height === 0 || this.width === 0) throw new InvalidGridSizeError(this.width, this.height)
 
     const cells = new Array(this.height)
@@ -110,7 +110,7 @@ export abstract class Grid<Value, CellWithValue extends Cell<Value>> {
       for (let col = 0; col < this.width; col++) {
         const coordinate: Coordinate = {row, col}
         const value = initializeCellValue(coordinate)
-        cells[row][col] = this.initializeCell(coordinate, value)
+        cells[row][col] = initializeCell(coordinate, value)
       }
     }
     return cells

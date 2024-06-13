@@ -1,10 +1,12 @@
 import type {Coordinate} from './Coordinate'
 import {type CellValueChangedEvent, GridEventDispatcher} from './utils'
+import type {Row} from './Row'
+import type {Column} from './Column'
 
 /**
  * A Cell is part of a grid. It contains meta information like its coordinates inside the grid and the corresponding value.
  */
-export class Cell<Value> implements Coordinate {
+export abstract class Cell<Value> implements Coordinate {
   public readonly id: string
   public readonly row: number
   public readonly col: number
@@ -13,11 +15,10 @@ export class Cell<Value> implements Coordinate {
   private readonly eventDispatcher: GridEventDispatcher<Value>
 
   /**
-   *
    * @param coordinate The coordinate in the grid
    * @param value The value of the cell
    */
-  constructor(coordinate: Coordinate, value: Value) {
+  protected constructor(coordinate: Coordinate, value: Value) {
     this.id = `cell|${coordinate.row}-${coordinate.col}`
     this.row = coordinate.row
     this.col = coordinate.col
@@ -48,4 +49,20 @@ export class Cell<Value> implements Coordinate {
   onValueChanged(callback: (event: CellValueChangedEvent<Value>) => void): () => void {
     return this.eventDispatcher.onCellValueChanged(callback)
   }
+
+  /**
+   * @returns The row of the cell
+   */
+  abstract getRow(): Row<Value, Cell<Value>>
+
+  /**
+   @returns The column of the cell
+   */
+  abstract getColumn(): Column<Value, Cell<Value>>
+
+  /**
+   * @param cloneValue A custom function to clone the value of this cell (defaults to copying the value)
+   * @returns The cloned cell
+   */
+  abstract clone(cloneValue?: (value: Value) => Value): Cell<Value>
 }

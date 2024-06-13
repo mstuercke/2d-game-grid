@@ -32,20 +32,6 @@ export class SquareCell<Value> extends Cell<Value> {
   }
 
   /**
-   * @returns The row of the cell
-   */
-  getRow(): Row<Value, Cell<Value>> {
-    return this.grid.getRow(this.row)
-  }
-
-  /**
-   @returns The column of the cell
-   */
-  getColumn(): Column<Value, Cell<Value>> {
-    return this.grid.getColumn(this.col)
-  }
-
-  /**
    * @param target The coordinate that the distance should be calculated for
    * @param algorithm The used algorithm for the distance calculation
    * @returns The distance
@@ -79,6 +65,20 @@ export class SquareCell<Value> extends Cell<Value> {
    */
   listReachableCells(maxPathSteps: number, options?: PathfindingOptions<Value>): SquareCell<Value>[] {
     return listReachableCells(this, maxPathSteps, options)
+  }
+
+  /**
+   * @returns The row of the cell
+   */
+  getRow(): Row<Value, SquareCell<Value>> {
+    return this.grid.getRow(this.row)
+  }
+
+  /**
+   @returns The column of the cell
+   */
+  getColumn(): Column<Value, SquareCell<Value>> {
+    return this.grid.getColumn(this.col)
   }
 
   /**

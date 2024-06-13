@@ -7,8 +7,8 @@ import {SquareCell} from './SquareCell'
  */
 export class SquareGrid<Value> extends Grid<Value, SquareCell<Value>> {
   constructor(options: InitializeGridOptions<Value>) {
-    super(options, (coordinate, value) => new SquareCell(this, coordinate, value))
-    this.initialize()
+    super(options)
+    this.initialize((coordinate, value) => new SquareCell(this, coordinate, value))
   }
 
   protected initializeGrid(options: InitializeGridOptions<Value>): SquareGrid<Value> {
