@@ -1,4 +1,4 @@
-export * from './FlatTopDirection'
 export * from './FlatTopHexagonCell'
+export * from './FlatTopHexagonDirection'
 export * from './FlatTopHexagonGrid'
-export * from './FlatTopNeighbors'
+export * from './FlatTopHexagonNeighbors'

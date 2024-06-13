@@ -1,6 +1,6 @@
 import {Cell, type Column, type Coordinate, type Row} from '@2d-game-grid/core'
 import type {FlatTopHexagonGrid} from './FlatTopHexagonGrid'
-import {FlatTopNeighbors} from './FlatTopNeighbors'
+import {FlatTopHexagonNeighbors} from './FlatTopHexagonNeighbors'
 
 export class FlatTopHexagonCell<Value> extends Cell<Value> {
   protected readonly grid: FlatTopHexagonGrid<Value>
@@ -8,7 +8,7 @@ export class FlatTopHexagonCell<Value> extends Cell<Value> {
   /**
    * An instance of the cells' neighbors
    */
-  public readonly neighbors: FlatTopNeighbors<Value>
+  public readonly neighbors: FlatTopHexagonNeighbors<Value>
 
   /**
    *
@@ -19,7 +19,7 @@ export class FlatTopHexagonCell<Value> extends Cell<Value> {
   constructor(grid: FlatTopHexagonGrid<Value>, coordinate: Coordinate, value: Value) {
     super(coordinate, value)
     this.grid = grid
-    this.neighbors = new FlatTopNeighbors<Value>(grid, this)
+    this.neighbors = new FlatTopHexagonNeighbors<Value>(grid, this)
   }
 
   /**

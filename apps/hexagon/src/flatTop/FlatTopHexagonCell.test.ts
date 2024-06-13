@@ -1,11 +1,11 @@
-import {FlatTopNeighbors} from './FlatTopNeighbors'
+import {FlatTopHexagonNeighbors} from './FlatTopHexagonNeighbors'
 import {GridEventDispatcher} from '@2d-game-grid/core'
 import {preInitializedGridOptionsFixture} from './FlatTopHexagonGrid.fixture'
 import {FlatTopHexagonCell} from './FlatTopHexagonCell'
 import {FlatTopHexagonGrid} from './FlatTopHexagonGrid'
 
-jest.mock('./FlatTopNeighbors')
-const NeighborsMock = jest.mocked(FlatTopNeighbors)
+jest.mock('./FlatTopHexagonNeighbors')
+const NeighborsMock = jest.mocked(FlatTopHexagonNeighbors)
 
 jest.mock('@2d-game-grid/core', () => ({
   ...jest.requireActual('@2d-game-grid/core'),
@@ -37,7 +37,7 @@ describe(FlatTopHexagonCell.name, () => {
   })
 
   it('should initialize neighbors', async () => {
-    const neighbors = {} as FlatTopNeighbors<unknown>
+    const neighbors = {} as FlatTopHexagonNeighbors<unknown>
     NeighborsMock.mockReturnValueOnce(neighbors)
 
     const cell = new FlatTopHexagonCell<string>(grid, {row: 1, col: 2}, 'foo')
