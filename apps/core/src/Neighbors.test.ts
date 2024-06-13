@@ -25,7 +25,7 @@ describe('Neighbors', () => {
     ${{row: 0, col: 0}} | ${'LEFT'}
     ${{row: 2, col: 3}} | ${'RIGHT'}
   `('should not get neighbor coordinate out of bounds for $coordinate in direction $direction', async ({coordinate, direction}) => {
-    expect(() => new TestNeighbors(grid, coordinate).getCoordinate(direction)).toThrowError()
+    expect(() => new TestNeighbors(grid, coordinate).getCoordinate(direction)).toThrow()
   })
 
   it('should get neighbors coordinates', async () => {

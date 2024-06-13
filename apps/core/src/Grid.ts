@@ -58,9 +58,8 @@ export abstract class Grid<Value, CellWithValue extends Cell<Value>> {
 
   /**
    * @param options The initialization configuration
-   * @param initializeCell This function will initialize a cell
    */
-  constructor(private options: InitializeGridOptions<Value>) {
+  protected constructor(private options: InitializeGridOptions<Value>) {
     if ('initializeCellValue' in this.options) {
       this.width = this.options.width
       this.height = this.options.height
@@ -145,8 +144,16 @@ export abstract class Grid<Value, CellWithValue extends Cell<Value>> {
    * @throws {CellDoesNotExistInGridError} when the cell does not exist in the grid
    */
   getCell(coordinate: Coordinate): CellWithValue {
-    if (!this.cellExists(coordinate)) throw new CellDoesNotExistInGridError(this, coordinate)
+    const cell = this.findCell(coordinate)
+    if (!cell) throw new CellDoesNotExistInGridError(this, coordinate)
+    return cell
+  }
 
+  /**
+   * @param coordinate The coordinate of the cell
+   * @returns The cell or undefined
+   */
+  findCell(coordinate: Coordinate): CellWithValue | undefined {
     return this.grid[coordinate.row][coordinate.col]
   }
 
