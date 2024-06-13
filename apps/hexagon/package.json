@@ -1,14 +1,14 @@
 {
-  "name": "@2d-game-grid/square",
-  "version": "2.0.1",
-  "description": "A simple square grid made for games",
+  "name": "@2d-game-grid/hexagon",
+  "version": "0.0.1",
+  "description": "A simple hexagon grid made for games",
   "keywords": [
     "grid",
     "game",
     "pathfinding",
     "distance",
     "2d",
-    "square"
+    "hexagon"
   ],
   "license": "MIT",
   "author": "Marvin Stürcke",
@@ -34,8 +34,7 @@
     "release": "bun run scripts/release.ts"
   },
   "dependencies": {
-    "@2d-game-grid/core": "0.0.1",
-    "pathfinding": "0.4.18"
+    "@2d-game-grid/core": "0.0.1"
   },
   "devDependencies": {
     "@types/jest": "29.5.12",

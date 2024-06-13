@@ -1,5 +1,5 @@
 {
-	"extends": "@mstuercke/typescript-config/package/tsconfig.build.cjs.json",
+	"extends": "@mstuercke/typescript-config/package/tsconfig.build.esm.json",
 	"compilerOptions": {
 		"declarationDir": "./dist/types"
 	},
