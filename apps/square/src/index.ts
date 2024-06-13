@@ -1,2 +1,2 @@
 export * from './SquareGrid'
-export * from './Neighbors'
+export * from './SquareNeighbors'

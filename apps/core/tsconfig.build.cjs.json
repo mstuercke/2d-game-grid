@@ -1,6 +1,7 @@
 {
 	"extends": "@mstuercke/typescript-config/package/tsconfig.build.cjs.json",
 	"compilerOptions": {
+		"rootDir": "src",
 		"declarationDir": "./dist/types"
 	},
 	"include": ["src"],

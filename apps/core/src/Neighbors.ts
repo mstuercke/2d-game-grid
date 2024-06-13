@@ -1,27 +1,26 @@
-import type {Coordinate, NeighborCoordinate} from '@2d-game-grid/core'
-import {ALL_DIRECTIONS, type Direction} from '@2d-game-grid/core'
-import type {SquareGrid} from './SquareGrid'
-import type {SquareCell} from './SquareCell'
+import type {Cell, Direction} from '@2d-game-grid/core'
 import {NeighborDoesNotExistInGridError} from './errors'
+import type {Grid} from './Grid'
+import type {Coordinate, NeighborCoordinate} from './Coordinate'
 
 /**
  * The representation of all neighbors of a cell
  */
-export class Neighbors<Value> {
+export abstract class Neighbors<Value, CellWithValue extends Cell<Value>, AllowedDirection extends Direction> {
   /**
    * @param grid The grid the cell is part of
    * @param coordinate The coordinate in the grid
    */
   constructor(
-    private grid: SquareGrid<Value>,
-    private coordinate: Coordinate,
+    protected grid: Grid<Value, CellWithValue>,
+    protected coordinate: Coordinate,
   ) {}
 
   /**
    * @param direction The direction to the neighbor cell
    * @returns true if a cell in the given direction exists in the grid
    */
-  exists(direction: Direction): boolean {
+  exists(direction: AllowedDirection): boolean {
     const offset = this.getOffsetCoordinate(direction)
     const neighbor = {
       row: this.coordinate.row + offset.row,
@@ -36,7 +35,7 @@ export class Neighbors<Value> {
    * @returns The coordinate of the neighbor cell
    * @throws {NeighborDoesNotExistInGridError} when the neighbor cell does not exist in the grid
    */
-  getCoordinate(direction: Direction): NeighborCoordinate {
+  getCoordinate(direction: AllowedDirection): NeighborCoordinate {
     if (!this.exists(direction)) throw new NeighborDoesNotExistInGridError(this.grid, this.coordinate, direction)
 
     const offset = this.getOffsetCoordinate(direction)
@@ -52,7 +51,7 @@ export class Neighbors<Value> {
    * @param directions The allowed directions
    * @returns An array of all existing neighbor cell coordinates
    */
-  listCoordinates(directions: Direction[] = ALL_DIRECTIONS): NeighborCoordinate[] {
+  listCoordinates(directions: AllowedDirection[]): NeighborCoordinate[] {
     return directions
       .filter((direction) => this.exists(direction))
       .reduce<NeighborCoordinate[]>((neighbors, direction) => [...neighbors, this.getCoordinate(direction)], [])
@@ -63,7 +62,7 @@ export class Neighbors<Value> {
    * @returns The neighbor cell
    * @throws {NeighborDoesNotExistInGridError} when the neighbor cell does not exist in the grid
    */
-  get(direction: Direction): SquareCell<Value> {
+  get(direction: AllowedDirection): CellWithValue {
     if (!this.exists(direction)) throw new NeighborDoesNotExistInGridError(this.grid, this.coordinate, direction)
 
     const neighbor = this.getCoordinate(direction)
@@ -74,20 +73,9 @@ export class Neighbors<Value> {
    * @param directions The allowed directions
    * @returns An array of all existing neighbor cells
    */
-  list(directions: Direction[] = ALL_DIRECTIONS): SquareCell<Value>[] {
+  list(directions: AllowedDirection[]): CellWithValue[] {
     return this.listCoordinates(directions).map((coordinate) => this.grid.getCell(coordinate))
   }
 
-  private getOffsetCoordinate(direction: Direction): Coordinate {
-    return {
-      TOP: {col: 0, row: -1},
-      BOTTOM: {col: 0, row: 1},
-      LEFT: {col: -1, row: 0},
-      RIGHT: {col: 1, row: 0},
-      TOP_LEFT: {col: -1, row: -1},
-      TOP_RIGHT: {col: 1, row: -1},
-      BOTTOM_LEFT: {col: -1, row: 1},
-      BOTTOM_RIGHT: {col: 1, row: 1},
-    }[direction]
-  }
+  protected abstract getOffsetCoordinate(direction: AllowedDirection): Coordinate
 }
