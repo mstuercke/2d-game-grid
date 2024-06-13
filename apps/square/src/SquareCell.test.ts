@@ -1,5 +1,5 @@
 import {SquareGrid} from './SquareGrid'
-import {Neighbors} from './Neighbors'
+import {SquareNeighbors} from './SquareNeighbors'
 import type {Coordinate} from '@2d-game-grid/core'
 import {GridEventDispatcher} from '@2d-game-grid/core'
 import {getDistance} from './algorithms/distance/getDistance'
@@ -10,8 +10,8 @@ import type {PathfindingOptions} from './algorithms'
 import {listCellsInDistance} from './algorithms/distance/listCellsInDistance'
 import {listReachableCells} from './algorithms/pathfinding/listReachableCells'
 
-jest.mock('./Neighbors')
-const NeighborsMock = jest.mocked(Neighbors)
+jest.mock('./SquareNeighbors')
+const NeighborsMock = jest.mocked(SquareNeighbors)
 
 jest.mock('./algorithms/distance/getDistance')
 const getDistanceMock = jest.mocked(getDistance)
@@ -55,7 +55,7 @@ describe('SquareCell', () => {
   })
 
   it('should initialize neighbors', async () => {
-    const neighbors = {} as Neighbors<unknown>
+    const neighbors = {} as SquareNeighbors<unknown>
     NeighborsMock.mockReturnValueOnce(neighbors)
 
     const cell = new SquareCell<string>(grid, {row: 1, col: 2}, 'foo')

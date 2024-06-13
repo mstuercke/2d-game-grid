@@ -1,6 +1,6 @@
 import type {Column, Coordinate, Row} from '@2d-game-grid/core'
 import {Cell} from '@2d-game-grid/core'
-import {Neighbors} from './Neighbors'
+import {SquareNeighbors} from './SquareNeighbors'
 import type {DistanceAlgorithm, PathfindingOptions} from './algorithms'
 import {getDistance} from './algorithms/distance/getDistance'
 import type {SquareGrid} from './SquareGrid'
@@ -17,7 +17,7 @@ export class SquareCell<Value> extends Cell<Value> {
   /**
    * An instance of the cells' neighbors
    */
-  public readonly neighbors: Neighbors<Value>
+  public readonly neighbors: SquareNeighbors<Value>
 
   /**
    *
@@ -28,7 +28,7 @@ export class SquareCell<Value> extends Cell<Value> {
   constructor(grid: SquareGrid<Value>, coordinate: Coordinate, value: Value) {
     super(coordinate, value)
     this.grid = grid
-    this.neighbors = new Neighbors<Value>(grid, this)
+    this.neighbors = new SquareNeighbors<Value>(grid, this)
   }
 
   /**
