@@ -1,5 +1,7 @@
-import {Cell} from './Cell'
+import type {Cell} from './Cell'
 import {GridEventDispatcher} from './utils'
+import {TestCell} from './Cell.fixture'
+import {preInitializedGridOptionsFixture, TestGrid} from './Grid.fixture'
 
 jest.mock('./utils/GridEventDispatcher')
 const GridEventDispatcherMock = jest.mocked(GridEventDispatcher)
@@ -14,7 +16,8 @@ describe('Cell', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     GridEventDispatcherMock.mockReturnValue(eventDispatcherMock as any)
-    cell = new Cell<string>({row: 1, col: 2}, 'foo')
+    const grid = new TestGrid(preInitializedGridOptionsFixture)
+    cell = new TestCell(grid, {row: 1, col: 2}, 'foo')
   })
 
   it('should have correct id', async () => {
