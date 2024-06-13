@@ -1,4 +1,4 @@
-import type {InitializeGridOptions, PreInitializedGridOptions} from '@2d-game-grid/core'
+import type {InitializeNewGridOptions, PreInitializedGridOptions} from '@2d-game-grid/core'
 
 export const preInitializedGridOptionsFixture: PreInitializedGridOptions<string> = {
   grid: [
@@ -8,7 +8,7 @@ export const preInitializedGridOptionsFixture: PreInitializedGridOptions<string>
   ],
 }
 
-export const initializeGridOptionsFixture: InitializeGridOptions<string> = {
+export const initializeGridOptionsFixture: InitializeNewGridOptions<string> = {
   width: 4,
   height: 3,
   initializeCellValue: ({row, col}) => `${row}-${col}`,

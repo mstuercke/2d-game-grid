@@ -1,14 +1,20 @@
 import type {Coordinate} from './Coordinate'
 import {Row} from './Row'
 import {Column} from './Column'
-import {CellDoesNotExistInGridError, InvalidGridSizeError} from './errors'
+import {
+  CellDoesNotExistInGridError,
+  InvalidGridSizeError,
+  UnequalGridHeightError,
+  UnequalGridWidthError,
+} from './errors'
 import type {Cell} from './Cell'
 import {type CellValueChangedEvent, GridEventDispatcher} from './utils'
+import type {StraightDirection} from './Direction'
 
 /**
  * Options to generate a new grid
  */
-export interface InitializeGridOptions<Value> {
+export type InitializeNewGridOptions<Value> = {
   /**
    * The amount of columns (min: 1)
    */
@@ -29,17 +35,19 @@ export interface InitializeGridOptions<Value> {
 /**
  * Options to generate a new grid based on an existing 2-dimensional array.
  */
-export interface PreInitializedGridOptions<Value> {
+export type PreInitializedGridOptions<Value> = {
   /**
    * The 2-dimensional array representing a grid (1. dimension: row (y-axis), 2. dimension: column (x-axis))
    */
   grid: Value[][]
 }
 
+export type InitializeGridOptions<Value> = InitializeNewGridOptions<Value> | PreInitializedGridOptions<Value>
+
 /**
  * The grid contains all information about cells
  */
-export class Grid<Value, CellWithValue extends Cell<Value>> {
+export abstract class Grid<Value, CellWithValue extends Cell<Value>> {
   readonly width: number
   readonly height: number
 
@@ -53,7 +61,7 @@ export class Grid<Value, CellWithValue extends Cell<Value>> {
    * @param initializeCell This function will initialize a cell
    */
   constructor(
-    private options: InitializeGridOptions<Value> | PreInitializedGridOptions<Value>,
+    private options: InitializeGridOptions<Value>,
     private initializeCell: (coordinate: Coordinate, value: Value) => CellWithValue,
   ) {
     if ('initializeCellValue' in this.options) {
@@ -68,7 +76,7 @@ export class Grid<Value, CellWithValue extends Cell<Value>> {
     }
   }
 
-  protected initializeGrid() {
+  protected initialize() {
     if ('initializeCellValue' in this.options) {
       this._grid.push(...this.initializeCells(this.options.initializeCellValue))
     }
@@ -179,4 +187,77 @@ export class Grid<Value, CellWithValue extends Cell<Value>> {
   onCellValueChanged(callback: (event: CellValueChangedEvent<Value>) => void): () => void {
     return this.eventDispatcher.onCellValueChanged(callback)
   }
+
+  /**
+   * @param gridToAdd The grid that should be added to this grid at the given direction
+   * @param addDirection The direction at that the given grid should be placed
+   * @returns a new grid
+   */
+  extend<GridType extends Grid<Value, CellWithValue>>(
+    gridToAdd: Grid<Value, CellWithValue>,
+    addDirection: StraightDirection,
+  ): GridType {
+    if ((addDirection === 'LEFT' || addDirection === 'RIGHT') && this.height !== gridToAdd.height)
+      throw new UnequalGridHeightError(this.height, gridToAdd.height)
+
+    if ((addDirection === 'TOP' || addDirection === 'BOTTOM') && this.width !== gridToAdd.width)
+      throw new UnequalGridWidthError(this.width, gridToAdd.width)
+
+    const extractValues = (row: Row<Value, CellWithValue>) => row.cells.map((cell) => cell.value)
+
+    switch (addDirection) {
+      case 'TOP':
+        return this.initializeGrid({
+          grid: [...gridToAdd.rows.map(extractValues), ...this.rows.map(extractValues)],
+        }) as GridType
+
+      case 'BOTTOM':
+        return this.initializeGrid({
+          grid: [...this.rows.map(extractValues), ...gridToAdd.rows.map(extractValues)],
+        }) as GridType
+
+      case 'LEFT':
+        return this.initializeGrid({
+          grid: this.rows.map((row) => [...extractValues(gridToAdd.getRow(row.row)), ...extractValues(row)]),
+        }) as GridType
+
+      case 'RIGHT':
+        return this.initializeGrid({
+          grid: this.rows.map((row) => [...extractValues(row), ...extractValues(gridToAdd.getRow(row.row))]),
+        }) as GridType
+    }
+  }
+
+  /**
+   * @param topLeft The coordinate of the top/left where the new grid should begin
+   * @param bottomRight The coordinate of the bottom/right where the new grid should end
+   * @returns a new grid
+   */
+  crop<GridType extends Grid<Value, CellWithValue>>(topLeft: Coordinate, bottomRight: Coordinate): GridType {
+    const width = bottomRight.col - topLeft.col
+    const height = bottomRight.row - topLeft.row
+    if (width <= 0 || height <= 0) throw new InvalidGridSizeError(width, height)
+
+    return this.initializeGrid({
+      grid: this.rows
+        .filter(({row}) => row >= topLeft.row)
+        .filter(({row}) => row <= bottomRight.row)
+        .map((row) => row.cells.filter(({col}) => col >= topLeft.col).filter(({col}) => col <= bottomRight.col))
+        .map((cells) => cells.map((cell) => cell.value)),
+    }) as GridType
+  }
+
+  /**
+   * @param cloneValue A custom function to clone the value of a cell (defaults to copying the value)
+   * @returns The cloned grid
+   */
+  clone<GridType extends Grid<Value, CellWithValue>>(cloneValue: (value: Value) => Value = (value) => value): GridType {
+    return this.initializeGrid({
+      width: this.width,
+      height: this.height,
+      initializeCellValue: ({row, col}) => cloneValue(this.grid[row][col].value),
+    }) as GridType
+  }
+
+  protected abstract initializeGrid(options: InitializeGridOptions<Value>): Grid<Value, CellWithValue>
 }

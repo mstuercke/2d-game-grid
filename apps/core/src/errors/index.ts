@@ -1,4 +1,6 @@
 export * from './CellDoesNotExistInGridError'
+export * from './InvalidGridHeightError'
 export * from './InvalidGridSizeError'
+export * from './InvalidGridWidthError'
 export * from './NeighborDoesNotExistInGridError'
 export * from './QueueIsEmptyError'
