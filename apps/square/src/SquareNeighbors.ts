@@ -9,7 +9,7 @@ export class SquareNeighbors<Value> extends Neighbors<Value, SquareCell<Value>, 
    * @param directions The allowed directions
    * @returns An array of all existing neighbor cell coordinates
    */
-  listCoordinates(directions: Direction[] = ALL_DIRECTIONS): NeighborCoordinate[] {
+  listCoordinates(directions: Direction[] = ALL_DIRECTIONS): NeighborCoordinate<Direction>[] {
     return super.listCoordinates(directions)
   }
 

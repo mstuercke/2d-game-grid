@@ -10,7 +10,7 @@ export class FlatTopNeighbors<Value> extends Neighbors<Value, FlatTopHexagonCell
    * @param directions The allowed directions
    * @returns An array of all existing neighbor cell coordinates
    */
-  listCoordinates(directions: FlatTopDirection[] = FLAT_TOP_DIRECTIONS): NeighborCoordinate[] {
+  listCoordinates(directions: FlatTopDirection[] = FLAT_TOP_DIRECTIONS): NeighborCoordinate<FlatTopDirection>[] {
     return super.listCoordinates(directions)
   }
 

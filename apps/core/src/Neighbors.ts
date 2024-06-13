@@ -1,7 +1,8 @@
 import type {Cell, Direction} from '@2d-game-grid/core'
 import {NeighborDoesNotExistInGridError} from './errors'
 import type {Grid} from './Grid'
-import type {Coordinate, NeighborCoordinate} from './Coordinate'
+import type {Coordinate} from './Coordinate'
+import type {NeighborCoordinate} from './NeighborCoordinate'
 
 /**
  * The representation of all neighbors of a cell
@@ -35,7 +36,7 @@ export abstract class Neighbors<Value, CellWithValue extends Cell<Value>, Allowe
    * @returns The coordinate of the neighbor cell
    * @throws {NeighborDoesNotExistInGridError} when the neighbor cell does not exist in the grid
    */
-  getCoordinate(direction: AllowedDirection): NeighborCoordinate {
+  getCoordinate(direction: AllowedDirection): NeighborCoordinate<AllowedDirection> {
     const coordinate = this.findCoordinate(direction)
     if (!coordinate) throw new NeighborDoesNotExistInGridError(this.grid, this.coordinate, direction)
     return coordinate
@@ -45,7 +46,7 @@ export abstract class Neighbors<Value, CellWithValue extends Cell<Value>, Allowe
    * @param direction The direction to the neighbor cell
    * @returns The coordinate of the neighbor cell or undefined
    */
-  findCoordinate(direction: AllowedDirection): NeighborCoordinate | undefined {
+  findCoordinate(direction: AllowedDirection): NeighborCoordinate<AllowedDirection> | undefined {
     const offset = this.getOffsetCoordinate(direction)
     const coordinate: Coordinate = {
       row: this.coordinate.row + offset.row,
@@ -64,10 +65,13 @@ export abstract class Neighbors<Value, CellWithValue extends Cell<Value>, Allowe
    * @param directions The allowed directions
    * @returns An array of all existing neighbor cell coordinates
    */
-  listCoordinates(directions: AllowedDirection[]): NeighborCoordinate[] {
+  listCoordinates(directions: AllowedDirection[]): NeighborCoordinate<AllowedDirection>[] {
     return directions
       .filter((direction) => this.exists(direction))
-      .reduce<NeighborCoordinate[]>((neighbors, direction) => [...neighbors, this.getCoordinate(direction)], [])
+      .reduce<NeighborCoordinate<AllowedDirection>[]>(
+        (neighbors, direction) => [...neighbors, this.getCoordinate(direction)],
+        [],
+      )
   }
 
   /**
