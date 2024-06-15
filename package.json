@@ -20,7 +20,7 @@
     "@mstuercke/typescript-config": "2.1.0",
     "@types/bun": "1.1.4",
     "syncpack": "12.3.2",
-    "turbo": "2.0.3",
+    "turbo": "2.0.4",
     "typescript": "5.4.5"
   },
   "workspaces": {
