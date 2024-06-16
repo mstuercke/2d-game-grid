@@ -1,5 +1,5 @@
 import type {SquareCell} from '../../SquareCell'
-import {ALL_DIRECTIONS, UniqueCellQueue} from '@2d-game-grid/core'
+import {ALL_DIRECTIONS, type Direction, type StraightDirection, UniqueCellQueue} from '@2d-game-grid/core'
 import type {PathfindingOptions} from './PathfindingOptions'
 
 /**
@@ -13,7 +13,7 @@ export function listReachableCells<Value>(
   maxPathSteps: number,
   options?: PathfindingOptions<Value>,
 ): SquareCell<Value>[] {
-  const queue = new UniqueCellQueue<Value, SquareCell<Value>>()
+  const queue = new UniqueCellQueue<Value, SquareCell<Value>, Direction, StraightDirection>()
   const neighbors = cell.neighbors.list(ALL_DIRECTIONS)
   queue.ignore(cell)
   queue.addAll(neighbors)

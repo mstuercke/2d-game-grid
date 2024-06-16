@@ -1,7 +1,7 @@
 import {SquareGrid} from './SquareGrid'
 import {SquareNeighbors} from './SquareNeighbors'
 import {preInitializedGridOptionsFixture} from './SquareGrid.fixture'
-import type {Cell} from '@2d-game-grid/core'
+import type {SquareCell} from './SquareCell'
 
 describe('SquareNeighbors', () => {
   let grid: SquareGrid<string>
@@ -30,6 +30,6 @@ describe('SquareNeighbors', () => {
   })
 })
 
-function toValues<T>(cells: Cell<T>[]): T[] {
+function toValues<T>(cells: SquareCell<T>[]): T[] {
   return cells.map((cell) => cell.value)
 }

@@ -1,4 +1,4 @@
-import type {Column, Coordinate, Row} from '@2d-game-grid/core'
+import type {Column, Coordinate, Direction, Row, StraightDirection} from '@2d-game-grid/core'
 import {Cell} from '@2d-game-grid/core'
 import {SquareNeighbors} from './SquareNeighbors'
 import type {DistanceAlgorithm, PathfindingOptions} from './algorithms'
@@ -7,17 +7,23 @@ import type {SquareGrid} from './SquareGrid'
 import {getPath} from './algorithms/pathfinding/getPath'
 import {listCellsInDistance} from './algorithms/distance/listCellsInDistance'
 import {listReachableCells} from './algorithms/pathfinding/listReachableCells'
+import {SquareEdges} from './SquareEdges'
 
 /**
  * A Cell is part of a grid. It contains meta information like its coordinates inside the grid and the corresponding value.
  */
-export class SquareCell<Value> extends Cell<Value> {
+export class SquareCell<Value> extends Cell<Value, Direction, StraightDirection> {
   protected readonly grid: SquareGrid<Value>
 
   /**
    * An instance of the cells' neighbors
    */
   public readonly neighbors: SquareNeighbors<Value>
+
+  /**
+   * An instance of the cells' edges
+   */
+  public readonly edges: SquareEdges<Value>
 
   /**
    *
@@ -29,6 +35,7 @@ export class SquareCell<Value> extends Cell<Value> {
     super(coordinate, value)
     this.grid = grid
     this.neighbors = new SquareNeighbors<Value>(grid, this)
+    this.edges = new SquareEdges<Value>(grid, this)
   }
 
   /**
@@ -70,14 +77,14 @@ export class SquareCell<Value> extends Cell<Value> {
   /**
    * @returns The row of the cell
    */
-  getRow(): Row<Value, SquareCell<Value>> {
+  getRow(): Row<Value, SquareCell<Value>, Direction, StraightDirection> {
     return this.grid.getRow(this.row)
   }
 
   /**
    @returns The column of the cell
    */
-  getColumn(): Column<Value, SquareCell<Value>> {
+  getColumn(): Column<Value, SquareCell<Value>, Direction, StraightDirection> {
     return this.grid.getColumn(this.col)
   }
 

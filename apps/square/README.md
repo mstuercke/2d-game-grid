@@ -2,6 +2,7 @@
 A simple square grid made for games with built-in features like:
 - get the shortest path between cells
 - list reachable cells (pathfinding)
+- list cell edges
 - list cell neighbors
 - get distance between cells
 - list cells in distance

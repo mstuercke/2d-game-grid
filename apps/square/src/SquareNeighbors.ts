@@ -1,10 +1,17 @@
-import {ALL_DIRECTIONS, type Coordinate, type Direction, type NeighborCoordinate, Neighbors} from '@2d-game-grid/core'
+import {
+  ALL_DIRECTIONS,
+  type Coordinate,
+  type Direction,
+  type NeighborCoordinate,
+  Neighbors,
+  type StraightDirection,
+} from '@2d-game-grid/core'
 import type {SquareCell} from './SquareCell'
 
 /**
  * The representation of all neighbors of a cell
  */
-export class SquareNeighbors<Value> extends Neighbors<Value, SquareCell<Value>, Direction> {
+export class SquareNeighbors<Value> extends Neighbors<Value, SquareCell<Value>, Direction, StraightDirection> {
   /**
    * @param directions The allowed directions
    * @returns An array of all existing neighbor cell coordinates

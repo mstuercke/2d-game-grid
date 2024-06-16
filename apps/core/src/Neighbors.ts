@@ -7,13 +7,18 @@ import type {NeighborCoordinate} from './NeighborCoordinate'
 /**
  * The representation of all neighbors of a cell
  */
-export abstract class Neighbors<Value, CellWithValue extends Cell<Value>, AllowedDirection extends Direction> {
+export abstract class Neighbors<
+  Value,
+  CellWithValue extends Cell<Value, AllowedCellDirection, AllowedEdgeDirection>,
+  AllowedCellDirection extends Direction,
+  AllowedEdgeDirection extends AllowedCellDirection,
+> {
   /**
    * @param grid The grid the cell is part of
    * @param coordinate The coordinate in the grid
    */
   constructor(
-    protected grid: Grid<Value, CellWithValue>,
+    protected grid: Grid<Value, CellWithValue, AllowedCellDirection, AllowedEdgeDirection>,
     protected coordinate: Coordinate,
   ) {}
 
@@ -21,7 +26,7 @@ export abstract class Neighbors<Value, CellWithValue extends Cell<Value>, Allowe
    * @param direction The direction to the neighbor cell
    * @returns true if a cell in the given direction exists in the grid
    */
-  exists(direction: AllowedDirection): boolean {
+  exists(direction: AllowedCellDirection): boolean {
     const offset = this.getOffsetCoordinate(direction)
     const neighbor = {
       row: this.coordinate.row + offset.row,
@@ -36,7 +41,7 @@ export abstract class Neighbors<Value, CellWithValue extends Cell<Value>, Allowe
    * @returns The coordinate of the neighbor cell
    * @throws {NeighborDoesNotExistInGridError} when the neighbor cell does not exist in the grid
    */
-  getCoordinate(direction: AllowedDirection): NeighborCoordinate<AllowedDirection> {
+  getCoordinate(direction: AllowedCellDirection): NeighborCoordinate<AllowedCellDirection> {
     const coordinate = this.findCoordinate(direction)
     if (!coordinate) throw new NeighborDoesNotExistInGridError(this.grid, this.coordinate, direction)
     return coordinate
@@ -46,7 +51,7 @@ export abstract class Neighbors<Value, CellWithValue extends Cell<Value>, Allowe
    * @param direction The direction to the neighbor cell
    * @returns The coordinate of the neighbor cell or undefined
    */
-  findCoordinate(direction: AllowedDirection): NeighborCoordinate<AllowedDirection> | undefined {
+  findCoordinate(direction: AllowedCellDirection): NeighborCoordinate<AllowedCellDirection> | undefined {
     const offset = this.getOffsetCoordinate(direction)
     const coordinate: Coordinate = {
       row: this.coordinate.row + offset.row,
@@ -65,10 +70,10 @@ export abstract class Neighbors<Value, CellWithValue extends Cell<Value>, Allowe
    * @param directions The allowed directions
    * @returns An array of all existing neighbor cell coordinates
    */
-  listCoordinates(directions: AllowedDirection[]): NeighborCoordinate<AllowedDirection>[] {
+  listCoordinates(directions: AllowedCellDirection[]): NeighborCoordinate<AllowedCellDirection>[] {
     return directions
       .filter((direction) => this.exists(direction))
-      .reduce<NeighborCoordinate<AllowedDirection>[]>(
+      .reduce<NeighborCoordinate<AllowedCellDirection>[]>(
         (neighbors, direction) => [...neighbors, this.getCoordinate(direction)],
         [],
       )
@@ -79,7 +84,7 @@ export abstract class Neighbors<Value, CellWithValue extends Cell<Value>, Allowe
    * @returns The neighbor cell
    * @throws {NeighborDoesNotExistInGridError} when the neighbor cell does not exist in the grid
    */
-  get(direction: AllowedDirection): CellWithValue {
+  get(direction: AllowedCellDirection): CellWithValue {
     const cell = this.find(direction)
     if (!cell) throw new NeighborDoesNotExistInGridError(this.grid, this.coordinate, direction)
     return cell
@@ -89,7 +94,7 @@ export abstract class Neighbors<Value, CellWithValue extends Cell<Value>, Allowe
    * @param direction The direction to the neighbor cell
    * @returns The neighbor cell or undefined
    */
-  find(direction: AllowedDirection): CellWithValue | undefined {
+  find(direction: AllowedCellDirection): CellWithValue | undefined {
     const neighbor = this.findCoordinate(direction)
     return neighbor && this.grid.findCell(neighbor)
   }
@@ -98,7 +103,7 @@ export abstract class Neighbors<Value, CellWithValue extends Cell<Value>, Allowe
    * @param directions The allowed directions
    * @returns An array of all existing neighbor cells
    */
-  list(directions: AllowedDirection[]): CellWithValue[] {
+  list(directions: AllowedCellDirection[]): CellWithValue[] {
     return this.listCoordinates(directions).map((coordinate) => this.grid.getCell(coordinate))
   }
 
@@ -106,5 +111,5 @@ export abstract class Neighbors<Value, CellWithValue extends Cell<Value>, Allowe
    * @param direction The direction to the neighbor cell
    * @returns The offset in the direction (row and col are either -1, 0 or 1)
    */
-  protected abstract getOffsetCoordinate(direction: AllowedDirection): Coordinate
+  protected abstract getOffsetCoordinate(direction: AllowedCellDirection): Coordinate
 }

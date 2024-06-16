@@ -1,11 +1,11 @@
-import type {InitializeGridOptions} from '@2d-game-grid/core'
+import type {Direction, InitializeGridOptions, StraightDirection} from '@2d-game-grid/core'
 import {Grid} from '@2d-game-grid/core'
 import {SquareCell} from './SquareCell'
 
 /**
  * The grid contains all information about cells
  */
-export class SquareGrid<Value> extends Grid<Value, SquareCell<Value>> {
+export class SquareGrid<Value> extends Grid<Value, SquareCell<Value>, Direction, StraightDirection> {
   constructor(options: InitializeGridOptions<Value>) {
     super(options)
     this.initialize((coordinate, value) => new SquareCell(this, coordinate, value))

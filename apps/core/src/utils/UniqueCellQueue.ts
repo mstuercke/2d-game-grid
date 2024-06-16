@@ -1,10 +1,16 @@
 import type {Cell} from '../Cell'
 import {QueueIsEmptyError} from '../errors'
+import type {Direction} from '../Direction'
 
 /**
  * This queue will return each cell only once
  */
-export class UniqueCellQueue<Value, CellWithValue extends Cell<Value>> {
+export class UniqueCellQueue<
+  Value,
+  CellWithValue extends Cell<Value, AllowedCellDirection, AllowedEdgeDirection>,
+  AllowedCellDirection extends Direction,
+  AllowedEdgeDirection extends AllowedCellDirection,
+> {
   private queue: CellWithValue[] = []
   private cellIds: string[] = []
 

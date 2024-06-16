@@ -8,6 +8,7 @@ import type {FlatTopHexagonCell} from './FlatTopHexagonCell'
 export class FlatTopHexagonNeighbors<Value> extends Neighbors<
   Value,
   FlatTopHexagonCell<Value>,
+  FlatTopHexagonDirection,
   FlatTopHexagonDirection
 > {
   /**

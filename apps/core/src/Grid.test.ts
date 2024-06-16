@@ -2,13 +2,13 @@ import type {Grid} from './Grid'
 import {initializeGridOptionsFixture, preInitializedGridOptionsFixture, TestGrid} from './Grid.fixture'
 import type {Cell} from './Cell'
 import {GridEventDispatcher} from './utils'
-import {SquareGrid} from '@2d-game-grid/square'
+import type {TestEdgeDirection, TestNeighborDirection} from './Direction.fixture'
 
 jest.mock('./utils/GridEventDispatcher')
 const GridEventDispatcherMock = jest.mocked(GridEventDispatcher)
 
 describe('Grid', () => {
-  let grid: Grid<string, Cell<string>>
+  let grid: Grid<string, Cell<string, TestNeighborDirection, TestEdgeDirection>, TestNeighborDirection, TestEdgeDirection>
   const eventDispatcherMock = {
     onCellValueChanged: jest.fn(),
     dispatchCellValueChangedEvent: jest.fn(),
@@ -124,17 +124,17 @@ describe('Grid', () => {
   })
 
   describe('extend', () => {
-    const gridA = new SquareGrid<string>({
+    const gridA = new TestGrid({
       width: 2,
       height: 3,
       initializeCellValue: ({row, col}) => `A-${row}-${col}`,
     })
-    const gridB = new SquareGrid<string>({
+    const gridB = new TestGrid({
       width: 2,
       height: 3,
       initializeCellValue: ({row, col}) => `B-${row}-${col}`,
     })
-    const gridC = new SquareGrid<string>({
+    const gridC = new TestGrid({
       width: 3,
       height: 4,
       initializeCellValue: ({row, col}) => `C-${row}-${col}`,
@@ -162,7 +162,7 @@ describe('Grid', () => {
 
   describe('crop', () => {
     it('should crop', async () => {
-      const grid = new SquareGrid<string>({
+      const grid = new TestGrid({
         width: 10,
         height: 10,
         initializeCellValue: ({row, col}) => `${row}-${col}`,
@@ -203,6 +203,6 @@ describe('Grid', () => {
   })
 })
 
-function toValues<T>(grid: Cell<T>[][]): T[][] {
+function toValues<T>(grid: Cell<T, any, any>[][]): T[][] {
   return grid.map((row) => row.map((cell) => cell.value))
 }

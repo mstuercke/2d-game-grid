@@ -45,6 +45,6 @@ describe(FlatTopHexagonNeighbors.name, () => {
   })
 })
 
-function toValues<T>(cells: Cell<T>[]): T[] {
+function toValues<T>(cells: Cell<T, any, any>[]): T[] {
   return cells.map((cell) => cell.value)
 }

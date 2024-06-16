@@ -6,7 +6,12 @@ import type {Cell} from '../Cell'
 /**
  * An error that is thrown when the neighbor does not exist in the grid
  */
-export class NeighborDoesNotExistInGridError<Value, CellWithValue extends Cell<Value>> extends Error {
+export class NeighborDoesNotExistInGridError<
+  Value,
+  CellWithValue extends Cell<Value, AllowedCellDirection, AllowedEdgeDirection>,
+  AllowedCellDirection extends Direction,
+  AllowedEdgeDirection extends AllowedCellDirection,
+> extends Error {
   readonly type = NeighborDoesNotExistInGridError.name
 
   /**
@@ -14,7 +19,11 @@ export class NeighborDoesNotExistInGridError<Value, CellWithValue extends Cell<V
    * @param coordinate The coordinate of the source cell
    * @param direction The direction to the not existing neighbor
    */
-  constructor(grid: Grid<Value, CellWithValue>, coordinate: Coordinate, direction: Direction) {
+  constructor(
+    grid: Grid<Value, CellWithValue, AllowedCellDirection, AllowedEdgeDirection>,
+    coordinate: Coordinate,
+    direction: Direction,
+  ) {
     const {width, height} = grid
     const {row, col} = coordinate
     super(`Cell [row: ${row}, col: ${col}] has no ${direction} neighbor in grid [width: ${width}, height: ${height}]`)
