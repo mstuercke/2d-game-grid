@@ -1,6 +1,7 @@
 import {
   ALL_DIRECTIONS,
   type Coordinate,
+  type DiagonalDirection,
   type Direction,
   type NeighborCoordinate,
   Neighbors,
@@ -11,7 +12,13 @@ import type {SquareCell} from './SquareCell'
 /**
  * The representation of all neighbors of a cell
  */
-export class SquareNeighbors<Value> extends Neighbors<Value, SquareCell<Value>, Direction, StraightDirection> {
+export class SquareNeighbors<Value> extends Neighbors<
+  Value,
+  SquareCell<Value>,
+  Direction,
+  StraightDirection,
+  DiagonalDirection
+> {
   /**
    * @param directions The allowed directions
    * @returns An array of all existing neighbor cell coordinates

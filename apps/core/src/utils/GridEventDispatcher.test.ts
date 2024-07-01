@@ -1,12 +1,12 @@
 import {type CellValueChangedEvent, GridEventDispatcher} from './GridEventDispatcher'
-import type {TestEdgeDirection, TestNeighborDirection} from '../Direction.fixture'
+import type {TestCornerDirection, TestEdgeDirection, TestNeighborDirection} from '../Direction.fixture'
 
 describe('GridEventDispatcher', () => {
-  let eventDispatcher: GridEventDispatcher<string, TestNeighborDirection, TestEdgeDirection>
+  let eventDispatcher: GridEventDispatcher<string, TestNeighborDirection, TestEdgeDirection, TestCornerDirection>
 
   beforeEach(() => {
     jest.clearAllMocks()
-    eventDispatcher = new GridEventDispatcher<string, TestNeighborDirection, TestEdgeDirection>()
+    eventDispatcher = new GridEventDispatcher<string, TestNeighborDirection, TestEdgeDirection, TestCornerDirection>()
   })
 
   it('should register callback', async () => {
@@ -29,7 +29,7 @@ describe('GridEventDispatcher', () => {
     const callback2 = jest.fn()
     eventDispatcher.onCellValueChanged(callback1)
     eventDispatcher.onCellValueChanged(callback2)
-    const event = {} as CellValueChangedEvent<string, TestNeighborDirection, TestEdgeDirection>
+    const event = {} as CellValueChangedEvent<string, TestNeighborDirection, TestEdgeDirection, TestCornerDirection>
 
     eventDispatcher.dispatchCellValueChangedEvent(event)
 

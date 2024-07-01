@@ -2,11 +2,11 @@ import type {Grid} from '../Grid'
 import {preInitializedGridOptionsFixture, TestGrid} from '../Grid.fixture'
 import {UniqueCellQueue} from './UniqueCellQueue'
 import type {Cell} from '../Cell'
-import type {TestEdgeDirection, TestNeighborDirection} from '../Direction.fixture'
+import type {TestCornerDirection, TestEdgeDirection, TestNeighborDirection} from '../Direction.fixture'
 
 describe('UniqueCellQueue', () => {
-  let grid: Grid<string, Cell<string, TestNeighborDirection, TestEdgeDirection>, TestNeighborDirection, TestEdgeDirection>
-  let queue: UniqueCellQueue<string, Cell<string, TestNeighborDirection, TestEdgeDirection>, TestNeighborDirection, TestEdgeDirection>
+  let grid: Grid<string, Cell<string, TestNeighborDirection, TestEdgeDirection, TestCornerDirection>, TestNeighborDirection, TestEdgeDirection, TestCornerDirection>
+  let queue: UniqueCellQueue<string, Cell<string, TestNeighborDirection, TestEdgeDirection, TestCornerDirection>, TestNeighborDirection, TestEdgeDirection, TestCornerDirection>
 
   beforeEach(() => {
     grid = new TestGrid(preInitializedGridOptionsFixture)

@@ -1,13 +1,14 @@
 import {Edges} from '@2d-game-grid/core'
 import type {FlatTopHexagonCell} from './FlatTopHexagonCell'
-import type {FlatTopHexagonDirection} from './FlatTopHexagonDirection'
+import type {FlatTopHexagonCornerDirection, FlatTopHexagonNeighborDirection} from './FlatTopHexagonNeighborDirection'
 import type {FlatTopHexagonGrid} from './FlatTopHexagonGrid'
 
 export class FlatTopHexagonEdges<Value> extends Edges<
   Value,
   FlatTopHexagonCell<Value>,
-  FlatTopHexagonDirection,
-  FlatTopHexagonDirection
+  FlatTopHexagonNeighborDirection,
+  FlatTopHexagonNeighborDirection,
+  FlatTopHexagonCornerDirection
 > {
   constructor(
     protected grid: FlatTopHexagonGrid<Value>,
@@ -16,12 +17,12 @@ export class FlatTopHexagonEdges<Value> extends Edges<
     super(grid, cell)
   }
 
-  protected findNeighbor(direction: FlatTopHexagonDirection): FlatTopHexagonCell<Value> | undefined {
+  protected findNeighbor(direction: FlatTopHexagonNeighborDirection): FlatTopHexagonCell<Value> | undefined {
     return this.cell.neighbors.find(direction)
   }
 
-  protected getPreviousEdgeDirection(direction: FlatTopHexagonDirection): FlatTopHexagonDirection {
-    const directions: Record<FlatTopHexagonDirection, FlatTopHexagonDirection> = {
+  protected getPreviousEdgeDirection(direction: FlatTopHexagonNeighborDirection): FlatTopHexagonNeighborDirection {
+    const directions: Record<FlatTopHexagonNeighborDirection, FlatTopHexagonNeighborDirection> = {
       TOP_LEFT: 'BOTTOM_LEFT',
       TOP: 'TOP_LEFT',
       TOP_RIGHT: 'TOP',
@@ -32,8 +33,8 @@ export class FlatTopHexagonEdges<Value> extends Edges<
     return directions[direction]
   }
 
-  protected getNextEdgeDirection(direction: FlatTopHexagonDirection): FlatTopHexagonDirection {
-    const directions: Record<FlatTopHexagonDirection, FlatTopHexagonDirection> = {
+  protected getNextEdgeDirection(direction: FlatTopHexagonNeighborDirection): FlatTopHexagonNeighborDirection {
+    const directions: Record<FlatTopHexagonNeighborDirection, FlatTopHexagonNeighborDirection> = {
       TOP_LEFT: 'TOP',
       TOP: 'TOP_RIGHT',
       TOP_RIGHT: 'BOTTOM_RIGHT',

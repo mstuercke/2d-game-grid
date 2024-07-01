@@ -1,4 +1,4 @@
-import type {Column, Coordinate, Direction, Row, StraightDirection} from '@2d-game-grid/core'
+import type {Column, Coordinate, DiagonalDirection, Direction, Row, StraightDirection} from '@2d-game-grid/core'
 import {Cell} from '@2d-game-grid/core'
 import {SquareNeighbors} from './SquareNeighbors'
 import type {DistanceAlgorithm, PathfindingOptions} from './algorithms'
@@ -8,11 +8,12 @@ import {getPath} from './algorithms/pathfinding/getPath'
 import {listCellsInDistance} from './algorithms/distance/listCellsInDistance'
 import {listReachableCells} from './algorithms/pathfinding/listReachableCells'
 import {SquareEdges} from './SquareEdges'
+import {SquareCorners} from './SquareCorners'
 
 /**
  * A Cell is part of a grid. It contains meta information like its coordinates inside the grid and the corresponding value.
  */
-export class SquareCell<Value> extends Cell<Value, Direction, StraightDirection> {
+export class SquareCell<Value> extends Cell<Value, Direction, StraightDirection, DiagonalDirection> {
   protected readonly grid: SquareGrid<Value>
 
   /**
@@ -26,6 +27,11 @@ export class SquareCell<Value> extends Cell<Value, Direction, StraightDirection>
   public readonly edges: SquareEdges<Value>
 
   /**
+   * An instance of the cells' corners
+   */
+  public readonly corners: SquareCorners<Value>
+
+  /**
    *
    * @param grid The grid this cell is part of
    * @param coordinate The coordinate in the grid
@@ -36,6 +42,7 @@ export class SquareCell<Value> extends Cell<Value, Direction, StraightDirection>
     this.grid = grid
     this.neighbors = new SquareNeighbors<Value>(grid, this)
     this.edges = new SquareEdges<Value>(grid, this)
+    this.corners = new SquareCorners<Value>(grid, this)
   }
 
   /**
@@ -77,14 +84,14 @@ export class SquareCell<Value> extends Cell<Value, Direction, StraightDirection>
   /**
    * @returns The row of the cell
    */
-  getRow(): Row<Value, SquareCell<Value>, Direction, StraightDirection> {
+  getRow(): Row<Value, SquareCell<Value>, Direction, StraightDirection, DiagonalDirection> {
     return this.grid.getRow(this.row)
   }
 
   /**
    @returns The column of the cell
    */
-  getColumn(): Column<Value, SquareCell<Value>, Direction, StraightDirection> {
+  getColumn(): Column<Value, SquareCell<Value>, Direction, StraightDirection, DiagonalDirection> {
     return this.grid.getColumn(this.col)
   }
 

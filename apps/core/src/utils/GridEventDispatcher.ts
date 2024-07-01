@@ -6,13 +6,14 @@ import type {Direction} from '../Direction'
  */
 export interface CellValueChangedEvent<
   Value,
-  AllowedCellDirection extends Direction,
-  AllowedEdgeDirection extends AllowedCellDirection,
+  AllowedNeighborDirection extends Direction,
+  AllowedEdgeDirection extends AllowedNeighborDirection,
+  AllowedCornerDirection extends Direction,
 > {
   /**
    * The cell which value has changed
    */
-  cell: Cell<Value, AllowedCellDirection, AllowedEdgeDirection>
+  cell: Cell<Value, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>
 
   /**
    * The cell value before the change
@@ -25,11 +26,12 @@ export interface CellValueChangedEvent<
  */
 export class GridEventDispatcher<
   Value,
-  AllowedCellDirection extends Direction,
-  AllowedEdgeDirection extends AllowedCellDirection,
+  AllowedNeighborDirection extends Direction,
+  AllowedEdgeDirection extends AllowedNeighborDirection,
+  AllowedCornerDirection extends Direction,
 > {
   public cellValueChangedListeners: ((
-    event: CellValueChangedEvent<Value, AllowedCellDirection, AllowedEdgeDirection>,
+    event: CellValueChangedEvent<Value, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>,
   ) => void)[] = []
 
   /**
@@ -37,7 +39,9 @@ export class GridEventDispatcher<
    * @returns a function to unregister the callback
    */
   onCellValueChanged(
-    callback: (event: CellValueChangedEvent<Value, AllowedCellDirection, AllowedEdgeDirection>) => void,
+    callback: (
+      event: CellValueChangedEvent<Value, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>,
+    ) => void,
   ): () => void {
     this.cellValueChangedListeners.push(callback)
     return () => {
@@ -49,7 +53,9 @@ export class GridEventDispatcher<
   /**
    * @param event The event that should be dispatched to all registered callbacks
    */
-  dispatchCellValueChangedEvent(event: CellValueChangedEvent<Value, AllowedCellDirection, AllowedEdgeDirection>): void {
+  dispatchCellValueChangedEvent(
+    event: CellValueChangedEvent<Value, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>,
+  ): void {
     for (const listener of this.cellValueChangedListeners) {
       listener(event)
     }

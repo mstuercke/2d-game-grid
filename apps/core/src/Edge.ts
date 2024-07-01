@@ -7,9 +7,10 @@ import type {Edges} from './Edges'
  */
 export class Edge<
   Value,
-  CellWithValue extends Cell<Value, AllowedCellDirection, AllowedEdgeDirection>,
-  AllowedCellDirection extends Direction,
-  AllowedEdgeDirection extends AllowedCellDirection = AllowedCellDirection,
+  CellWithValue extends Cell<Value, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>,
+  AllowedNeighborDirection extends Direction,
+  AllowedEdgeDirection extends AllowedNeighborDirection,
+  AllowedCornerDirection extends Direction,
 > {
   public id: string
 
@@ -19,18 +20,24 @@ export class Edge<
    * @param getNextEdgeDirection
    * @param sourceCell
    * @param direction
-   * @param adjacentCell
+   * @param neighborCell
    */
   constructor(
-    protected edges: Edges<Value, CellWithValue, AllowedCellDirection, AllowedEdgeDirection>,
+    protected edges: Edges<
+      Value,
+      CellWithValue,
+      AllowedNeighborDirection,
+      AllowedEdgeDirection,
+      AllowedCornerDirection
+    >,
     private getPreviousEdgeDirection: (direction: AllowedEdgeDirection) => AllowedEdgeDirection,
     private getNextEdgeDirection: (direction: AllowedEdgeDirection) => AllowedEdgeDirection,
-    public sourceCell: Cell<Value, AllowedCellDirection, AllowedEdgeDirection>,
+    public sourceCell: CellWithValue,
     public direction: AllowedEdgeDirection,
-    public adjacentCell?: Cell<Value, AllowedCellDirection, AllowedEdgeDirection>,
+    public neighborCell?: CellWithValue,
   ) {
-    const cellIds = adjacentCell
-      ? [sourceCell.id, adjacentCell.id].toSorted().join(':')
+    const cellIds = neighborCell
+      ? [sourceCell.id, neighborCell.id].toSorted().join(':')
       : [sourceCell.id, direction].join(':')
 
     this.id = `edge[${cellIds}]`
@@ -40,7 +47,13 @@ export class Edge<
    * @returns The previous connected edge (e.g. for a square, the previous edge of "top" would be "left")
    * @protected
    */
-  public getPreviousEdge(): Edge<Value, CellWithValue, AllowedCellDirection, AllowedEdgeDirection> {
+  public getPreviousEdge(): Edge<
+    Value,
+    CellWithValue,
+    AllowedNeighborDirection,
+    AllowedEdgeDirection,
+    AllowedCornerDirection
+  > {
     return this.edges.get(this.getPreviousEdgeDirection(this.direction))
   }
 
@@ -48,7 +61,13 @@ export class Edge<
    * @returns The next connected edge (e.g. for a square, the next edge of "top" would be "right")
    * @protected
    */
-  public getNextEdge(): Edge<Value, CellWithValue, AllowedCellDirection, AllowedEdgeDirection> {
+  public getNextEdge(): Edge<
+    Value,
+    CellWithValue,
+    AllowedNeighborDirection,
+    AllowedEdgeDirection,
+    AllowedCornerDirection
+  > {
     return this.edges.get(this.getNextEdgeDirection(this.direction))
   }
 }

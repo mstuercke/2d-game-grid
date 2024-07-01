@@ -2,7 +2,7 @@ import {Grid, type InitializeGridOptions, type InitializeNewGridOptions, type Pr
 import type {Cell} from './Cell'
 import type {Coordinate} from './Coordinate'
 import {TestCell} from './Cell.fixture'
-import type {TestEdgeDirection, TestNeighborDirection} from './Direction.fixture'
+import type {TestCornerDirection, TestEdgeDirection, TestNeighborDirection} from './Direction.fixture'
 
 export const preInitializedGridOptionsFixture: PreInitializedGridOptions<string> = {
   grid: [
@@ -18,13 +18,13 @@ export const initializeGridOptionsFixture: InitializeNewGridOptions<string> = {
   initializeCellValue: ({row, col}) => `${row}-${col}`,
 }
 
-export class TestGrid extends Grid<string, Cell<string, TestNeighborDirection, TestEdgeDirection>, TestNeighborDirection, TestEdgeDirection> {
+export class TestGrid extends Grid<string, Cell<string, TestNeighborDirection, TestEdgeDirection, TestCornerDirection>, TestNeighborDirection, TestEdgeDirection, TestCornerDirection> {
   constructor(options: InitializeNewGridOptions<string> | PreInitializedGridOptions<string> = preInitializedGridOptionsFixture) {
     super(options)
     this.initialize((coordinate: Coordinate, value: string) => new TestCell(this, coordinate, value))
   }
 
-  protected initializeGrid(options: InitializeGridOptions<string>): Grid<string, Cell<string, TestNeighborDirection, TestEdgeDirection>, TestNeighborDirection, TestEdgeDirection> {
+  protected initializeGrid(options: InitializeGridOptions<string>): Grid<string, Cell<string, TestNeighborDirection, TestEdgeDirection, TestCornerDirection>, TestNeighborDirection, TestEdgeDirection, TestCornerDirection> {
     return new TestGrid(options)
   }
 }

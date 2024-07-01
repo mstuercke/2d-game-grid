@@ -8,9 +8,10 @@ import type {Direction} from '../Direction'
  */
 export class CellDoesNotExistInGridError<
   Value,
-  CellWithValue extends Cell<Value, AllowedCellDirection, AllowedEdgeDirection>,
-  AllowedCellDirection extends Direction,
-  AllowedEdgeDirection extends AllowedCellDirection,
+  CellWithValue extends Cell<Value, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>,
+  AllowedNeighborDirection extends Direction,
+  AllowedEdgeDirection extends AllowedNeighborDirection,
+  AllowedCornerDirection extends Direction,
 > extends Error {
   readonly type = CellDoesNotExistInGridError.name
 
@@ -18,7 +19,10 @@ export class CellDoesNotExistInGridError<
    * @param grid The grid
    * @param coordinate The coordinate of the not existing cell
    */
-  constructor(grid: Grid<Value, CellWithValue, AllowedCellDirection, AllowedEdgeDirection>, coordinate: Coordinate) {
+  constructor(
+    grid: Grid<Value, CellWithValue, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>,
+    coordinate: Coordinate,
+  ) {
     const {width, height} = grid
     const {row, col} = coordinate
     super(`Cell [row: ${row}, col: ${col}] does not exist in grid [width: ${width}, height: ${height}]`)

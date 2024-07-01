@@ -1,10 +1,10 @@
 import {Row} from './Row'
 import type {Cell} from './Cell'
 import {preInitializedGridOptionsFixture, TestGrid} from './Grid.fixture'
-import type {TestEdgeDirection, TestNeighborDirection} from './Direction.fixture'
+import type {TestCornerDirection, TestEdgeDirection, TestNeighborDirection} from './Direction.fixture'
 
 describe('Row', () => {
-  let row: Row<string, Cell<string, TestNeighborDirection, TestEdgeDirection>, TestNeighborDirection, TestEdgeDirection>
+  let row: Row<string, Cell<string, TestNeighborDirection, TestEdgeDirection, TestCornerDirection>, TestNeighborDirection, TestEdgeDirection, TestCornerDirection>
 
   beforeEach(() => {
     jest.clearAllMocks()

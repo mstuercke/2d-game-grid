@@ -1,10 +1,10 @@
 import {FlatTopHexagonEdges} from './FlatTopHexagonEdges'
-import {FLAT_TOP_HEXAGON_DIRECTIONS} from './FlatTopHexagonDirection'
+import {FLAT_TOP_HEXAGON_NEIGHBOR_DIRECTIONS} from './FlatTopHexagonNeighborDirection'
 import {FlatTopHexagonGrid} from './FlatTopHexagonGrid'
 import {preInitializedGridOptionsFixture} from './FlatTopHexagonGrid.fixture'
 
 describe(FlatTopHexagonEdges.name, () => {
-  it.each(FLAT_TOP_HEXAGON_DIRECTIONS)('should have consistent previous/next directions for %s', (direction) => {
+  it.each(FLAT_TOP_HEXAGON_NEIGHBOR_DIRECTIONS)('should have consistent previous/next directions for %s', (direction) => {
     const grid = new FlatTopHexagonGrid(preInitializedGridOptionsFixture)
     const cell = grid.getCell({row: 1, col: 1})
 

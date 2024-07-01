@@ -74,6 +74,6 @@ describe('Neighbors', () => {
   })
 })
 
-function toValues<T>(cells: Cell<T, any, any>[]): T[] {
+function toValues<T>(cells: Cell<T, any, any, any>[]): T[] {
   return cells.map((cell) => cell.value)
 }

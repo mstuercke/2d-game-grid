@@ -5,14 +5,16 @@ import type {Column} from './Column'
 import type {Direction} from './Direction'
 import type {Neighbors} from './Neighbors'
 import type {Edges} from './Edges'
+import type {Corners} from './Corners'
 
 /**
  * A Cell is part of a grid. It contains meta information like its coordinates inside the grid and the corresponding value.
  */
 export abstract class Cell<
   Value,
-  AllowedCellDirection extends Direction,
-  AllowedEdgeDirection extends AllowedCellDirection,
+  AllowedNeighborDirection extends Direction,
+  AllowedEdgeDirection extends AllowedNeighborDirection,
+  AllowedCornerDirection extends Direction,
 > implements Coordinate
 {
   public readonly id: string
@@ -21,19 +23,33 @@ export abstract class Cell<
 
   public abstract readonly neighbors: Neighbors<
     Value,
-    Cell<Value, AllowedCellDirection, AllowedEdgeDirection>,
-    AllowedCellDirection,
-    AllowedEdgeDirection
+    Cell<Value, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>,
+    AllowedNeighborDirection,
+    AllowedEdgeDirection,
+    AllowedCornerDirection
   >
   public abstract readonly edges: Edges<
     Value,
-    Cell<Value, AllowedCellDirection, AllowedEdgeDirection>,
-    AllowedCellDirection,
-    AllowedEdgeDirection
+    Cell<Value, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>,
+    AllowedNeighborDirection,
+    AllowedEdgeDirection,
+    AllowedCornerDirection
+  >
+  public abstract readonly corners: Corners<
+    Value,
+    Cell<Value, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>,
+    AllowedNeighborDirection,
+    AllowedEdgeDirection,
+    AllowedCornerDirection
   >
 
   private _value: Value
-  private readonly eventDispatcher: GridEventDispatcher<Value, AllowedCellDirection, AllowedEdgeDirection>
+  private readonly eventDispatcher: GridEventDispatcher<
+    Value,
+    AllowedNeighborDirection,
+    AllowedEdgeDirection,
+    AllowedCornerDirection
+  >
 
   /**
    * @param coordinate The coordinate in the grid
@@ -44,7 +60,12 @@ export abstract class Cell<
     this.row = coordinate.row
     this.col = coordinate.col
     this._value = value
-    this.eventDispatcher = new GridEventDispatcher<Value, AllowedCellDirection, AllowedEdgeDirection>()
+    this.eventDispatcher = new GridEventDispatcher<
+      Value,
+      AllowedNeighborDirection,
+      AllowedEdgeDirection,
+      AllowedCornerDirection
+    >()
   }
 
   /**
@@ -68,7 +89,9 @@ export abstract class Cell<
    * @returns a function to unregister the callback
    */
   onValueChanged(
-    callback: (event: CellValueChangedEvent<Value, AllowedCellDirection, AllowedEdgeDirection>) => void,
+    callback: (
+      event: CellValueChangedEvent<Value, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>,
+    ) => void,
   ): () => void {
     return this.eventDispatcher.onCellValueChanged(callback)
   }
@@ -78,9 +101,10 @@ export abstract class Cell<
    */
   abstract getRow(): Row<
     Value,
-    Cell<Value, AllowedCellDirection, AllowedEdgeDirection>,
-    AllowedCellDirection,
-    AllowedEdgeDirection
+    Cell<Value, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>,
+    AllowedNeighborDirection,
+    AllowedEdgeDirection,
+    AllowedCornerDirection
   >
 
   /**
@@ -88,14 +112,17 @@ export abstract class Cell<
    */
   abstract getColumn(): Column<
     Value,
-    Cell<Value, AllowedCellDirection, AllowedEdgeDirection>,
-    AllowedCellDirection,
-    AllowedEdgeDirection
+    Cell<Value, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>,
+    AllowedNeighborDirection,
+    AllowedEdgeDirection,
+    AllowedCornerDirection
   >
 
   /**
    * @param cloneValue A custom function to clone the value of this cell (defaults to copying the value)
    * @returns The cloned cell
    */
-  abstract clone(cloneValue?: (value: Value) => Value): Cell<Value, AllowedCellDirection, AllowedEdgeDirection>
+  abstract clone(
+    cloneValue?: (value: Value) => Value,
+  ): Cell<Value, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>
 }

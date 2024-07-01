@@ -2,9 +2,15 @@ import {Cell, type Column, type Coordinate, type Row} from '@2d-game-grid/core'
 import type {FlatTopHexagonGrid} from './FlatTopHexagonGrid'
 import {FlatTopHexagonNeighbors} from './FlatTopHexagonNeighbors'
 import {FlatTopHexagonEdges} from './FlatTopHexagonEdges'
-import type {FlatTopHexagonDirection} from './FlatTopHexagonDirection'
+import type {FlatTopHexagonCornerDirection, FlatTopHexagonNeighborDirection} from './FlatTopHexagonNeighborDirection'
+import {FlatTopHexagonCorners} from './FlatTopHexagonCorners'
 
-export class FlatTopHexagonCell<Value> extends Cell<Value, FlatTopHexagonDirection, FlatTopHexagonDirection> {
+export class FlatTopHexagonCell<Value> extends Cell<
+  Value,
+  FlatTopHexagonNeighborDirection,
+  FlatTopHexagonNeighborDirection,
+  FlatTopHexagonCornerDirection
+> {
   protected readonly grid: FlatTopHexagonGrid<Value>
 
   /**
@@ -18,6 +24,11 @@ export class FlatTopHexagonCell<Value> extends Cell<Value, FlatTopHexagonDirecti
   public readonly edges: FlatTopHexagonEdges<Value>
 
   /**
+   * An instance of the cells' corners
+   */
+  public readonly corners: FlatTopHexagonCorners<Value>
+
+  /**
    *
    * @param grid The grid this cell is part of
    * @param coordinate The coordinate in the grid
@@ -28,19 +39,32 @@ export class FlatTopHexagonCell<Value> extends Cell<Value, FlatTopHexagonDirecti
     this.grid = grid
     this.neighbors = new FlatTopHexagonNeighbors<Value>(grid, this)
     this.edges = new FlatTopHexagonEdges<Value>(grid, this)
+    this.corners = new FlatTopHexagonCorners<Value>(grid, this)
   }
 
   /**
    * @returns The row of the cell
    */
-  getRow(): Row<Value, FlatTopHexagonCell<Value>, FlatTopHexagonDirection, FlatTopHexagonDirection> {
+  getRow(): Row<
+    Value,
+    FlatTopHexagonCell<Value>,
+    FlatTopHexagonNeighborDirection,
+    FlatTopHexagonNeighborDirection,
+    FlatTopHexagonCornerDirection
+  > {
     return this.grid.getRow(this.row)
   }
 
   /**
    @returns The column of the cell
    */
-  getColumn(): Column<Value, FlatTopHexagonCell<Value>, FlatTopHexagonDirection, FlatTopHexagonDirection> {
+  getColumn(): Column<
+    Value,
+    FlatTopHexagonCell<Value>,
+    FlatTopHexagonNeighborDirection,
+    FlatTopHexagonNeighborDirection,
+    FlatTopHexagonCornerDirection
+  > {
     return this.grid.getColumn(this.col)
   }
 

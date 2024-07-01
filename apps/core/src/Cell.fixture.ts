@@ -7,13 +7,14 @@ import type {Edges} from './Edges'
 import {TestNeighbors} from './Neighbors.fixture'
 import {TestEdges} from './Edges.fixture'
 import type {Neighbors} from './Neighbors'
-import type {TestEdgeDirection} from './Direction.fixture'
+import type {TestCornerDirection, TestEdgeDirection, TestNeighborDirection} from './Direction.fixture'
+import type {Corners} from './Corners'
+import {TestCorners} from './Corners.fixture'
 
-type AllowedCellDirection = 'LEFT' | 'RIGHT'
-
-export class TestCell extends Cell<string, AllowedCellDirection, TestEdgeDirection> {
-  public readonly neighbors: Neighbors<string, Cell<string, AllowedCellDirection, TestEdgeDirection>, AllowedCellDirection, TestEdgeDirection>
-  public readonly edges: Edges<string, Cell<string, AllowedCellDirection, TestEdgeDirection>, AllowedCellDirection>
+export class TestCell extends Cell<string, TestNeighborDirection, TestEdgeDirection, TestCornerDirection> {
+  public readonly neighbors: Neighbors<string, Cell<string, TestNeighborDirection, TestEdgeDirection, TestCornerDirection>, TestNeighborDirection, TestEdgeDirection, TestCornerDirection>
+  public readonly edges: Edges<string, Cell<string, TestNeighborDirection, TestEdgeDirection, TestCornerDirection>, TestNeighborDirection, TestEdgeDirection, TestCornerDirection>
+  public readonly corners: Corners<string, Cell<string, TestNeighborDirection, TestEdgeDirection, TestCornerDirection>, TestNeighborDirection, TestEdgeDirection, TestCornerDirection>
 
   constructor(
     private grid: TestGrid,
@@ -24,12 +25,13 @@ export class TestCell extends Cell<string, AllowedCellDirection, TestEdgeDirecti
 
     this.neighbors = new TestNeighbors(this.grid, this)
     this.edges = new TestEdges(this.grid, this)
+    this.corners = new TestCorners(this.grid, this)
   }
-  getRow(): Row<string, Cell<string, AllowedCellDirection, TestEdgeDirection>, AllowedCellDirection, TestEdgeDirection> {
+  getRow(): Row<string, Cell<string, TestNeighborDirection, TestEdgeDirection, TestCornerDirection>, TestNeighborDirection, TestEdgeDirection, TestCornerDirection> {
     return this.grid.getRow(this.row)
   }
 
-  getColumn(): Column<string, Cell<string, AllowedCellDirection, TestEdgeDirection>, AllowedCellDirection, TestEdgeDirection> {
+  getColumn(): Column<string, Cell<string, TestNeighborDirection, TestEdgeDirection, TestCornerDirection>, TestNeighborDirection, TestEdgeDirection, TestCornerDirection> {
     return this.grid.getColumn(this.col)
   }
 

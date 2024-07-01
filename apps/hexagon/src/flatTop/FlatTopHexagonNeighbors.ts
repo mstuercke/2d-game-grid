@@ -1,5 +1,9 @@
 import {type Coordinate, type NeighborCoordinate, Neighbors} from '@2d-game-grid/core'
-import {FLAT_TOP_HEXAGON_DIRECTIONS, type FlatTopHexagonDirection} from './FlatTopHexagonDirection'
+import {
+  FLAT_TOP_HEXAGON_NEIGHBOR_DIRECTIONS,
+  type FlatTopHexagonCornerDirection,
+  type FlatTopHexagonNeighborDirection,
+} from './FlatTopHexagonNeighborDirection'
 import type {FlatTopHexagonCell} from './FlatTopHexagonCell'
 
 /**
@@ -8,16 +12,17 @@ import type {FlatTopHexagonCell} from './FlatTopHexagonCell'
 export class FlatTopHexagonNeighbors<Value> extends Neighbors<
   Value,
   FlatTopHexagonCell<Value>,
-  FlatTopHexagonDirection,
-  FlatTopHexagonDirection
+  FlatTopHexagonNeighborDirection,
+  FlatTopHexagonNeighborDirection,
+  FlatTopHexagonCornerDirection
 > {
   /**
    * @param directions The allowed directions
    * @returns An array of all existing neighbor cell coordinates
    */
   listCoordinates(
-    directions: FlatTopHexagonDirection[] = FLAT_TOP_HEXAGON_DIRECTIONS,
-  ): NeighborCoordinate<FlatTopHexagonDirection>[] {
+    directions: FlatTopHexagonNeighborDirection[] = FLAT_TOP_HEXAGON_NEIGHBOR_DIRECTIONS,
+  ): NeighborCoordinate<FlatTopHexagonNeighborDirection>[] {
     return super.listCoordinates(directions)
   }
 
@@ -25,11 +30,13 @@ export class FlatTopHexagonNeighbors<Value> extends Neighbors<
    * @param directions The allowed directions
    * @returns An array of all existing neighbor cells
    */
-  list(directions: FlatTopHexagonDirection[] = FLAT_TOP_HEXAGON_DIRECTIONS): FlatTopHexagonCell<Value>[] {
+  list(
+    directions: FlatTopHexagonNeighborDirection[] = FLAT_TOP_HEXAGON_NEIGHBOR_DIRECTIONS,
+  ): FlatTopHexagonCell<Value>[] {
     return super.list(directions)
   }
 
-  protected getOffsetCoordinate(direction: FlatTopHexagonDirection): Coordinate {
+  protected getOffsetCoordinate(direction: FlatTopHexagonNeighborDirection): Coordinate {
     const isOddCol = this.coordinate.col % 2 === 1
     return isOddCol
       ? {

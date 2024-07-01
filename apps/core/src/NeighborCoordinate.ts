@@ -4,7 +4,7 @@ import type {Coordinate} from './Coordinate'
 /**
  * The Coordinate defines the position of a cell inside a grid
  */
-export interface NeighborCoordinate<AllowedCellDirection extends Direction> extends Coordinate {
+export interface NeighborCoordinate<AllowedNeighborDirection extends Direction> extends Coordinate {
   /**
    * The coordinate that points to this coordinate
    */
@@ -13,5 +13,5 @@ export interface NeighborCoordinate<AllowedCellDirection extends Direction> exte
   /**
    * The direction of the source coordinate to this coordinate
    */
-  direction: AllowedCellDirection
+  direction: AllowedNeighborDirection
 }

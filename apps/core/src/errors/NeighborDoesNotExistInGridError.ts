@@ -8,9 +8,10 @@ import type {Cell} from '../Cell'
  */
 export class NeighborDoesNotExistInGridError<
   Value,
-  CellWithValue extends Cell<Value, AllowedCellDirection, AllowedEdgeDirection>,
-  AllowedCellDirection extends Direction,
-  AllowedEdgeDirection extends AllowedCellDirection,
+  CellWithValue extends Cell<Value, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>,
+  AllowedNeighborDirection extends Direction,
+  AllowedEdgeDirection extends AllowedNeighborDirection,
+  AllowedCornerDirection extends Direction,
 > extends Error {
   readonly type = NeighborDoesNotExistInGridError.name
 
@@ -20,7 +21,7 @@ export class NeighborDoesNotExistInGridError<
    * @param direction The direction to the not existing neighbor
    */
   constructor(
-    grid: Grid<Value, CellWithValue, AllowedCellDirection, AllowedEdgeDirection>,
+    grid: Grid<Value, CellWithValue, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>,
     coordinate: Coordinate,
     direction: Direction,
   ) {

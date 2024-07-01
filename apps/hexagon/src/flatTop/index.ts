@@ -1,5 +1,5 @@
 export type * from './FlatTopHexagonCell'
-export type * from './FlatTopHexagonDirection'
+export type * from './FlatTopHexagonNeighborDirection'
 export type * from './FlatTopHexagonEdges'
 export * from './FlatTopHexagonGrid'
 export type * from './FlatTopHexagonNeighbors'

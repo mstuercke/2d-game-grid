@@ -2,13 +2,13 @@ import type {Grid} from './Grid'
 import {initializeGridOptionsFixture, preInitializedGridOptionsFixture, TestGrid} from './Grid.fixture'
 import type {Cell} from './Cell'
 import {GridEventDispatcher} from './utils'
-import type {TestEdgeDirection, TestNeighborDirection} from './Direction.fixture'
+import type {TestCornerDirection, TestEdgeDirection, TestNeighborDirection} from './Direction.fixture'
 
 jest.mock('./utils/GridEventDispatcher')
 const GridEventDispatcherMock = jest.mocked(GridEventDispatcher)
 
 describe('Grid', () => {
-  let grid: Grid<string, Cell<string, TestNeighborDirection, TestEdgeDirection>, TestNeighborDirection, TestEdgeDirection>
+  let grid: Grid<string, Cell<string, TestNeighborDirection, TestEdgeDirection, TestCornerDirection>, TestNeighborDirection, TestEdgeDirection, TestCornerDirection>
   const eventDispatcherMock = {
     onCellValueChanged: jest.fn(),
     dispatchCellValueChangedEvent: jest.fn(),
@@ -203,6 +203,6 @@ describe('Grid', () => {
   })
 })
 
-function toValues<T>(grid: Cell<T, any, any>[][]): T[][] {
+function toValues<T>(grid: Cell<T, any, any, any>[][]): T[][] {
   return grid.map((row) => row.map((cell) => cell.value))
 }
