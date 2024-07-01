@@ -204,10 +204,7 @@ export abstract class Grid<TValue, TDirections extends Directions, TCell extends
    * @param addDirection The direction at that the given grid should be placed
    * @returns a new grid
    */
-  extend<GridType extends Grid<TValue, TDirections, TCell>>(
-    gridToAdd: Grid<TValue, TDirections, TCell>,
-    addDirection: StraightDirection,
-  ): GridType {
+  extend(gridToAdd: typeof this, addDirection: StraightDirection): typeof this {
     if ((addDirection === 'LEFT' || addDirection === 'RIGHT') && this.height !== gridToAdd.height)
       throw new UnequalGridHeightError(this.height, gridToAdd.height)
 
@@ -220,22 +217,22 @@ export abstract class Grid<TValue, TDirections extends Directions, TCell extends
       case 'TOP':
         return this.initializeGrid({
           grid: [...gridToAdd.rows.map(extractValues), ...this.rows.map(extractValues)],
-        }) as GridType
+        }) as typeof this
 
       case 'BOTTOM':
         return this.initializeGrid({
           grid: [...this.rows.map(extractValues), ...gridToAdd.rows.map(extractValues)],
-        }) as GridType
+        }) as typeof this
 
       case 'LEFT':
         return this.initializeGrid({
           grid: this.rows.map((row) => [...extractValues(gridToAdd.getRow(row.row)), ...extractValues(row)]),
-        }) as GridType
+        }) as typeof this
 
       case 'RIGHT':
         return this.initializeGrid({
           grid: this.rows.map((row) => [...extractValues(row), ...extractValues(gridToAdd.getRow(row.row))]),
-        }) as GridType
+        }) as typeof this
     }
   }
 
@@ -244,7 +241,7 @@ export abstract class Grid<TValue, TDirections extends Directions, TCell extends
    * @param bottomRight The coordinate of the bottom/right where the new grid should end
    * @returns a new grid
    */
-  crop<GridType extends Grid<TValue, TDirections, TCell>>(topLeft: Coordinate, bottomRight: Coordinate): GridType {
+  crop(topLeft: Coordinate, bottomRight: Coordinate): typeof this {
     const width = bottomRight.col - topLeft.col
     const height = bottomRight.row - topLeft.row
     if (width <= 0 || height <= 0) throw new InvalidGridSizeError(width, height)
@@ -255,21 +252,19 @@ export abstract class Grid<TValue, TDirections extends Directions, TCell extends
         .filter(({row}) => row <= bottomRight.row)
         .map((row) => row.cells.filter(({col}) => col >= topLeft.col).filter(({col}) => col <= bottomRight.col))
         .map((cells) => cells.map((cell) => cell.value)),
-    }) as GridType
+    }) as typeof this
   }
 
   /**
    * @param cloneValue A custom function to clone the value of a cell (defaults to copying the value)
    * @returns The cloned grid
    */
-  clone<GridType extends Grid<TValue, TDirections, TCell>>(
-    cloneValue: (value: TValue) => TValue = (value) => value,
-  ): GridType {
+  clone(cloneValue: (value: TValue) => TValue = (value) => value): typeof this {
     return this.initializeGrid({
       width: this.width,
       height: this.height,
       initializeCellValue: ({row, col}) => cloneValue(this.grid[row][col].value),
-    }) as GridType
+    }) as typeof this
   }
 
   protected abstract initializeGrid(options: InitializeGridOptions<TValue>): Grid<TValue, TDirections, TCell>
