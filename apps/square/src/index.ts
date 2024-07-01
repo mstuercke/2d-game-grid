@@ -1,4 +1,4 @@
-export type {
+export {
   StraightDirection,
   DiagonalDirection,
   Direction,

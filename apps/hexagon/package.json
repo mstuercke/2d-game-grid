@@ -1,6 +1,6 @@
 {
   "name": "@2d-game-grid/hexagon",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A simple hexagon grid made for games",
   "keywords": [
     "grid",
