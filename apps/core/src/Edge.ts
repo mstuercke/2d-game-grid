@@ -1,6 +1,7 @@
 import type {Direction} from './Direction'
 import type {Cell} from './Cell'
 import type {Edges} from './Edges'
+import {mapShortCellId} from './utils/mapShortCellId'
 
 /**
  * The representation of an edge of a cell
@@ -37,8 +38,8 @@ export class Edge<
     public neighborCell?: CellWithValue,
   ) {
     const cellIds = neighborCell
-      ? [sourceCell.id, neighborCell.id].toSorted().join(':')
-      : [sourceCell.id, direction].join(':')
+      ? [mapShortCellId(sourceCell), mapShortCellId(neighborCell)].toSorted().join('|')
+      : [mapShortCellId(sourceCell), direction].join('|')
 
     this.id = `edge[${cellIds}]`
   }

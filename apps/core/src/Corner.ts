@@ -1,5 +1,6 @@
 import type {Cell} from './Cell'
 import type {Direction} from './Direction'
+import {mapShortCellId} from './utils/mapShortCellId'
 
 export class Corner<
   Value,
@@ -28,18 +29,14 @@ export class Corner<
     this.adjacentCells = [this.sourceCell, ...this.neighborCells]
 
     const neighborCellIds = this.neighborCells
-      .map((adjacentCell) => this.mapShortCellId(adjacentCell))
+      .map((adjacentCell) => mapShortCellId(adjacentCell))
       .filter(Boolean) as string[]
 
     const cellIds =
       neighborCellIds.length > 0
-        ? [this.mapShortCellId(sourceCell), ...neighborCellIds].toSorted().join('|')
-        : [this.mapShortCellId(sourceCell), directionFromSourceCell].join('|')
+        ? [mapShortCellId(sourceCell), ...neighborCellIds].toSorted().join('|')
+        : [mapShortCellId(sourceCell), directionFromSourceCell].join('|')
 
     this.id = `corner[${cellIds}]`
-  }
-
-  private mapShortCellId(cell: CellWithValue): string {
-    return `${cell.row}-${cell.col}`
   }
 }

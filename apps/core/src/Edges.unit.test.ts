@@ -5,8 +5,8 @@ import {TestEdges} from './Edges.fixture'
 describe(Edges.name, () => {
   it.each`
     direction  | edgeId
-    ${'LEFT'}  | ${'edge[cell|1-0:cell|1-1]'}
-    ${'RIGHT'} | ${'edge[cell|1-1:cell|1-2]'}
+    ${'LEFT'}  | ${'edge[1-0|1-1]'}
+    ${'RIGHT'} | ${'edge[1-1|1-2]'}
   `(`should get $direction edge`, ({direction, edgeId}) => {
     const grid = new TestGrid()
 
@@ -23,8 +23,8 @@ describe(Edges.name, () => {
     const edges = new TestEdges(grid, cell).list(['LEFT', 'RIGHT'])
 
     expect(edges.map((edge) => edge.id)).toEqual([
-      'edge[cell|1-0:cell|1-1]', // left
-      'edge[cell|1-1:cell|1-2]', // right
+      'edge[1-0|1-1]', // left
+      'edge[1-1|1-2]', // right
     ])
   })
 })

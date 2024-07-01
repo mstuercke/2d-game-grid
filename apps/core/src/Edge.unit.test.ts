@@ -8,11 +8,11 @@ describe(Edge.name, () => {
 
     const cell1 = grid.getCell({row: 1, col: 1})
     const edge1 = new TestEdges(grid, cell1).get('LEFT')
-    expect(edge1.id).toEqual('edge[cell|1-0:cell|1-1]')
+    expect(edge1.id).toEqual('edge[1-0|1-1]')
 
     const cell2 = grid.getCell({row: 1, col: 0})
     const edge2 = new TestEdges(grid, cell2).get('RIGHT')
-    expect(edge2.id).toEqual('edge[cell|1-0:cell|1-1]')
+    expect(edge2.id).toEqual('edge[1-0|1-1]')
   })
 
   it('should generate id, even if no neighbor is present', async () => {
@@ -20,15 +20,15 @@ describe(Edge.name, () => {
 
     const cell1 = grid.getCell({row: 1, col: 0})
     const edge1 = new TestEdges(grid, cell1).get('LEFT')
-    expect(edge1.id).toEqual('edge[cell|1-0:LEFT]')
+    expect(edge1.id).toEqual('edge[1-0|LEFT]')
   })
 
   it.each`
     direction   | cellId
-    ${'LEFT'}   | ${'edge[cell|1-1:cell|2-1]'}
-    ${'TOP'}    | ${'edge[cell|1-0:cell|1-1]'}
-    ${'RIGHT'}  | ${'edge[cell|0-1:cell|1-1]'}
-    ${'BOTTOM'} | ${'edge[cell|1-1:cell|1-2]'}
+    ${'LEFT'}   | ${'edge[1-1|2-1]'}
+    ${'TOP'}    | ${'edge[1-0|1-1]'}
+    ${'RIGHT'}  | ${'edge[0-1|1-1]'}
+    ${'BOTTOM'} | ${'edge[1-1|1-2]'}
   `('should get previous edge for $direction', async ({direction, cellId}) => {
     const grid = new TestGrid()
     const cell = grid.getCell({row: 1, col: 1})
@@ -41,10 +41,10 @@ describe(Edge.name, () => {
 
   it.each`
     direction   | cellId
-    ${'LEFT'}   | ${'edge[cell|0-1:cell|1-1]'}
-    ${'TOP'}    | ${'edge[cell|1-1:cell|1-2]'}
-    ${'RIGHT'}  | ${'edge[cell|1-1:cell|2-1]'}
-    ${'BOTTOM'} | ${'edge[cell|1-0:cell|1-1]'}
+    ${'LEFT'}   | ${'edge[0-1|1-1]'}
+    ${'TOP'}    | ${'edge[1-1|1-2]'}
+    ${'RIGHT'}  | ${'edge[1-1|2-1]'}
+    ${'BOTTOM'} | ${'edge[1-0|1-1]'}
   `('should get next edge for $direction', async ({direction, cellId}) => {
     const grid = new TestGrid()
     const cell = grid.getCell({row: 1, col: 1})
