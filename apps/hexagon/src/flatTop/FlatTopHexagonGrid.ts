@@ -1,14 +1,8 @@
 import {Grid, type InitializeGridOptions} from '@2d-game-grid/core'
 import {FlatTopHexagonCell} from './FlatTopHexagonCell'
-import type {FlatTopHexagonCornerDirection, FlatTopHexagonNeighborDirection} from './FlatTopHexagonNeighborDirection'
+import type {FlatTopHexagonDirections} from './FlatTopHexagonDirections'
 
-export class FlatTopHexagonGrid<Value> extends Grid<
-  Value,
-  FlatTopHexagonCell<Value>,
-  FlatTopHexagonNeighborDirection,
-  FlatTopHexagonNeighborDirection,
-  FlatTopHexagonCornerDirection
-> {
+export class FlatTopHexagonGrid<Value> extends Grid<Value, FlatTopHexagonDirections, FlatTopHexagonCell<Value>> {
   constructor(options: InitializeGridOptions<Value>) {
     super(options)
     this.initialize((coordinate, value) => new FlatTopHexagonCell<Value>(this, coordinate, value))

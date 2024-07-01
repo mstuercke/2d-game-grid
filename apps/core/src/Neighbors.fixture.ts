@@ -1,9 +1,10 @@
 import {Neighbors} from './Neighbors'
-import type {Cell} from './Cell'
 import type {Coordinate} from './Coordinate'
-import type {TestCornerDirection, TestEdgeDirection, TestNeighborDirection} from './Direction.fixture'
+import type {TestNeighborDirection} from './Direction.fixture'
+import type {TestCell} from './Cell.fixture'
+import type {TestDirections} from './Directions.fixture'
 
-export class TestNeighbors extends Neighbors<string, Cell<string, TestNeighborDirection, TestEdgeDirection, TestCornerDirection>, TestNeighborDirection, TestEdgeDirection, TestCornerDirection> {
+export class TestNeighbors extends Neighbors<string, TestDirections, TestCell> {
   protected getOffsetCoordinate(direction: TestNeighborDirection): Coordinate {
     return {
       TOP_LEFT: {col: -1, row: -1},

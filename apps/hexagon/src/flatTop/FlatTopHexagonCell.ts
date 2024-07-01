@@ -2,15 +2,10 @@ import {Cell, type Column, type Coordinate, type Row} from '@2d-game-grid/core'
 import type {FlatTopHexagonGrid} from './FlatTopHexagonGrid'
 import {FlatTopHexagonNeighbors} from './FlatTopHexagonNeighbors'
 import {FlatTopHexagonEdges} from './FlatTopHexagonEdges'
-import type {FlatTopHexagonCornerDirection, FlatTopHexagonNeighborDirection} from './FlatTopHexagonNeighborDirection'
 import {FlatTopHexagonCorners} from './FlatTopHexagonCorners'
+import type {FlatTopHexagonDirections} from './FlatTopHexagonDirections'
 
-export class FlatTopHexagonCell<Value> extends Cell<
-  Value,
-  FlatTopHexagonNeighborDirection,
-  FlatTopHexagonNeighborDirection,
-  FlatTopHexagonCornerDirection
-> {
+export class FlatTopHexagonCell<Value> extends Cell<Value, FlatTopHexagonDirections> {
   protected readonly grid: FlatTopHexagonGrid<Value>
 
   /**
@@ -45,26 +40,14 @@ export class FlatTopHexagonCell<Value> extends Cell<
   /**
    * @returns The row of the cell
    */
-  getRow(): Row<
-    Value,
-    FlatTopHexagonCell<Value>,
-    FlatTopHexagonNeighborDirection,
-    FlatTopHexagonNeighborDirection,
-    FlatTopHexagonCornerDirection
-  > {
+  getRow(): Row<Value, FlatTopHexagonDirections, FlatTopHexagonCell<Value>> {
     return this.grid.getRow(this.row)
   }
 
   /**
    @returns The column of the cell
    */
-  getColumn(): Column<
-    Value,
-    FlatTopHexagonCell<Value>,
-    FlatTopHexagonNeighborDirection,
-    FlatTopHexagonNeighborDirection,
-    FlatTopHexagonCornerDirection
-  > {
+  getColumn(): Column<Value, FlatTopHexagonDirections, FlatTopHexagonCell<Value>> {
     return this.grid.getColumn(this.col)
   }
 

@@ -1,20 +1,14 @@
 import type {Cell} from './Cell'
-import type {Direction} from './Direction'
 import {mapShortCellId} from './utils/mapShortCellId'
+import type {Directions} from './Directions'
 
-export class Corner<
-  Value,
-  CellWithValue extends Cell<Value, NeighborDirection, EdgeDirection, CornerDirection>,
-  NeighborDirection extends Direction,
-  EdgeDirection extends NeighborDirection,
-  CornerDirection extends Direction,
-> {
+export class Corner<TValue, TDirections extends Directions, TCell extends Cell<TValue, TDirections>> {
   public readonly id: string
 
   /**
    * All cells, that are connected to this corner
    */
-  public adjacentCells: CellWithValue[]
+  public adjacentCells: TCell[]
 
   /**
    * @param sourceCell
@@ -22,9 +16,9 @@ export class Corner<
    * @param neighborCells All cells, that are connected to the sourceCell through this corner
    */
   constructor(
-    public sourceCell: CellWithValue,
-    public directionFromSourceCell: CornerDirection,
-    public neighborCells: CellWithValue[],
+    public sourceCell: TCell,
+    public directionFromSourceCell: TDirections['Corner'],
+    public neighborCells: TCell[],
   ) {
     this.adjacentCells = [this.sourceCell, ...this.neighborCells]
 

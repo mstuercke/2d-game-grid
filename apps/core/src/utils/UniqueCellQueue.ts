@@ -1,25 +1,19 @@
 import type {Cell} from '../Cell'
 import {QueueIsEmptyError} from '../errors'
-import type {Direction} from '../Direction'
+import type {Directions} from '../Directions'
 
 /**
  * This queue will return each cell only once
  */
-export class UniqueCellQueue<
-  Value,
-  CellWithValue extends Cell<Value, NeighborDirection, EdgeDirection, CornerDirection>,
-  NeighborDirection extends Direction,
-  EdgeDirection extends NeighborDirection,
-  CornerDirection extends Direction,
-> {
-  private queue: CellWithValue[] = []
+export class UniqueCellQueue<TValue, TDirections extends Directions, TCell extends Cell<TValue, TDirections>> {
+  private queue: TCell[] = []
   private cellIds: string[] = []
 
   /**
    * Adds a cell to the queue. If the given cell was in the queue already, it will not be added to the queue
    * @param cell The cell that should be added to the queue
    */
-  add(cell: CellWithValue): void {
+  add(cell: TCell): void {
     if (this.cellIds.includes(cell.id)) return
 
     this.ignore(cell)
@@ -30,7 +24,7 @@ export class UniqueCellQueue<
    * Adds an array of cells to the queue. If a given cell was in the queue already, it will not be added to the queue
    * @param cells The cells that should be added to the queue
    */
-  addAll(cells: CellWithValue[]): void {
+  addAll(cells: TCell[]): void {
     for (const cell of cells) {
       this.add(cell)
     }
@@ -39,7 +33,7 @@ export class UniqueCellQueue<
   /**
    * @param cell The cell that should never be added to the queue
    */
-  ignore(cell: CellWithValue): void {
+  ignore(cell: TCell): void {
     this.cellIds.push(cell.id)
   }
 
@@ -54,7 +48,7 @@ export class UniqueCellQueue<
    * @returns The next cell in the queue
    * @throws {QueueIsEmptyError} when the queue has no more cells
    */
-  getNext(): CellWithValue {
+  getNext(): TCell {
     const cell = this.queue.pop()
     if (!cell) throw new QueueIsEmptyError()
     return cell

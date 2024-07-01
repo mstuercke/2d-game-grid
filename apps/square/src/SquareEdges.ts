@@ -1,14 +1,9 @@
-import {type DiagonalDirection, type Direction, Edges, type StraightDirection} from '@2d-game-grid/core'
+import {type Direction, Edges, type StraightDirection} from '@2d-game-grid/core'
 import type {SquareCell} from './SquareCell'
 import type {SquareGrid} from './SquareGrid'
+import type {SquareDirections} from './SquareDirections'
 
-export class SquareEdges<Value> extends Edges<
-  Value,
-  SquareCell<Value>,
-  Direction,
-  StraightDirection,
-  DiagonalDirection
-> {
+export class SquareEdges<Value> extends Edges<Value, SquareDirections, SquareCell<Value>> {
   constructor(
     protected grid: SquareGrid<Value>,
     protected cell: SquareCell<Value>,

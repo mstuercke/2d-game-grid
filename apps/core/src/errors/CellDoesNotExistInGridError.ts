@@ -1,17 +1,15 @@
 import type {Coordinate} from '../Coordinate'
 import type {Grid} from '../Grid'
 import type {Cell} from '../Cell'
-import type {Direction} from '../Direction'
+import type {Directions} from '../Directions'
 
 /**
  * An error that is thrown when the cell does not exist in the grid
  */
 export class CellDoesNotExistInGridError<
-  Value,
-  CellWithValue extends Cell<Value, NeighborDirection, EdgeDirection, CornerDirection>,
-  NeighborDirection extends Direction,
-  EdgeDirection extends NeighborDirection,
-  CornerDirection extends Direction,
+  TValue,
+  TDirections extends Directions,
+  TCell extends Cell<TValue, TDirections>,
 > extends Error {
   readonly type = CellDoesNotExistInGridError.name
 
@@ -19,10 +17,7 @@ export class CellDoesNotExistInGridError<
    * @param grid The grid
    * @param coordinate The coordinate of the not existing cell
    */
-  constructor(
-    grid: Grid<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection>,
-    coordinate: Coordinate,
-  ) {
+  constructor(grid: Grid<TValue, TDirections, TCell>, coordinate: Coordinate) {
     const {width, height} = grid
     const {row, col} = coordinate
     super(`Cell [row: ${row}, col: ${col}] does not exist in grid [width: ${width}, height: ${height}]`)

@@ -1,37 +1,31 @@
 import type {Grid} from './Grid'
-import type {Direction} from './Direction'
 import type {Cell} from './Cell'
 import {Corner} from './Corner'
+import type {Directions} from './Directions'
 
 /**
  * The representation of all neighbors of a cell
  */
-export abstract class Corners<
-  Value,
-  CellWithValue extends Cell<Value, NeighborDirection, EdgeDirection, CornerDirection>,
-  NeighborDirection extends Direction,
-  EdgeDirection extends NeighborDirection,
-  CornerDirection extends Direction,
-> {
+export abstract class Corners<TValue, TDirections extends Directions, TCell extends Cell<TValue, TDirections>> {
   /**
    * @param grid The grid the cell is part of
    * @param sourceCell The source cell
    */
   constructor(
-    protected grid: Grid<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection>,
-    protected sourceCell: CellWithValue,
+    protected grid: Grid<TValue, TDirections, TCell>,
+    protected sourceCell: TCell,
   ) {}
 
   /**
    * @param direction The direction to the corner
    * @returns The corner
    */
-  get(direction: CornerDirection): Corner<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection> {
+  get(direction: TDirections['Corner']): Corner<TValue, TDirections, TCell> {
     const neighborCells = this.getNeighborDirections(direction)
       .map((direction) => this.sourceCell.neighbors.find(direction))
-      .filter(Boolean) as CellWithValue[]
+      .filter(Boolean) as TCell[]
     return new Corner(this.sourceCell, direction, neighborCells)
   }
 
-  protected abstract getNeighborDirections(cornerDirection: CornerDirection): NeighborDirection[]
+  protected abstract getNeighborDirections(cornerDirection: TDirections['Corner']): TDirections['Neighbor'][]
 }

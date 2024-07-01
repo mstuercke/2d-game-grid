@@ -1,10 +1,11 @@
 import {Edges} from './Edges'
-import type {Cell} from './Cell'
 import {TestNeighbors} from './Neighbors.fixture'
-import type {TestCornerDirection, TestEdgeDirection, TestNeighborDirection} from './Direction.fixture'
+import type {TestEdgeDirection} from './Direction.fixture'
+import type {TestDirections} from './Directions.fixture'
+import type {TestCell} from './Cell.fixture'
 
-export class TestEdges extends Edges<string, Cell<string, TestNeighborDirection, TestEdgeDirection, TestCornerDirection>, TestNeighborDirection, TestEdgeDirection, TestCornerDirection> {
-  protected findNeighbor(direction: TestEdgeDirection): Cell<string, TestNeighborDirection, TestEdgeDirection, TestCornerDirection> | undefined {
+export class TestEdges extends Edges<string, TestDirections, TestCell> {
+  protected findNeighbor(direction: TestEdgeDirection): TestCell | undefined {
     return new TestNeighbors(this.grid, this.cell).find(direction)
   }
 

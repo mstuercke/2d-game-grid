@@ -1,7 +1,7 @@
-import type {Cell} from '@2d-game-grid/core'
 import {FlatTopHexagonGrid} from './FlatTopHexagonGrid'
 import {FlatTopHexagonNeighbors} from './FlatTopHexagonNeighbors'
 import {preInitializedGridOptionsFixture} from './FlatTopHexagonGrid.fixture'
+import type {FlatTopHexagonCell} from './FlatTopHexagonCell'
 
 describe(FlatTopHexagonNeighbors.name, () => {
   let grid: FlatTopHexagonGrid<string>
@@ -45,6 +45,6 @@ describe(FlatTopHexagonNeighbors.name, () => {
   })
 })
 
-function toValues<T>(cells: Cell<T, any, any, any>[]): T[] {
+function toValues(cells: FlatTopHexagonCell<string>[]): string[] {
   return cells.map((cell) => cell.value)
 }

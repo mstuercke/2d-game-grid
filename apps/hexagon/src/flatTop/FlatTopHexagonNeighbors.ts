@@ -1,20 +1,18 @@
 import {type Coordinate, type NeighborCoordinate, Neighbors} from '@2d-game-grid/core'
 import {
   FLAT_TOP_HEXAGON_NEIGHBOR_DIRECTIONS,
-  type FlatTopHexagonCornerDirection,
   type FlatTopHexagonNeighborDirection,
 } from './FlatTopHexagonNeighborDirection'
 import type {FlatTopHexagonCell} from './FlatTopHexagonCell'
+import type {FlatTopHexagonDirections} from './FlatTopHexagonDirections'
 
 /**
  * The representation of all neighbors of a cell
  */
 export class FlatTopHexagonNeighbors<Value> extends Neighbors<
   Value,
-  FlatTopHexagonCell<Value>,
-  FlatTopHexagonNeighborDirection,
-  FlatTopHexagonNeighborDirection,
-  FlatTopHexagonCornerDirection
+  FlatTopHexagonDirections,
+  FlatTopHexagonCell<Value>
 > {
   /**
    * @param directions The allowed directions

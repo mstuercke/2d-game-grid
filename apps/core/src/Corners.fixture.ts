@@ -1,8 +1,9 @@
-import type {Cell} from './Cell'
-import type {TestCornerDirection, TestEdgeDirection, TestNeighborDirection} from './Direction.fixture'
+import type {TestCornerDirection, TestNeighborDirection} from './Direction.fixture'
 import {Corners} from './Corners'
+import type {TestCell} from './Cell.fixture'
+import type {TestDirections} from './Directions.fixture'
 
-export class TestCorners extends Corners<string, Cell<string, TestNeighborDirection, TestEdgeDirection, TestCornerDirection>, TestNeighborDirection, TestEdgeDirection, TestCornerDirection> {
+export class TestCorners extends Corners<string, TestDirections, TestCell> {
   protected getNeighborDirections(cornerDirection: TestCornerDirection): TestNeighborDirection[] {
     switch (cornerDirection) {
       case 'TOP_LEFT':

@@ -9,7 +9,8 @@ import {
 } from './errors'
 import type {Cell} from './Cell'
 import {type CellValueChangedEvent, GridEventDispatcher} from './utils'
-import type {Direction, StraightDirection} from './Direction'
+import type {StraightDirection} from './Direction'
+import type {Directions} from './Directions'
 
 /**
  * Options to generate a new grid
@@ -47,26 +48,22 @@ export type InitializeGridOptions<Value> = InitializeNewGridOptions<Value> | Pre
 /**
  * The grid contains all information about cells
  */
-export abstract class Grid<
-  Value,
-  CellWithValue extends Cell<Value, NeighborDirection, EdgeDirection, CornerDirection>,
-  NeighborDirection extends Direction,
-  EdgeDirection extends NeighborDirection,
-  CornerDirection extends Direction,
-> {
+export abstract class Grid<TValue, TDirections extends Directions, TCell extends Cell<TValue, TDirections>> {
   readonly width: number
   readonly height: number
 
-  private readonly _grid: CellWithValue[][] = []
-  private readonly _rows: Row<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection>[] = []
-  private readonly _columns: Column<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection>[] = []
-  private readonly eventDispatcher: GridEventDispatcher<Value, NeighborDirection, EdgeDirection, CornerDirection> =
-    new GridEventDispatcher<Value, NeighborDirection, EdgeDirection, CornerDirection>()
+  private readonly _grid: TCell[][] = []
+  private readonly _rows: Row<TValue, TDirections, TCell>[] = []
+  private readonly _columns: Column<TValue, TDirections, TCell>[] = []
+  private readonly eventDispatcher: GridEventDispatcher<TValue, TDirections> = new GridEventDispatcher<
+    TValue,
+    TDirections
+  >()
 
   /**
    * @param options The initialization configuration
    */
-  protected constructor(private options: InitializeGridOptions<Value>) {
+  protected constructor(private options: InitializeGridOptions<TValue>) {
     if ('initializeCellValue' in this.options) {
       this.width = this.options.width
       this.height = this.options.height
@@ -79,7 +76,7 @@ export abstract class Grid<
     }
   }
 
-  protected initialize(initializeCell: (coordinate: Coordinate, value: Value) => CellWithValue) {
+  protected initialize(initializeCell: (coordinate: Coordinate, value: TValue) => TCell) {
     if ('initializeCellValue' in this.options) {
       this._grid.push(...this.initializeCells(initializeCell, this.options.initializeCellValue))
     }
@@ -90,14 +87,14 @@ export abstract class Grid<
     }
 
     for (let row = 0; row < this.height; row++) {
-      this._rows.push(new Row<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection>(this, row))
+      this._rows.push(new Row<TValue, TDirections, TCell>(this, row))
     }
 
     for (let col = 0; col < this.width; col++) {
-      this._columns.push(new Column<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection>(this, col))
+      this._columns.push(new Column<TValue, TDirections, TCell>(this, col))
     }
 
-    const forwardEvent = (event: CellValueChangedEvent<Value, NeighborDirection, EdgeDirection, CornerDirection>) =>
+    const forwardEvent = (event: CellValueChangedEvent<TValue, TDirections>) =>
       this.eventDispatcher.dispatchCellValueChangedEvent(event)
     for (const cell of this.cells) {
       cell.onValueChanged(forwardEvent)
@@ -105,9 +102,9 @@ export abstract class Grid<
   }
 
   private initializeCells(
-    initializeCell: (coordinate: Coordinate, value: Value) => CellWithValue,
-    initializeCellValue: (coordinate: Coordinate) => Value,
-  ): CellWithValue[][] {
+    initializeCell: (coordinate: Coordinate, value: TValue) => TCell,
+    initializeCellValue: (coordinate: Coordinate) => TValue,
+  ): TCell[][] {
     if (this.height === 0 || this.width === 0) throw new InvalidGridSizeError(this.width, this.height)
 
     const cells = new Array(this.height)
@@ -125,7 +122,7 @@ export abstract class Grid<
   /**
    * @returns The 2-dimensional array representing a grid (1. dimension: row (y-axis), 2. dimension: column (x-axis))
    */
-  get grid(): CellWithValue[][] {
+  get grid(): TCell[][] {
     return this._grid
   }
 
@@ -141,7 +138,7 @@ export abstract class Grid<
   /**
    * @returns All cells in the grid in ascending order by row and column
    */
-  get cells(): CellWithValue[] {
+  get cells(): TCell[] {
     return this.grid.flat()
   }
 
@@ -150,7 +147,7 @@ export abstract class Grid<
    * @returns The cell
    * @throws {CellDoesNotExistInGridError} when the cell does not exist in the grid
    */
-  getCell(coordinate: Coordinate): CellWithValue {
+  getCell(coordinate: Coordinate): TCell {
     const cell = this.findCell(coordinate)
     if (!cell) throw new CellDoesNotExistInGridError(this, coordinate)
     return cell
@@ -160,7 +157,7 @@ export abstract class Grid<
    * @param coordinate The coordinate of the cell
    * @returns The cell or undefined
    */
-  findCell(coordinate: Coordinate): CellWithValue | undefined {
+  findCell(coordinate: Coordinate): TCell | undefined {
     return this.grid[coordinate.row][coordinate.col]
   }
 
@@ -168,14 +165,14 @@ export abstract class Grid<
    * @param row The row coordinate
    * @returns The row
    */
-  getRow(row: number): Row<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection> {
+  getRow(row: number): Row<TValue, TDirections, TCell> {
     return this._rows[row]
   }
 
   /**
    * @returns All rows of the grid in ascending order
    */
-  get rows(): Row<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection>[] {
+  get rows(): Row<TValue, TDirections, TCell>[] {
     return this._rows
   }
 
@@ -183,14 +180,14 @@ export abstract class Grid<
    * @param col The column coordinate
    * @returns The column
    */
-  getColumn(col: number): Column<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection> {
+  getColumn(col: number): Column<TValue, TDirections, TCell> {
     return this._columns[col]
   }
 
   /**
    * @returns All columns of the grid in ascending order
    */
-  get columns(): Column<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection>[] {
+  get columns(): Column<TValue, TDirections, TCell>[] {
     return this._columns
   }
 
@@ -198,9 +195,7 @@ export abstract class Grid<
    * @param callback A function that should be called, when a cell value of this grid changes
    * @returns a function to unregister the callback
    */
-  onCellValueChanged(
-    callback: (event: CellValueChangedEvent<Value, NeighborDirection, EdgeDirection, CornerDirection>) => void,
-  ): () => void {
+  onCellValueChanged(callback: (event: CellValueChangedEvent<TValue, TDirections>) => void): () => void {
     return this.eventDispatcher.onCellValueChanged(callback)
   }
 
@@ -209,8 +204,8 @@ export abstract class Grid<
    * @param addDirection The direction at that the given grid should be placed
    * @returns a new grid
    */
-  extend<GridType extends Grid<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection>>(
-    gridToAdd: Grid<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection>,
+  extend<GridType extends Grid<TValue, TDirections, TCell>>(
+    gridToAdd: Grid<TValue, TDirections, TCell>,
     addDirection: StraightDirection,
   ): GridType {
     if ((addDirection === 'LEFT' || addDirection === 'RIGHT') && this.height !== gridToAdd.height)
@@ -219,8 +214,7 @@ export abstract class Grid<
     if ((addDirection === 'TOP' || addDirection === 'BOTTOM') && this.width !== gridToAdd.width)
       throw new UnequalGridWidthError(this.width, gridToAdd.width)
 
-    const extractValues = (row: Row<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection>) =>
-      row.cells.map((cell) => cell.value)
+    const extractValues = (row: Row<TValue, TDirections, TCell>) => row.cells.map((cell) => cell.value)
 
     switch (addDirection) {
       case 'TOP':
@@ -250,10 +244,7 @@ export abstract class Grid<
    * @param bottomRight The coordinate of the bottom/right where the new grid should end
    * @returns a new grid
    */
-  crop<GridType extends Grid<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection>>(
-    topLeft: Coordinate,
-    bottomRight: Coordinate,
-  ): GridType {
+  crop<GridType extends Grid<TValue, TDirections, TCell>>(topLeft: Coordinate, bottomRight: Coordinate): GridType {
     const width = bottomRight.col - topLeft.col
     const height = bottomRight.row - topLeft.row
     if (width <= 0 || height <= 0) throw new InvalidGridSizeError(width, height)
@@ -271,8 +262,8 @@ export abstract class Grid<
    * @param cloneValue A custom function to clone the value of a cell (defaults to copying the value)
    * @returns The cloned grid
    */
-  clone<GridType extends Grid<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection>>(
-    cloneValue: (value: Value) => Value = (value) => value,
+  clone<GridType extends Grid<TValue, TDirections, TCell>>(
+    cloneValue: (value: TValue) => TValue = (value) => value,
   ): GridType {
     return this.initializeGrid({
       width: this.width,
@@ -281,7 +272,5 @@ export abstract class Grid<
     }) as GridType
   }
 
-  protected abstract initializeGrid(
-    options: InitializeGridOptions<Value>,
-  ): Grid<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection>
+  protected abstract initializeGrid(options: InitializeGridOptions<TValue>): Grid<TValue, TDirections, TCell>
 }

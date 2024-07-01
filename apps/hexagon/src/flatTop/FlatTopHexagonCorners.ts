@@ -2,14 +2,9 @@ import {Corners} from '@2d-game-grid/core'
 import type {FlatTopHexagonCell} from './FlatTopHexagonCell'
 import type {FlatTopHexagonCornerDirection, FlatTopHexagonNeighborDirection} from './FlatTopHexagonNeighborDirection'
 import type {FlatTopHexagonGrid} from './FlatTopHexagonGrid'
+import type {FlatTopHexagonDirections} from './FlatTopHexagonDirections'
 
-export class FlatTopHexagonCorners<Value> extends Corners<
-  Value,
-  FlatTopHexagonCell<Value>,
-  FlatTopHexagonNeighborDirection,
-  FlatTopHexagonNeighborDirection,
-  FlatTopHexagonCornerDirection
-> {
+export class FlatTopHexagonCorners<Value> extends Corners<Value, FlatTopHexagonDirections, FlatTopHexagonCell<Value>> {
   constructor(
     protected grid: FlatTopHexagonGrid<Value>,
     protected cell: FlatTopHexagonCell<Value>,

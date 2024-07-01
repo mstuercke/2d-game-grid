@@ -1,7 +1,7 @@
 import {preInitializedGridOptionsFixture, TestGrid} from './Grid.fixture'
 import type {Coordinate} from './Coordinate'
 import {TestNeighbors} from './Neighbors.fixture'
-import type {Cell} from './Cell'
+import type {TestCell} from './Cell.fixture'
 
 describe('Neighbors', () => {
   let grid: TestGrid
@@ -74,6 +74,6 @@ describe('Neighbors', () => {
   })
 })
 
-function toValues<T>(cells: Cell<T, any, any, any>[]): T[] {
+function toValues(cells: TestCell[]): string[] {
   return cells.map((cell) => cell.value)
 }

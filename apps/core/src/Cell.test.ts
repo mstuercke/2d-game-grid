@@ -1,14 +1,12 @@
-import type {Cell} from './Cell'
 import {GridEventDispatcher} from './utils'
 import {TestCell} from './Cell.fixture'
 import {preInitializedGridOptionsFixture, TestGrid} from './Grid.fixture'
-import type {TestCornerDirection, TestEdgeDirection, TestNeighborDirection} from './Direction.fixture'
 
 jest.mock('./utils/GridEventDispatcher')
 const GridEventDispatcherMock = jest.mocked(GridEventDispatcher)
 
 describe('Cell', () => {
-  let cell: Cell<string, TestNeighborDirection, TestEdgeDirection, TestCornerDirection>
+  let cell: TestCell
   const eventDispatcherMock = {
     onCellValueChanged: jest.fn(),
     dispatchCellValueChangedEvent: jest.fn(),
