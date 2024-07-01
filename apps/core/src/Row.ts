@@ -8,41 +8,30 @@ import type {Direction} from './Direction'
  */
 export class Row<
   Value,
-  CellWithValue extends Cell<Value, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>,
-  AllowedNeighborDirection extends Direction,
-  AllowedEdgeDirection extends AllowedNeighborDirection,
-  AllowedCornerDirection extends Direction,
+  CellWithValue extends Cell<Value, NeighborDirection, EdgeDirection, CornerDirection>,
+  NeighborDirection extends Direction,
+  EdgeDirection extends NeighborDirection,
+  CornerDirection extends Direction,
 > {
   public readonly id: string
   private readonly _cells: CellWithValue[] = []
-  private readonly eventDispatcher: GridEventDispatcher<
-    Value,
-    AllowedNeighborDirection,
-    AllowedEdgeDirection,
-    AllowedCornerDirection
-  >
+  private readonly eventDispatcher: GridEventDispatcher<Value, NeighborDirection, EdgeDirection, CornerDirection>
 
   /**
    * @param grid The grid this row is part of
    * @param row The row coordinate inside the grid
    */
   constructor(
-    private grid: Grid<Value, CellWithValue, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>,
+    private grid: Grid<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection>,
     public row: number,
   ) {
     this.id = `row|${row}`
     for (let col = 0; col < this.grid.width; col++) {
       this.cells.push(this.getCell(col))
     }
-    this.eventDispatcher = new GridEventDispatcher<
-      Value,
-      AllowedNeighborDirection,
-      AllowedEdgeDirection,
-      AllowedCornerDirection
-    >()
-    const forwardEvent = (
-      event: CellValueChangedEvent<Value, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>,
-    ) => this.eventDispatcher.dispatchCellValueChangedEvent(event)
+    this.eventDispatcher = new GridEventDispatcher<Value, NeighborDirection, EdgeDirection, CornerDirection>()
+    const forwardEvent = (event: CellValueChangedEvent<Value, NeighborDirection, EdgeDirection, CornerDirection>) =>
+      this.eventDispatcher.dispatchCellValueChangedEvent(event)
     for (const cell of this.cells) {
       cell.onValueChanged(forwardEvent)
     }
@@ -68,9 +57,7 @@ export class Row<
    * @returns a function to unregister the callback
    */
   onCellValueChanged(
-    callback: (
-      event: CellValueChangedEvent<Value, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>,
-    ) => void,
+    callback: (event: CellValueChangedEvent<Value, NeighborDirection, EdgeDirection, CornerDirection>) => void,
   ): () => void {
     return this.eventDispatcher.onCellValueChanged(callback)
   }

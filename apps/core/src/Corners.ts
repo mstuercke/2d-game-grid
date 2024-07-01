@@ -8,17 +8,17 @@ import {Corner} from './Corner'
  */
 export abstract class Corners<
   Value,
-  CellWithValue extends Cell<Value, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>,
-  AllowedNeighborDirection extends Direction,
-  AllowedEdgeDirection extends AllowedNeighborDirection,
-  AllowedCornerDirection extends Direction,
+  CellWithValue extends Cell<Value, NeighborDirection, EdgeDirection, CornerDirection>,
+  NeighborDirection extends Direction,
+  EdgeDirection extends NeighborDirection,
+  CornerDirection extends Direction,
 > {
   /**
    * @param grid The grid the cell is part of
    * @param sourceCell The source cell
    */
   constructor(
-    protected grid: Grid<Value, CellWithValue, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>,
+    protected grid: Grid<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection>,
     protected sourceCell: CellWithValue,
   ) {}
 
@@ -26,14 +26,12 @@ export abstract class Corners<
    * @param direction The direction to the corner
    * @returns The corner
    */
-  get(
-    direction: AllowedCornerDirection,
-  ): Corner<Value, CellWithValue, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection> {
+  get(direction: CornerDirection): Corner<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection> {
     const neighborCells = this.getNeighborDirections(direction)
       .map((direction) => this.sourceCell.neighbors.find(direction))
       .filter(Boolean) as CellWithValue[]
     return new Corner(this.sourceCell, direction, neighborCells)
   }
 
-  protected abstract getNeighborDirections(cornerDirection: AllowedCornerDirection): AllowedNeighborDirection[]
+  protected abstract getNeighborDirections(cornerDirection: CornerDirection): NeighborDirection[]
 }

@@ -4,10 +4,10 @@ import {mapShortCellId} from './utils/mapShortCellId'
 
 export class Corner<
   Value,
-  CellWithValue extends Cell<Value, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>,
-  AllowedNeighborDirection extends Direction,
-  AllowedEdgeDirection extends AllowedNeighborDirection,
-  AllowedCornerDirection extends Direction,
+  CellWithValue extends Cell<Value, NeighborDirection, EdgeDirection, CornerDirection>,
+  NeighborDirection extends Direction,
+  EdgeDirection extends NeighborDirection,
+  CornerDirection extends Direction,
 > {
   public readonly id: string
 
@@ -23,7 +23,7 @@ export class Corner<
    */
   constructor(
     public sourceCell: CellWithValue,
-    public directionFromSourceCell: AllowedCornerDirection,
+    public directionFromSourceCell: CornerDirection,
     public neighborCells: CellWithValue[],
   ) {
     this.adjacentCells = [this.sourceCell, ...this.neighborCells]

@@ -7,10 +7,10 @@ import type {Direction} from '../Direction'
  */
 export class UniqueCellQueue<
   Value,
-  CellWithValue extends Cell<Value, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>,
-  AllowedNeighborDirection extends Direction,
-  AllowedEdgeDirection extends AllowedNeighborDirection,
-  AllowedCornerDirection extends Direction,
+  CellWithValue extends Cell<Value, NeighborDirection, EdgeDirection, CornerDirection>,
+  NeighborDirection extends Direction,
+  EdgeDirection extends NeighborDirection,
+  CornerDirection extends Direction,
 > {
   private queue: CellWithValue[] = []
   private cellIds: string[] = []

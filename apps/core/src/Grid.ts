@@ -49,35 +49,19 @@ export type InitializeGridOptions<Value> = InitializeNewGridOptions<Value> | Pre
  */
 export abstract class Grid<
   Value,
-  CellWithValue extends Cell<Value, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>,
-  AllowedNeighborDirection extends Direction,
-  AllowedEdgeDirection extends AllowedNeighborDirection,
-  AllowedCornerDirection extends Direction,
+  CellWithValue extends Cell<Value, NeighborDirection, EdgeDirection, CornerDirection>,
+  NeighborDirection extends Direction,
+  EdgeDirection extends NeighborDirection,
+  CornerDirection extends Direction,
 > {
   readonly width: number
   readonly height: number
 
   private readonly _grid: CellWithValue[][] = []
-  private readonly _rows: Row<
-    Value,
-    CellWithValue,
-    AllowedNeighborDirection,
-    AllowedEdgeDirection,
-    AllowedCornerDirection
-  >[] = []
-  private readonly _columns: Column<
-    Value,
-    CellWithValue,
-    AllowedNeighborDirection,
-    AllowedEdgeDirection,
-    AllowedCornerDirection
-  >[] = []
-  private readonly eventDispatcher: GridEventDispatcher<
-    Value,
-    AllowedNeighborDirection,
-    AllowedEdgeDirection,
-    AllowedCornerDirection
-  > = new GridEventDispatcher<Value, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>()
+  private readonly _rows: Row<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection>[] = []
+  private readonly _columns: Column<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection>[] = []
+  private readonly eventDispatcher: GridEventDispatcher<Value, NeighborDirection, EdgeDirection, CornerDirection> =
+    new GridEventDispatcher<Value, NeighborDirection, EdgeDirection, CornerDirection>()
 
   /**
    * @param options The initialization configuration
@@ -106,26 +90,15 @@ export abstract class Grid<
     }
 
     for (let row = 0; row < this.height; row++) {
-      this._rows.push(
-        new Row<Value, CellWithValue, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>(
-          this,
-          row,
-        ),
-      )
+      this._rows.push(new Row<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection>(this, row))
     }
 
     for (let col = 0; col < this.width; col++) {
-      this._columns.push(
-        new Column<Value, CellWithValue, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>(
-          this,
-          col,
-        ),
-      )
+      this._columns.push(new Column<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection>(this, col))
     }
 
-    const forwardEvent = (
-      event: CellValueChangedEvent<Value, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>,
-    ) => this.eventDispatcher.dispatchCellValueChangedEvent(event)
+    const forwardEvent = (event: CellValueChangedEvent<Value, NeighborDirection, EdgeDirection, CornerDirection>) =>
+      this.eventDispatcher.dispatchCellValueChangedEvent(event)
     for (const cell of this.cells) {
       cell.onValueChanged(forwardEvent)
     }
@@ -195,16 +168,14 @@ export abstract class Grid<
    * @param row The row coordinate
    * @returns The row
    */
-  getRow(
-    row: number,
-  ): Row<Value, CellWithValue, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection> {
+  getRow(row: number): Row<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection> {
     return this._rows[row]
   }
 
   /**
    * @returns All rows of the grid in ascending order
    */
-  get rows(): Row<Value, CellWithValue, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>[] {
+  get rows(): Row<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection>[] {
     return this._rows
   }
 
@@ -212,22 +183,14 @@ export abstract class Grid<
    * @param col The column coordinate
    * @returns The column
    */
-  getColumn(
-    col: number,
-  ): Column<Value, CellWithValue, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection> {
+  getColumn(col: number): Column<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection> {
     return this._columns[col]
   }
 
   /**
    * @returns All columns of the grid in ascending order
    */
-  get columns(): Column<
-    Value,
-    CellWithValue,
-    AllowedNeighborDirection,
-    AllowedEdgeDirection,
-    AllowedCornerDirection
-  >[] {
+  get columns(): Column<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection>[] {
     return this._columns
   }
 
@@ -236,9 +199,7 @@ export abstract class Grid<
    * @returns a function to unregister the callback
    */
   onCellValueChanged(
-    callback: (
-      event: CellValueChangedEvent<Value, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>,
-    ) => void,
+    callback: (event: CellValueChangedEvent<Value, NeighborDirection, EdgeDirection, CornerDirection>) => void,
   ): () => void {
     return this.eventDispatcher.onCellValueChanged(callback)
   }
@@ -248,10 +209,8 @@ export abstract class Grid<
    * @param addDirection The direction at that the given grid should be placed
    * @returns a new grid
    */
-  extend<
-    GridType extends Grid<Value, CellWithValue, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>,
-  >(
-    gridToAdd: Grid<Value, CellWithValue, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>,
+  extend<GridType extends Grid<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection>>(
+    gridToAdd: Grid<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection>,
     addDirection: StraightDirection,
   ): GridType {
     if ((addDirection === 'LEFT' || addDirection === 'RIGHT') && this.height !== gridToAdd.height)
@@ -260,9 +219,8 @@ export abstract class Grid<
     if ((addDirection === 'TOP' || addDirection === 'BOTTOM') && this.width !== gridToAdd.width)
       throw new UnequalGridWidthError(this.width, gridToAdd.width)
 
-    const extractValues = (
-      row: Row<Value, CellWithValue, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>,
-    ) => row.cells.map((cell) => cell.value)
+    const extractValues = (row: Row<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection>) =>
+      row.cells.map((cell) => cell.value)
 
     switch (addDirection) {
       case 'TOP':
@@ -292,9 +250,10 @@ export abstract class Grid<
    * @param bottomRight The coordinate of the bottom/right where the new grid should end
    * @returns a new grid
    */
-  crop<
-    GridType extends Grid<Value, CellWithValue, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>,
-  >(topLeft: Coordinate, bottomRight: Coordinate): GridType {
+  crop<GridType extends Grid<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection>>(
+    topLeft: Coordinate,
+    bottomRight: Coordinate,
+  ): GridType {
     const width = bottomRight.col - topLeft.col
     const height = bottomRight.row - topLeft.row
     if (width <= 0 || height <= 0) throw new InvalidGridSizeError(width, height)
@@ -312,9 +271,9 @@ export abstract class Grid<
    * @param cloneValue A custom function to clone the value of a cell (defaults to copying the value)
    * @returns The cloned grid
    */
-  clone<
-    GridType extends Grid<Value, CellWithValue, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>,
-  >(cloneValue: (value: Value) => Value = (value) => value): GridType {
+  clone<GridType extends Grid<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection>>(
+    cloneValue: (value: Value) => Value = (value) => value,
+  ): GridType {
     return this.initializeGrid({
       width: this.width,
       height: this.height,
@@ -324,5 +283,5 @@ export abstract class Grid<
 
   protected abstract initializeGrid(
     options: InitializeGridOptions<Value>,
-  ): Grid<Value, CellWithValue, AllowedNeighborDirection, AllowedEdgeDirection, AllowedCornerDirection>
+  ): Grid<Value, CellWithValue, NeighborDirection, EdgeDirection, CornerDirection>
 }
