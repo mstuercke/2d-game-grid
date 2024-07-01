@@ -23,7 +23,7 @@ export type DiagonalMovement = 'ALWAYS' | 'NEVER' | 'IF_AT_MOST_ONE_OBSTACLE' | 
 /**
  * The configuration for pathfinding
  */
-export interface PathfindingOptions<Value> {
+export type PathfindingOptions<Value> = {
   /**
    * The algorithm that should be used
    */

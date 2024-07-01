@@ -4,7 +4,7 @@ import type {Directions} from '../Directions'
 /**
  * The event that will be created when the value of a cell was changed
  */
-export interface CellValueChangedEvent<TValue, TDirections extends Directions> {
+export type CellValueChangedEvent<TValue, TDirections extends Directions> = {
   /**
    * The cell which value has changed
    */

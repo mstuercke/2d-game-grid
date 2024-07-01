@@ -1,7 +1,7 @@
 /**
  * The Coordinate defines the position of a cell inside a grid
  */
-export interface Coordinate {
+export type Coordinate = {
   /**
    * The column inside a grid (x-axis)
    */

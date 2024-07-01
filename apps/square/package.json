@@ -1,6 +1,6 @@
 {
   "name": "@2d-game-grid/square",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "A simple square grid made for games",
   "keywords": [
     "grid",
@@ -34,7 +34,7 @@
     "release": "bun run scripts/release.ts"
   },
   "dependencies": {
-    "@2d-game-grid/core": "0.0.6",
+    "@2d-game-grid/core": "0.0.7",
     "pathfinding": "0.4.18"
   },
   "devDependencies": {
