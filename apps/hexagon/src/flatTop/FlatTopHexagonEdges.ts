@@ -1,6 +1,6 @@
 import {Edges} from '@2d-game-grid/core'
 import type {FlatTopHexagonCell} from './FlatTopHexagonCell'
-import type {FlatTopHexagonNeighborDirection} from './FlatTopHexagonNeighborDirection'
+import type {FlatTopHexagonNeighborDirection} from './FlatTopHexagonDirection'
 import type {FlatTopHexagonGrid} from './FlatTopHexagonGrid'
 import type {FlatTopHexagonDirections} from './FlatTopHexagonDirections'
 

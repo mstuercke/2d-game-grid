@@ -1,6 +1,6 @@
 import {Corners} from '@2d-game-grid/core'
 import type {FlatTopHexagonCell} from './FlatTopHexagonCell'
-import type {FlatTopHexagonCornerDirection, FlatTopHexagonNeighborDirection} from './FlatTopHexagonNeighborDirection'
+import type {FlatTopHexagonCornerDirection, FlatTopHexagonNeighborDirection} from './FlatTopHexagonDirection'
 import type {FlatTopHexagonGrid} from './FlatTopHexagonGrid'
 import type {FlatTopHexagonDirections} from './FlatTopHexagonDirections'
 

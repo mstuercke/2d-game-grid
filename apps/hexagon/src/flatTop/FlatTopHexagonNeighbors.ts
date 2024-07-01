@@ -1,8 +1,5 @@
 import {type Coordinate, type NeighborCoordinate, Neighbors} from '@2d-game-grid/core'
-import {
-  FLAT_TOP_HEXAGON_NEIGHBOR_DIRECTIONS,
-  type FlatTopHexagonNeighborDirection,
-} from './FlatTopHexagonNeighborDirection'
+import {FLAT_TOP_HEXAGON_NEIGHBOR_DIRECTIONS, type FlatTopHexagonNeighborDirection} from './FlatTopHexagonDirection'
 import type {FlatTopHexagonCell} from './FlatTopHexagonCell'
 import type {FlatTopHexagonDirections} from './FlatTopHexagonDirections'
 

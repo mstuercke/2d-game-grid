@@ -1,7 +1,7 @@
 import {FlatTopHexagonCorners} from './FlatTopHexagonCorners'
 import {FlatTopHexagonGrid} from './FlatTopHexagonGrid'
 import {preInitializedGridOptionsFixture} from './FlatTopHexagonGrid.fixture'
-import {FLAT_TOP_HEXAGON_CORNER_DIRECTIONS} from './FlatTopHexagonNeighborDirection'
+import {FLAT_TOP_HEXAGON_CORNER_DIRECTIONS} from './FlatTopHexagonDirection'
 
 describe(FlatTopHexagonCorners.name, () => {
   it.each(FLAT_TOP_HEXAGON_CORNER_DIRECTIONS)('should have 2 neighbors for corner %s', (cornerDirection) => {

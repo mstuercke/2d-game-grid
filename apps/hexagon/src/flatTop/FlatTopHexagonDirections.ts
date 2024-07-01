@@ -1,5 +1,5 @@
 import type {Directions} from '@2d-game-grid/core'
-import type {FlatTopHexagonCornerDirection, FlatTopHexagonNeighborDirection} from './FlatTopHexagonNeighborDirection'
+import type {FlatTopHexagonCornerDirection, FlatTopHexagonNeighborDirection} from './FlatTopHexagonDirection'
 
 export type FlatTopHexagonDirections = Directions<
   FlatTopHexagonNeighborDirection,

@@ -1,5 +1,5 @@
 import {FlatTopHexagonEdges} from './FlatTopHexagonEdges'
-import {FLAT_TOP_HEXAGON_NEIGHBOR_DIRECTIONS} from './FlatTopHexagonNeighborDirection'
+import {FLAT_TOP_HEXAGON_NEIGHBOR_DIRECTIONS} from './FlatTopHexagonDirection'
 import {FlatTopHexagonGrid} from './FlatTopHexagonGrid'
 import {preInitializedGridOptionsFixture} from './FlatTopHexagonGrid.fixture'
 
