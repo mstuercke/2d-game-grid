@@ -11,29 +11,33 @@ Missing a feature? [Create an issue](https://github.com/mstuercke/2d-game-grid/i
 
 ## Examples & Demos
 - [example code](https://codesandbox.io/s/y3xt8s)  
-  a basic implementation
+  a basic implementation with code examples
 - [interactive demo](https://3ms9ky.csb.app/)  
   a customizable playground to visualize all the features
 
 ## Usage
 ### Installation
-Install [2d-game-grid](https://www.npmjs.com/package/2d-game-grid) to your project with one of the following commands: 
+Install [@2d-game-grid/square](https://www.npmjs.com/package/@2d-game-grid/square) to your project with one of the following commands: 
 #### npm
 ```
-npm install 2d-game-grid
+npm install @2d-game-grid/square
 ``` 
 #### yarn
 ```
-yarn add 2d-game-grid
+yarn add @2d-game-grid/square
+```
+#### bun
+```
+bun add @2d-game-grid/square
 ```
 
 ### Create a grid
 Both examples will create the exact same grid
 #### Use pre-generated cells
 ```ts
-import {Grid} from '2d-game-grid';
+import {SquareGrid} from '@2d-game-grid/square';
 
-const grid = new Grid({
+const grid = new SquareGrid({
   grid: [
     ['0-0', '0-1', '0-2', '0-3'],
     ['1-0', '1-1', '1-2', '1-3'],
@@ -44,9 +48,9 @@ const grid = new Grid({
 
 #### Generate cells on initialization
 ```ts
-import {Grid} from '2d-game-grid';
+import {SquareGrid} from '@2d-game-grid/square';
 
-const grid = new Grid({
+const grid = new SquareGrid({
   width: 4,
   height: 3,
   initializeCellValue: ({row, col}) => `${row}-${col}`,
@@ -146,8 +150,8 @@ console.log(cells.map(cell => cell.value)); // ['1-2', '2-3', '2-1', '0-1', '1-1
 
 ### Extend grid with another grid
 ```ts
-const gridA = new Grid({grid: [["A"]]})
-const gridB = new Grid({grid: [["B"]]})
+const gridA = new SquareGrid({grid: [["A"]]})
+const gridB = new SquareGrid({grid: [["B"]]})
 
 gridA.extend(gridB, 'LEFT')  // B A
 gridA.extend(gridB, 'RIGHT') // A B

@@ -1,3 +1,3 @@
 # 2D Game Grid (core)
 
-TBD
+This is an internal package, that provides the core features
