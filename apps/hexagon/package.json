@@ -1,6 +1,6 @@
 {
   "name": "@2d-game-grid/hexagon",
-  "version": "0.0.7",
+  "version": "0.0.9",
   "description": "A simple hexagon grid made for games",
   "keywords": [
     "grid",
@@ -34,7 +34,7 @@
     "release": "bun run scripts/release.ts"
   },
   "dependencies": {
-    "@2d-game-grid/core": "0.0.8"
+    "@2d-game-grid/core": "0.0.9"
   },
   "devDependencies": {
     "@types/jest": "29.5.12",
