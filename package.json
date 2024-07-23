@@ -21,7 +21,7 @@
     "@types/bun": "1.1.6",
     "syncpack": "12.3.3",
     "turbo": "2.0.9",
-    "typescript": "5.5.3"
+    "typescript": "5.5.4"
   },
   "workspaces": {
     "packages": [
