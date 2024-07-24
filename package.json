@@ -19,7 +19,7 @@
     "@mstuercke/eslint-config": "1.3.0",
     "@mstuercke/typescript-config": "2.2.0",
     "@types/bun": "1.1.6",
-    "syncpack": "12.3.3",
+    "syncpack": "12.4.0",
     "turbo": "2.0.9",
     "typescript": "5.5.4"
   },
