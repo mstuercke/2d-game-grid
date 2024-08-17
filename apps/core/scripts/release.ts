@@ -1,4 +1,4 @@
-import {releaseNpmPackage} from '@mstuercke/bun-utils'
+import {releaseNpmPackage} from '@mstuercke/bun-utils/npmPackage'
 import packageJson from '../package.json'
 
 await releaseNpmPackage({
