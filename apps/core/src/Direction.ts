@@ -9,19 +9,24 @@ export type StraightDirection = 'TOP' | 'BOTTOM' | 'LEFT' | 'RIGHT'
 export type DiagonalDirection = 'TOP_LEFT' | 'TOP_RIGHT' | 'BOTTOM_LEFT' | 'BOTTOM_RIGHT'
 
 /**
- * A straight or diagonal direction
- */
-export type Direction = StraightDirection | DiagonalDirection
-
-/**
  * An array of all straight directions
  */
-export const STRAIGHT_DIRECTIONS: StraightDirection[] = ['TOP', 'BOTTOM', 'LEFT', 'RIGHT']
+export const STRAIGHT_DIRECTIONS = ['TOP', 'BOTTOM', 'LEFT', 'RIGHT'] satisfies StraightDirection[]
 
 /**
  * An array of all diagonal directions
  */
-export const DIAGONAL_DIRECTIONS: DiagonalDirection[] = ['TOP_LEFT', 'TOP_RIGHT', 'BOTTOM_LEFT', 'BOTTOM_RIGHT']
+export const DIAGONAL_DIRECTIONS = [
+  'TOP_LEFT',
+  'TOP_RIGHT',
+  'BOTTOM_LEFT',
+  'BOTTOM_RIGHT',
+] satisfies DiagonalDirection[]
+
+/**
+ * A straight or diagonal direction
+ */
+export type Direction = StraightDirection | DiagonalDirection
 
 /**
  * An array of all straight and diagonal directions

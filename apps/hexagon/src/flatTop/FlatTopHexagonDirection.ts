@@ -12,14 +12,14 @@ export type FlatTopHexagonNeighborDirection =
 /**
  * An array of all possible neighbor directions for hexagon with a flat top
  */
-export const FLAT_TOP_HEXAGON_NEIGHBOR_DIRECTIONS: FlatTopHexagonNeighborDirection[] = [
+export const FLAT_TOP_HEXAGON_NEIGHBOR_DIRECTIONS = [
   'TOP_LEFT',
   'TOP',
   'TOP_RIGHT',
   'BOTTOM_RIGHT',
   'BOTTOM',
   'BOTTOM_LEFT',
-]
+] satisfies FlatTopHexagonNeighborDirection[]
 
 /**
  * An edge direction for a hexagon with a flat top
@@ -29,7 +29,7 @@ export type FlatTopHexagonEdgeDirection = FlatTopHexagonNeighborDirection
 /**
  * An array of all possible edge directions for hexagon with a flat top
  */
-export const FLAT_TOP_HEXAGON_EDGE_DIRECTIONS: FlatTopHexagonEdgeDirection[] = FLAT_TOP_HEXAGON_NEIGHBOR_DIRECTIONS
+export const FLAT_TOP_HEXAGON_EDGE_DIRECTIONS = FLAT_TOP_HEXAGON_NEIGHBOR_DIRECTIONS
 
 /**
  * A corner direction for a hexagon with a flat top
@@ -39,11 +39,11 @@ export type FlatTopHexagonCornerDirection = 'TOP_LEFT' | 'TOP_RIGHT' | 'RIGHT' |
 /**
  * An array of all possible corner directions for hexagon with a flat top
  */
-export const FLAT_TOP_HEXAGON_CORNER_DIRECTIONS: FlatTopHexagonCornerDirection[] = [
+export const FLAT_TOP_HEXAGON_CORNER_DIRECTIONS = [
   'TOP_LEFT',
   'TOP_RIGHT',
   'RIGHT',
   'BOTTOM_RIGHT',
   'BOTTOM_LEFT',
   'LEFT',
-]
+] satisfies FlatTopHexagonCornerDirection[]
