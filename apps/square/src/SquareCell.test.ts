@@ -10,37 +10,36 @@ import type {PathfindingOptions} from './algorithms'
 import {listCellsInDistance} from './algorithms/distance/listCellsInDistance'
 import {listReachableCells} from './algorithms/pathfinding/listReachableCells'
 
-jest.mock('./SquareNeighbors')
-const NeighborsMock = jest.mocked(SquareNeighbors)
+vi.mock('./SquareNeighbors')
+const NeighborsMock = vi.mocked(SquareNeighbors)
 
-jest.mock('./algorithms/distance/getDistance')
-const getDistanceMock = jest.mocked(getDistance)
+vi.mock('./algorithms/distance/getDistance')
+const getDistanceMock = vi.mocked(getDistance)
 
-jest.mock('./algorithms/distance/listCellsInDistance')
-const listCellsInDistanceMock = jest.mocked(listCellsInDistance)
+vi.mock('./algorithms/distance/listCellsInDistance')
+const listCellsInDistanceMock = vi.mocked(listCellsInDistance)
 
-jest.mock('./algorithms/pathfinding/getPath')
-const getPathMock = jest.mocked(getPath)
+vi.mock('./algorithms/pathfinding/getPath')
+const getPathMock = vi.mocked(getPath)
 
-jest.mock('./algorithms/pathfinding/listReachableCells')
-const listReachableCellsMock = jest.mocked(listReachableCells)
+vi.mock('./algorithms/pathfinding/listReachableCells')
+const listReachableCellsMock = vi.mocked(listReachableCells)
 
-jest.mock('@2d-game-grid/core', () => ({
-  ...jest.requireActual('@2d-game-grid/core'),
-  GridEventDispatcher: jest.fn(),
+vi.mock('@2d-game-grid/core', async () => ({
+  ...(await vi.importActual('@2d-game-grid/core')),
+  GridEventDispatcher: vi.fn(),
 }))
-const GridEventDispatcherMock = jest.mocked(GridEventDispatcher)
+const GridEventDispatcherMock = vi.mocked(GridEventDispatcher)
 
 describe('SquareCell', () => {
   let grid: SquareGrid<string>
   let cell: SquareCell<string>
   const eventDispatcherMock = {
-    onCellValueChanged: jest.fn(),
-    dispatchCellValueChangedEvent: jest.fn(),
+    onCellValueChanged: vi.fn(),
+    dispatchCellValueChangedEvent: vi.fn(),
   }
 
   beforeEach(() => {
-    jest.clearAllMocks()
     GridEventDispatcherMock.mockReturnValue(eventDispatcherMock as any)
     grid = new SquareGrid<string>(preInitializedGridOptionsFixture)
     cell = new SquareCell<string>(grid, {row: 1, col: 2}, 'foo')

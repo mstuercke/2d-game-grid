@@ -31,12 +31,10 @@ describe('getPath', () => {
   })
 
   describe('options', () => {
-    const mapFinderSpy = jest.spyOn(mapFinderModule, 'mapFinder')
-    const mapDiagonalMovementSpy = jest.spyOn(mapPathfindingDiagonalMovementModule, 'mapPathfindingDiagonalMovement')
-    const mapHeuristicSpy = jest.spyOn(mapHeuristicModule, 'mapHeuristic')
-    const mapWalkableMatrixSpy = jest.spyOn(mapWalkableMatrixModule, 'mapWalkableMatrix')
-
-    beforeEach(() => jest.clearAllMocks())
+    const mapFinderSpy = vi.spyOn(mapFinderModule, 'mapFinder')
+    const mapDiagonalMovementSpy = vi.spyOn(mapPathfindingDiagonalMovementModule, 'mapPathfindingDiagonalMovement')
+    const mapHeuristicSpy = vi.spyOn(mapHeuristicModule, 'mapHeuristic')
+    const mapWalkableMatrixSpy = vi.spyOn(mapWalkableMatrixModule, 'mapWalkableMatrix')
 
     it('should use defaults', async () => {
       getPath(grid, start, end)
@@ -63,7 +61,7 @@ describe('getPath', () => {
     })
 
     it('should use isWalkable', async () => {
-      const isWalkable = jest.fn()
+      const isWalkable = vi.fn()
       getPath(grid, start, end, {isWalkable})
       expect(mapWalkableMatrixSpy).toHaveBeenCalledWith(grid, isWalkable)
     })

@@ -3,11 +3,11 @@ import {getDistance} from './getDistance'
 import {manhattanDistance} from './manhattanDistance'
 import {euclideanDistance} from './euclideanDistance'
 
-jest.mock('./euclideanDistance')
-const euclideanDistanceMock = jest.mocked(euclideanDistance)
+vi.mock('./euclideanDistance')
+const euclideanDistanceMock = vi.mocked(euclideanDistance)
 
-jest.mock('./manhattanDistance')
-const manhattanDistanceMock = jest.mocked(manhattanDistance)
+vi.mock('./manhattanDistance')
+const manhattanDistanceMock = vi.mocked(manhattanDistance)
 
 describe('getDistance', () => {
   const start: Coordinate = {row: 1, col: 2}

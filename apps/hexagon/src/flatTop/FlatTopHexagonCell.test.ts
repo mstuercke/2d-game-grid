@@ -4,25 +4,24 @@ import {preInitializedGridOptionsFixture} from './FlatTopHexagonGrid.fixture'
 import {FlatTopHexagonCell} from './FlatTopHexagonCell'
 import {FlatTopHexagonGrid} from './FlatTopHexagonGrid'
 
-jest.mock('./FlatTopHexagonNeighbors')
-const NeighborsMock = jest.mocked(FlatTopHexagonNeighbors)
+vi.mock('./FlatTopHexagonNeighbors')
+const NeighborsMock = vi.mocked(FlatTopHexagonNeighbors)
 
-jest.mock('@2d-game-grid/core', () => ({
-  ...jest.requireActual('@2d-game-grid/core'),
-  GridEventDispatcher: jest.fn(),
+vi.mock('@2d-game-grid/core', async () => ({
+  ...(await vi.importActual('@2d-game-grid/core')),
+  GridEventDispatcher: vi.fn(),
 }))
-const GridEventDispatcherMock = jest.mocked(GridEventDispatcher)
+const GridEventDispatcherMock = vi.mocked(GridEventDispatcher)
 
 describe(FlatTopHexagonCell.name, () => {
   let grid: FlatTopHexagonGrid<string>
   let cell: FlatTopHexagonCell<string>
   const eventDispatcherMock = {
-    onCellValueChanged: jest.fn(),
-    dispatchCellValueChangedEvent: jest.fn(),
+    onCellValueChanged: vi.fn(),
+    dispatchCellValueChangedEvent: vi.fn(),
   }
 
   beforeEach(() => {
-    jest.clearAllMocks()
     GridEventDispatcherMock.mockReturnValue(eventDispatcherMock as any)
     grid = new FlatTopHexagonGrid<string>(preInitializedGridOptionsFixture)
     cell = new FlatTopHexagonCell<string>(grid, {row: 1, col: 2}, 'foo')

@@ -26,7 +26,7 @@ describe('mapHeuristic', () => {
   })
 
   it('should return custom heuristic', async () => {
-    const customHeuristic = jest.fn().mockReturnValueOnce(4)
+    const customHeuristic = vi.fn().mockReturnValueOnce(4)
     const heuristicValue = mapHeuristic(grid, customHeuristic)(2, 1)
 
     expect(heuristicValue).toEqual(4)

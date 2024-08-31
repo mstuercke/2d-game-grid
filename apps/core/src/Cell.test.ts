@@ -2,18 +2,17 @@ import {GridEventDispatcher} from './utils'
 import {GenericTestCell, TestCell} from './Cell.fixture'
 import {preInitializedGridOptionsFixture, TestGrid} from './Grid.fixture'
 
-jest.mock('./utils/GridEventDispatcher')
-const GridEventDispatcherMock = jest.mocked(GridEventDispatcher)
+vi.mock('./utils/GridEventDispatcher')
+const GridEventDispatcherMock = vi.mocked(GridEventDispatcher)
 
 describe('Cell', () => {
   let cell: TestCell
   const eventDispatcherMock = {
-    onCellValueChanged: jest.fn(),
-    dispatchCellValueChangedEvent: jest.fn(),
+    onCellValueChanged: vi.fn(),
+    dispatchCellValueChangedEvent: vi.fn(),
   }
 
   beforeEach(() => {
-    jest.clearAllMocks()
     GridEventDispatcherMock.mockReturnValue(eventDispatcherMock as any)
     const grid = new TestGrid(preInitializedGridOptionsFixture)
     cell = new TestCell(grid, {row: 1, col: 2}, 'foo')
@@ -34,16 +33,16 @@ describe('Cell', () => {
 
   describe('event: OnCellValueChanged', () => {
     it('should register callback', async () => {
-      const callback = jest.fn()
+      const callback = vi.fn()
       cell.onValueChanged(callback)
       expect(eventDispatcherMock.onCellValueChanged).toHaveBeenCalledWith(callback)
     })
 
     it('should unregister callback', async () => {
-      const unregisterFn = jest.fn()
+      const unregisterFn = vi.fn()
       eventDispatcherMock.onCellValueChanged.mockReturnValueOnce(unregisterFn)
 
-      const unregister = cell.onValueChanged(jest.fn())
+      const unregister = cell.onValueChanged(vi.fn())
       unregister()
 
       expect(unregisterFn).toHaveBeenCalled()

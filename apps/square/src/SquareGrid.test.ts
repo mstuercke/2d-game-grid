@@ -6,7 +6,6 @@ describe('SquareGrid', () => {
   let grid: SquareGrid<string>
 
   beforeEach(() => {
-    jest.clearAllMocks()
     grid = new SquareGrid<string>(preInitializedGridOptionsFixture)
   })
 

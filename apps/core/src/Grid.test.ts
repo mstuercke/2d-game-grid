@@ -4,18 +4,17 @@ import {GridEventDispatcher} from './utils'
 import type {TestDirections} from './Directions.fixture'
 import type {TestCell} from './Cell.fixture'
 
-jest.mock('./utils/GridEventDispatcher')
-const GridEventDispatcherMock = jest.mocked(GridEventDispatcher)
+vi.mock('./utils/GridEventDispatcher')
+const GridEventDispatcherMock = vi.mocked(GridEventDispatcher)
 
 describe('Grid', () => {
   let grid: Grid<string, TestDirections, TestCell>
   const eventDispatcherMock = {
-    onCellValueChanged: jest.fn(),
-    dispatchCellValueChangedEvent: jest.fn(),
+    onCellValueChanged: vi.fn(),
+    dispatchCellValueChangedEvent: vi.fn(),
   }
 
   beforeEach(() => {
-    jest.clearAllMocks()
     GridEventDispatcherMock.mockReturnValue(eventDispatcherMock as any)
     grid = new TestGrid(preInitializedGridOptionsFixture)
   })
@@ -95,25 +94,25 @@ describe('Grid', () => {
 
   describe('event: OnCellValueChanged', () => {
     it('should register callback', async () => {
-      const onCellValueChangedSpy = jest.spyOn(grid['eventDispatcher'], 'onCellValueChanged')
-      const callback = jest.fn()
+      const onCellValueChangedSpy = vi.spyOn(grid['eventDispatcher'], 'onCellValueChanged')
+      const callback = vi.fn()
       grid.onCellValueChanged(callback)
       expect(onCellValueChangedSpy).toHaveBeenCalledWith(callback)
     })
 
     it('should unregister callback', async () => {
-      const onCellValueChangedSpy = jest.spyOn(grid['eventDispatcher'], 'onCellValueChanged')
-      const unregisterFn = jest.fn()
+      const onCellValueChangedSpy = vi.spyOn(grid['eventDispatcher'], 'onCellValueChanged')
+      const unregisterFn = vi.fn()
       onCellValueChangedSpy.mockReturnValueOnce(unregisterFn)
 
-      const unregister = grid.onCellValueChanged(jest.fn())
+      const unregister = grid.onCellValueChanged(vi.fn())
       unregister()
 
       expect(unregisterFn).toHaveBeenCalled()
     })
 
     it('should forward events of all cells', async () => {
-      const dispatchCellValueChangedEventSpy = jest.spyOn(grid['eventDispatcher'], 'dispatchCellValueChangedEvent')
+      const dispatchCellValueChangedEventSpy = vi.spyOn(grid['eventDispatcher'], 'dispatchCellValueChangedEvent')
       for (const cell of grid.cells) {
         const previousValue = cell.value
         cell.value = `${previousValue} (changed)`

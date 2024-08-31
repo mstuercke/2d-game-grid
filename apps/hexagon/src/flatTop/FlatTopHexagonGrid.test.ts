@@ -6,7 +6,6 @@ describe(FlatTopHexagonGrid.name, () => {
   let grid: FlatTopHexagonGrid<string>
 
   beforeEach(() => {
-    jest.clearAllMocks()
     grid = new FlatTopHexagonGrid<string>(preInitializedGridOptionsFixture)
   })
 

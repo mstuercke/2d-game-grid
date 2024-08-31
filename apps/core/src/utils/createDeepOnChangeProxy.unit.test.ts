@@ -9,9 +9,7 @@ type Root = {
 }
 
 describe(createDeepOnChangeProxy.name, () => {
-  const counter = jest.fn()
-
-  beforeEach(() => jest.clearAllMocks())
+  const counter = vi.fn()
 
   describe('should call onChange for adding properties', () => {
     it('for root', async () => {
@@ -79,7 +77,7 @@ describe(createDeepOnChangeProxy.name, () => {
         counter,
       )
 
-      if (!root.innerObject) fail()
+      if (!root.innerObject) throw 'innerObject not defined'
       root.innerObject.bar = 'bar-updated-1'
       expect(counter).toHaveBeenCalledTimes(1)
 
@@ -105,7 +103,7 @@ describe(createDeepOnChangeProxy.name, () => {
         counter,
       )
 
-      if (!root.innerArray) fail()
+      if (!root.innerArray) throw 'innerArray not defined'
       root.innerArray[0].baz = 'baz-updated-1'
       expect(counter).toHaveBeenCalledTimes(1)
 

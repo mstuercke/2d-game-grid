@@ -7,7 +7,6 @@ describe('Column', () => {
   let column: Column<string, TestDirections, TestCell>
 
   beforeEach(() => {
-    jest.clearAllMocks()
     const grid = new TestGrid(preInitializedGridOptionsFixture)
     column = new Column(grid, 2)
   })
@@ -29,25 +28,25 @@ describe('Column', () => {
 
   describe('event: OnCellValueChanged', () => {
     it('should register callback', async () => {
-      const onCellValueChangedSpy = jest.spyOn(column['eventDispatcher'], 'onCellValueChanged')
-      const callback = jest.fn()
+      const onCellValueChangedSpy = vi.spyOn(column['eventDispatcher'], 'onCellValueChanged')
+      const callback = vi.fn()
       column.onCellValueChanged(callback)
       expect(onCellValueChangedSpy).toHaveBeenCalledWith(callback)
     })
 
     it('should unregister callback', async () => {
-      const onCellValueChangedSpy = jest.spyOn(column['eventDispatcher'], 'onCellValueChanged')
-      const unregisterFn = jest.fn()
+      const onCellValueChangedSpy = vi.spyOn(column['eventDispatcher'], 'onCellValueChanged')
+      const unregisterFn = vi.fn()
       onCellValueChangedSpy.mockReturnValueOnce(unregisterFn)
 
-      const unregister = column.onCellValueChanged(jest.fn())
+      const unregister = column.onCellValueChanged(vi.fn())
       unregister()
 
       expect(unregisterFn).toHaveBeenCalled()
     })
 
     it('should forward events of all cells', async () => {
-      const dispatchCellValueChangedEventSpy = jest.spyOn(column['eventDispatcher'], 'dispatchCellValueChangedEvent')
+      const dispatchCellValueChangedEventSpy = vi.spyOn(column['eventDispatcher'], 'dispatchCellValueChangedEvent')
       for (const cell of column.cells) {
         const previousValue = cell.value
         cell.value = `${previousValue} (changed)`

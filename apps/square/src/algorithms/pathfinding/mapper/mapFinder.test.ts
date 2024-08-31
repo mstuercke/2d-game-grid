@@ -1,11 +1,16 @@
 import {AStarFinder, BestFirstFinder, BreadthFirstFinder, DijkstraFinder, type Finder, type FinderOptions} from 'pathfinding'
 import {mapFinder} from './mapFinder'
 
-jest.mock('pathfinding')
-const AStarFinderMock = jest.mocked(AStarFinder)
-const BestFirstFinderMock = jest.mocked(BestFirstFinder)
-const BreadthFirstFinderMock = jest.mocked(BreadthFirstFinder)
-const DijkstraFinderMock = jest.mocked(DijkstraFinder)
+vi.mock('pathfinding', () => ({
+  AStarFinder: vi.fn(),
+  BestFirstFinder: vi.fn(),
+  BreadthFirstFinder: vi.fn(),
+  DijkstraFinder: vi.fn(),
+}))
+const AStarFinderMock = vi.mocked(AStarFinder)
+const BestFirstFinderMock = vi.mocked(BestFirstFinder)
+const BreadthFirstFinderMock = vi.mocked(BreadthFirstFinder)
+const DijkstraFinderMock = vi.mocked(DijkstraFinder)
 
 describe('mapFinder', () => {
   const options: FinderOptions = {}
