@@ -36,7 +36,7 @@
     "release": "bun run scripts/release.ts"
   },
   "dependencies": {
-    "@2d-game-grid/core": "0.0.11"
+    "@2d-game-grid/core": "0.0.12"
   },
   "devDependencies": {
     "@types/jest": "29.5.12",

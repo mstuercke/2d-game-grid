@@ -117,7 +117,7 @@ describe('Grid', () => {
       for (const cell of grid.cells) {
         const previousValue = cell.value
         cell.value = `${previousValue} (changed)`
-        expect(dispatchCellValueChangedEventSpy).toHaveBeenCalledWith({cell, previousValue})
+        expect(dispatchCellValueChangedEventSpy).toHaveBeenCalledWith({cell})
       }
       expect(dispatchCellValueChangedEventSpy).toHaveBeenCalledTimes(grid.cells.length)
     })

@@ -39,3 +39,32 @@ export class TestCell extends Cell<string, TestDirections> {
     return new TestCell(this.grid, this, cloneValue(this.value))
   }
 }
+
+export class GenericTestCell<TValue> extends Cell<TValue, TestDirections> {
+  public get neighbors(): never {
+    throw 'Not implemented'
+  }
+  public get edges(): never {
+    throw 'Not implemented'
+  }
+  public get corners(): never {
+    throw 'Not implemented'
+  }
+
+  // biome-ignore lint/complexity/noUselessConstructor: it is necessary as the Cell class has a protected constructor
+  constructor(coordinate: Coordinate, value: TValue) {
+    super(coordinate, value)
+  }
+
+  getRow(): never {
+    throw 'Not implemented'
+  }
+
+  getColumn(): never {
+    throw 'Not implemented'
+  }
+
+  clone(): never {
+    throw 'Not implemented'
+  }
+}

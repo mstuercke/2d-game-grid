@@ -1,5 +1,5 @@
 import {GridEventDispatcher} from './utils'
-import {TestCell} from './Cell.fixture'
+import {GenericTestCell, TestCell} from './Cell.fixture'
 import {preInitializedGridOptionsFixture, TestGrid} from './Grid.fixture'
 
 jest.mock('./utils/GridEventDispatcher')
@@ -51,10 +51,13 @@ describe('Cell', () => {
 
     it('should dispatch event when value has changed', async () => {
       cell.value = 'updated'
-      expect(eventDispatcherMock.dispatchCellValueChangedEvent).toHaveBeenCalledWith({
-        cell: cell,
-        previousValue: 'foo',
-      })
+      expect(eventDispatcherMock.dispatchCellValueChangedEvent).toHaveBeenCalledWith({cell})
+    })
+
+    it(`should dispatch event when values' inner properties changed`, async () => {
+      const cell = new GenericTestCell({row: 1, col: 2}, {foo: 'bar'})
+      cell.value.foo = 'bar (updated)'
+      expect(eventDispatcherMock.dispatchCellValueChangedEvent).toHaveBeenCalledWith({cell})
     })
   })
 })

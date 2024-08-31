@@ -9,11 +9,6 @@ export type CellValueChangedEvent<TValue, TDirections extends Directions> = {
    * The cell which value has changed
    */
   cell: Cell<TValue, TDirections>
-
-  /**
-   * The cell value before the change
-   */
-  previousValue: TValue
 }
 
 /**

@@ -179,18 +179,6 @@ const cell = grid.getCell({row: 1, col: 2});
 cell.value = 'new value'; // updating this value will trigger all callbacks of the "Register" example
 ```
 
-To trigger this event correctly, your value should be treated immutable.
-If you're using an object or array as value, you have to replace the object/array to trigger the callbacks.
-```ts
-// object
-cell.value.text = 'foo'; // will NOT trigger any callback
-cell.value = {...cell.value, text: 'foo'}; // will trigger the callbacks
-
-// array
-cell.value.push('foo'); // will NOT trigger any callback
-cell.value = [...cell.value, 'foo']; // will trigger the callbacks
-```
-
 #### Unregister
 The `onCellValueChanged()` and `onValueChanged()` functions return a function to unregister. 
 When you execute this unregister function, the callback will not be called anymore.

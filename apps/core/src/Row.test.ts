@@ -51,7 +51,7 @@ describe('Row', () => {
       for (const cell of row.cells) {
         const previousValue = cell.value
         cell.value = `${previousValue} (changed)`
-        expect(dispatchCellValueChangedEventSpy).toHaveBeenCalledWith({cell, previousValue})
+        expect(dispatchCellValueChangedEventSpy).toHaveBeenCalledWith({cell})
       }
       expect(dispatchCellValueChangedEventSpy).toHaveBeenCalledTimes(row.cells.length)
     })

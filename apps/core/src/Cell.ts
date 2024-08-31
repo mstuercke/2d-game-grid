@@ -6,6 +6,7 @@ import type {Neighbors} from './Neighbors'
 import type {Edges} from './Edges'
 import type {Corners} from './Corners'
 import type {Directions} from './Directions'
+import {createDeepOnChangeProxy} from './utils/createDeepOnChangeProxy'
 
 /**
  * A Cell is part of a grid. It contains meta information like its coordinates inside the grid and the corresponding value.
@@ -19,7 +20,7 @@ export abstract class Cell<TValue, TDirections extends Directions> implements Co
   public abstract readonly edges: Edges<TValue, TDirections, Cell<TValue, TDirections>>
   public abstract readonly corners: Corners<TValue, TDirections, Cell<TValue, TDirections>>
 
-  private _value: TValue
+  private valueProxy: TValue
   private readonly eventDispatcher: GridEventDispatcher<TValue, TDirections>
 
   /**
@@ -30,7 +31,10 @@ export abstract class Cell<TValue, TDirections extends Directions> implements Co
     this.id = `cell|${coordinate.row}-${coordinate.col}`
     this.row = coordinate.row
     this.col = coordinate.col
-    this._value = value
+    this.valueProxy =
+      value && typeof value === 'object'
+        ? createDeepOnChangeProxy(value, () => this.eventDispatcher.dispatchCellValueChangedEvent({cell: this}))
+        : value
     this.eventDispatcher = new GridEventDispatcher<TValue, TDirections>()
   }
 
@@ -38,16 +42,15 @@ export abstract class Cell<TValue, TDirections extends Directions> implements Co
    * @returns the value of the cell
    */
   get value(): TValue {
-    return this._value
+    return this.valueProxy
   }
 
   /**
    * Changes the value of the cell
    */
   set value(value: TValue) {
-    const previousValue = this._value
-    this._value = value
-    this.eventDispatcher.dispatchCellValueChangedEvent({cell: this, previousValue})
+    this.valueProxy = value
+    this.eventDispatcher.dispatchCellValueChangedEvent({cell: this})
   }
 
   /**
