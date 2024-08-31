@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "postinstall": "git config --local core.hooksPath .githooks",
+    "typecheck": "turbo run typecheck",
     "lint": "bunx biome check && eslint ./apps/*/src --max-warnings 0",
     "lint:fix": "bunx biome check --fix && eslint ./apps/*/src --fix --max-warnings 0",
     "test:unit": "turbo run test:unit",

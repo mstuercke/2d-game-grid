@@ -30,6 +30,7 @@
     }
   },
   "scripts": {
+    "typecheck": "tsc --noEmit",
     "test:unit": "vitest run --coverage",
     "test:unit:watch": "vitest watch",
     "build": "bun scripts/build.ts",

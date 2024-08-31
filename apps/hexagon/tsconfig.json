@@ -1,7 +1,7 @@
 {
   "extends": "@mstuercke/typescript-config/package/tsconfig.json",
   "compilerOptions": {
-    "types": ["vitest/globals"]
+    "types": ["bun", "vitest/globals"]
   },
   "include": [
     "scripts",

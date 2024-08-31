@@ -2,13 +2,17 @@
   "$schema": "https://turbo.build/schema.v2.json",
   "globalDependencies": [".env"],
   "tasks": {
+    "typecheck": {
+      "dependsOn": ["^typecheck"],
+      "outputLogs": "new-only"
+    },
     "build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["typecheck","^build"],
       "outputs": ["dist/**"],
       "outputLogs": "new-only"
     },
     "test:unit": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^typecheck"],
       "outputs": ["coverage/**"],
       "outputLogs": "new-only"
     },
