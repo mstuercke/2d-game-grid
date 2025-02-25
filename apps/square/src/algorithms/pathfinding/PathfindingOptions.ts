@@ -1,4 +1,4 @@
-import type {SquareCell} from '../../SquareCell'
+import type {SquareCell} from '../../SquareCell.js'
 
 /**
  * An algorithm that could be used for pathfinding

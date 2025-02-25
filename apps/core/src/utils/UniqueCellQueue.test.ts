@@ -1,8 +1,8 @@
-import type {Grid} from '../Grid'
-import {preInitializedGridOptionsFixture, TestGrid} from '../Grid.fixture'
-import {UniqueCellQueue} from './UniqueCellQueue'
-import type {TestDirections} from '../Directions.fixture'
-import type {TestCell} from '../Cell.fixture'
+import type {Grid} from '../Grid.js'
+import {preInitializedGridOptionsFixture, TestGrid} from '../Grid.fixture.js'
+import {UniqueCellQueue} from './UniqueCellQueue.js'
+import type {TestDirections} from '../Directions.fixture.js'
+import type {TestCell} from '../Cell.fixture.js'
 
 describe('UniqueCellQueue', () => {
   let grid: Grid<string, TestDirections, TestCell>

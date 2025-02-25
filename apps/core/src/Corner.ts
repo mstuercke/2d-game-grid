@@ -1,6 +1,6 @@
-import type {Cell} from './Cell'
-import {mapShortCellId} from './utils/mapShortCellId'
-import type {Directions} from './Directions'
+import type {Cell} from './Cell.js'
+import {mapShortCellId} from './utils/mapShortCellId.js'
+import type {Directions} from './Directions.js'
 
 export class Corner<TValue, TDirections extends Directions, TCell extends Cell<TValue, TDirections>> {
   public readonly id: string

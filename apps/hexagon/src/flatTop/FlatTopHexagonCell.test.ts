@@ -1,8 +1,8 @@
-import {FlatTopHexagonNeighbors} from './FlatTopHexagonNeighbors'
+import {FlatTopHexagonNeighbors} from './FlatTopHexagonNeighbors.js'
 import {GridEventDispatcher} from '@2d-game-grid/core'
-import {preInitializedGridOptionsFixture} from './FlatTopHexagonGrid.fixture'
-import {FlatTopHexagonCell} from './FlatTopHexagonCell'
-import {FlatTopHexagonGrid} from './FlatTopHexagonGrid'
+import {preInitializedGridOptionsFixture} from './FlatTopHexagonGrid.fixture.js'
+import {FlatTopHexagonCell} from './FlatTopHexagonCell.js'
+import {FlatTopHexagonGrid} from './FlatTopHexagonGrid.js'
 
 vi.mock('./FlatTopHexagonNeighbors')
 const NeighborsMock = vi.mocked(FlatTopHexagonNeighbors)

@@ -1,6 +1,6 @@
-import {initializeGridOptionsFixture, preInitializedGridOptionsFixture} from './FlatTopHexagonGrid.fixture'
-import {FlatTopHexagonGrid} from './FlatTopHexagonGrid'
-import type {FlatTopHexagonCell} from './FlatTopHexagonCell'
+import {initializeGridOptionsFixture, preInitializedGridOptionsFixture} from './FlatTopHexagonGrid.fixture.js'
+import {FlatTopHexagonGrid} from './FlatTopHexagonGrid.js'
+import type {FlatTopHexagonCell} from './FlatTopHexagonCell.js'
 
 describe(FlatTopHexagonGrid.name, () => {
   let grid: FlatTopHexagonGrid<string>

@@ -1,7 +1,7 @@
 import type {InitializeGridOptions} from '@2d-game-grid/core'
 import {Grid} from '@2d-game-grid/core'
-import {SquareCell} from './SquareCell'
-import type {SquareDirections} from './SquareDirections'
+import {SquareCell} from './SquareCell.js'
+import type {SquareDirections} from './SquareDirections.js'
 
 /**
  * The grid contains all information about cells

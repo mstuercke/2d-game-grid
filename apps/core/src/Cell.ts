@@ -1,12 +1,12 @@
-import type {Coordinate} from './Coordinate'
-import {type CellValueChangedEvent, GridEventDispatcher} from './utils'
-import type {Row} from './Row'
-import type {Column} from './Column'
-import type {Neighbors} from './Neighbors'
-import type {Edges} from './Edges'
-import type {Corners} from './Corners'
-import type {Directions} from './Directions'
-import {createDeepOnChangeProxy} from './utils/createDeepOnChangeProxy'
+import type {Coordinate} from './Coordinate.js'
+import {type CellValueChangedEvent, GridEventDispatcher} from './utils/index.js'
+import type {Row} from './Row.js'
+import type {Column} from './Column.js'
+import type {Neighbors} from './Neighbors.js'
+import type {Edges} from './Edges.js'
+import type {Corners} from './Corners.js'
+import type {Directions} from './Directions.js'
+import {createDeepOnChangeProxy} from './utils/createDeepOnChangeProxy.js'
 
 /**
  * A Cell is part of a grid. It contains meta information like its coordinates inside the grid and the corresponding value.

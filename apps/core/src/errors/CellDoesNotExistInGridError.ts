@@ -1,7 +1,7 @@
-import type {Coordinate} from '../Coordinate'
-import type {Grid} from '../Grid'
-import type {Cell} from '../Cell'
-import type {Directions} from '../Directions'
+import type {Coordinate} from '../Coordinate.js'
+import type {Grid} from '../Grid.js'
+import type {Cell} from '../Cell.js'
+import type {Directions} from '../Directions.js'
 
 /**
  * An error that is thrown when the cell does not exist in the grid

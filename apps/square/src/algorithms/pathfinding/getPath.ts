@@ -1,13 +1,13 @@
 import {Grid as FinderGrid} from 'pathfinding'
 import type {Coordinate} from '@2d-game-grid/core'
-import type {SquareCell} from '../../SquareCell'
-import type {SquareGrid} from '../../SquareGrid'
-import type {PathfindingOptions} from './PathfindingOptions'
-import {mapCells} from './mapper/mapCells'
-import {mapPathfindingDiagonalMovement} from './mapper/mapPathfindingDiagonalMovement'
-import {mapWalkableMatrix} from './mapper/mapWalkableMatrix'
-import {mapFinder} from './mapper/mapFinder'
-import {mapHeuristic} from './mapper/mapHeuristic'
+import type {SquareCell} from '../../SquareCell.js'
+import type {SquareGrid} from '../../SquareGrid.js'
+import type {PathfindingOptions} from './PathfindingOptions.js'
+import {mapCells} from './mapper/mapCells.js'
+import {mapPathfindingDiagonalMovement} from './mapper/mapPathfindingDiagonalMovement.js'
+import {mapWalkableMatrix} from './mapper/mapWalkableMatrix.js'
+import {mapFinder} from './mapper/mapFinder.js'
+import {mapHeuristic} from './mapper/mapHeuristic.js'
 
 /**
  * @param grid The grid

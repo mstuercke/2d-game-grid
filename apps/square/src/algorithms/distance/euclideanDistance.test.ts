@@ -1,4 +1,4 @@
-import {euclideanDistance} from './euclideanDistance'
+import {euclideanDistance} from './euclideanDistance.js'
 
 describe('euclideanDistance', () => {
   it('should calculate vertical distance', async () => {

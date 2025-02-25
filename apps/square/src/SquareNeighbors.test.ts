@@ -1,7 +1,7 @@
-import {SquareGrid} from './SquareGrid'
-import {SquareNeighbors} from './SquareNeighbors'
-import {preInitializedGridOptionsFixture} from './SquareGrid.fixture'
-import type {SquareCell} from './SquareCell'
+import {SquareGrid} from './SquareGrid.js'
+import {SquareNeighbors} from './SquareNeighbors.js'
+import {preInitializedGridOptionsFixture} from './SquareGrid.fixture.js'
+import type {SquareCell} from './SquareCell.js'
 
 describe('SquareNeighbors', () => {
   let grid: SquareGrid<string>

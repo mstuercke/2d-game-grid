@@ -1,8 +1,8 @@
-import type {Grid} from '../Grid'
-import type {Coordinate} from '../Coordinate'
-import type {Direction} from '../Direction'
-import type {Cell} from '../Cell'
-import type {Directions} from '../Directions'
+import type {Grid} from '../Grid.js'
+import type {Coordinate} from '../Coordinate.js'
+import type {Direction} from '../Direction.js'
+import type {Cell} from '../Cell.js'
+import type {Directions} from '../Directions.js'
 
 /**
  * An error that is thrown when the neighbor does not exist in the grid

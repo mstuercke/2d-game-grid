@@ -1,4 +1,4 @@
-import type {DiagonalDirection, StraightDirection} from './Direction'
+import type {DiagonalDirection, StraightDirection} from './Direction.js'
 
 export type TestNeighborDirection = StraightDirection | DiagonalDirection
 export type TestEdgeDirection = StraightDirection

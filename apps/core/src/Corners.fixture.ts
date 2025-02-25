@@ -1,7 +1,7 @@
-import type {TestCornerDirection, TestNeighborDirection} from './Direction.fixture'
-import {Corners} from './Corners'
-import type {TestCell} from './Cell.fixture'
-import type {TestDirections} from './Directions.fixture'
+import type {TestCornerDirection, TestNeighborDirection} from './Direction.fixture.js'
+import {Corners} from './Corners.js'
+import type {TestCell} from './Cell.fixture.js'
+import type {TestDirections} from './Directions.fixture.js'
 
 export class TestCorners extends Corners<string, TestDirections, TestCell> {
   protected getNeighborDirections(cornerDirection: TestCornerDirection): TestNeighborDirection[] {

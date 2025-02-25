@@ -2,7 +2,9 @@
 	"extends": "@mstuercke/typescript-config/package/tsconfig.build.esm.json",
 	"compilerOptions": {
 		"rootDir": "src",
-		"declarationDir": "./dist/types"
+		"outDir": "dist/esm",
+		"declarationDir": "./dist/types",
+		"sourceMap": false,
 	},
 	"include": ["src"],
 	"exclude": ["./**/*.test.ts", "./**/*.fixture.ts", "./**/*.d.ts"]

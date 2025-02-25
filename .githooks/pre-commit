@@ -1,2 +1,3 @@
 #!/usr/bin/env sh
-bun run lint:fix
+yarn run typeCheck
+yarn run lint:fix

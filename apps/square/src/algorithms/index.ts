@@ -1,2 +1,2 @@
-export * from './distance/DistanceAlgorithm'
-export * from './pathfinding/PathfindingOptions'
+export * from './distance/DistanceAlgorithm.js'
+export * from './pathfinding/PathfindingOptions.js'

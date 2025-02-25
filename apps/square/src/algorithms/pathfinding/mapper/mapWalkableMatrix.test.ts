@@ -1,7 +1,7 @@
-import {SquareGrid} from '../../../SquareGrid'
-import {preInitializedGridOptionsFixture} from '../../../SquareGrid.fixture'
-import type {SquareCell} from '../../../SquareCell'
-import {mapWalkableMatrix} from './mapWalkableMatrix'
+import {SquareGrid} from '../../../SquareGrid.js'
+import {preInitializedGridOptionsFixture} from '../../../SquareGrid.fixture.js'
+import type {SquareCell} from '../../../SquareCell.js'
+import {mapWalkableMatrix} from './mapWalkableMatrix.js'
 
 describe('mapWalkableMatrix', () => {
   it('should map correctly', async () => {

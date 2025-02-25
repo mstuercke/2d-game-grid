@@ -1,5 +1,5 @@
 import {DiagonalMovement as PathfindingDiagonalMovement} from 'pathfinding'
-import type {DiagonalMovement} from '../PathfindingOptions'
+import type {DiagonalMovement} from '../PathfindingOptions.js'
 
 /**
  * @param diagonalMovement The allowed diagonal movements

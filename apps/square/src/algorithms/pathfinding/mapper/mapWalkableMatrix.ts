@@ -1,5 +1,5 @@
-import type {SquareGrid} from '../../../SquareGrid'
-import type {SquareCell} from '../../../SquareCell'
+import type {SquareGrid} from '../../../SquareGrid.js'
+import type {SquareCell} from '../../../SquareCell.js'
 
 /**
  * Converts the grid into a matrix for the pathfinding lib

@@ -1,4 +1,4 @@
-import {createDeepOnChangeProxy} from './createDeepOnChangeProxy'
+import {createDeepOnChangeProxy} from './createDeepOnChangeProxy.js'
 
 type Root = {
   foo?: string

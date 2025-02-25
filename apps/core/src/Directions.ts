@@ -1,4 +1,4 @@
-import type {Direction} from './Direction'
+import type {Direction} from './Direction.js'
 
 export type Directions<
   TNeighborDirection extends Direction = Direction,

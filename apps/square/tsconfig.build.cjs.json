@@ -2,7 +2,8 @@
 	"extends": "@mstuercke/typescript-config/package/tsconfig.build.cjs.json",
 	"compilerOptions": {
 		"rootDir": "src",
-		"declarationDir": "./dist/types"
+		"outDir": "dist/cjs",
+		"declarationDir": "./dist/types",
 	},
 	"include": ["src"],
 	"exclude": ["./**/*.test.ts", "./**/*.fixture.ts", "./**/*.d.ts"]

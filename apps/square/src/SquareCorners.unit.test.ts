@@ -1,7 +1,7 @@
-import {SquareCorners} from './SquareCorners'
+import {SquareCorners} from './SquareCorners.js'
 import {DIAGONAL_DIRECTIONS} from '@2d-game-grid/core'
-import {SquareGrid} from './SquareGrid'
-import {preInitializedGridOptionsFixture} from './SquareGrid.fixture'
+import {SquareGrid} from './SquareGrid.js'
+import {preInitializedGridOptionsFixture} from './SquareGrid.fixture.js'
 
 describe(SquareCorners.name, () => {
   it.each(DIAGONAL_DIRECTIONS)('should have 3 neighbors for corner %s', (cornerDirection) => {

@@ -1,5 +1,5 @@
 import {DiagonalMovement as PathfindingDiagonalMovement} from 'pathfinding'
-import {mapPathfindingDiagonalMovement} from './mapPathfindingDiagonalMovement'
+import {mapPathfindingDiagonalMovement} from './mapPathfindingDiagonalMovement.js'
 
 describe('mapPathfindingDiagonalMovement', () => {
   it.each`

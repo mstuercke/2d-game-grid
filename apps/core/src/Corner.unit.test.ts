@@ -1,6 +1,6 @@
-import {TestCorners} from './Corners.fixture'
-import {TestGrid} from './Grid.fixture'
-import {Corner} from './Corner'
+import {TestCorners} from './Corners.fixture.js'
+import {TestGrid} from './Grid.fixture.js'
+import {Corner} from './Corner.js'
 
 describe(Corner.name, () => {
   it('should create the same id for source and adjacent cells', () => {

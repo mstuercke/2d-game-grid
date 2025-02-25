@@ -10,10 +10,10 @@ export {
   DIAGONAL_DIRECTIONS,
   ALL_DIRECTIONS,
 } from '@2d-game-grid/core'
-export type * from './algorithms'
-export type * from './SquareCell'
-export type * from './SquareCorners'
-export * from './SquareDirections'
-export type * from './SquareEdges'
-export * from './SquareGrid'
-export type * from './SquareNeighbors'
+export type * from './algorithms/index.js'
+export type * from './SquareCell.js'
+export type * from './SquareCorners.js'
+export * from './SquareDirections.js'
+export type * from './SquareEdges.js'
+export * from './SquareGrid.js'
+export type * from './SquareNeighbors.js'

@@ -1,7 +1,7 @@
-import type {SquareCell} from '../../SquareCell'
+import type {SquareCell} from '../../SquareCell.js'
 import {ALL_DIRECTIONS, UniqueCellQueue} from '@2d-game-grid/core'
-import type {DistanceAlgorithm} from './DistanceAlgorithm'
-import type {SquareDirections} from '../../SquareDirections'
+import type {DistanceAlgorithm} from './DistanceAlgorithm.js'
+import type {SquareDirections} from '../../SquareDirections.js'
 
 /**
  * @param cell The start cell

@@ -1,13 +1,13 @@
-import {SquareGrid} from '../../SquareGrid'
-import {preInitializedGridOptionsFixture} from '../../SquareGrid.fixture'
+import {SquareGrid} from '../../SquareGrid.js'
+import {preInitializedGridOptionsFixture} from '../../SquareGrid.fixture.js'
 import type {Coordinate} from '@2d-game-grid/core'
-import type {SquareCell} from '../../SquareCell'
-import type {PathfindingOptions} from './PathfindingOptions'
-import {getPath} from './getPath'
-import * as mapPathfindingDiagonalMovementModule from './mapper/mapPathfindingDiagonalMovement'
-import * as mapWalkableMatrixModule from './mapper/mapWalkableMatrix'
-import * as mapFinderModule from './mapper/mapFinder'
-import * as mapHeuristicModule from './mapper/mapHeuristic'
+import type {SquareCell} from '../../SquareCell.js'
+import type {PathfindingOptions} from './PathfindingOptions.js'
+import {getPath} from './getPath.js'
+import * as mapPathfindingDiagonalMovementModule from './mapper/mapPathfindingDiagonalMovement.js'
+import * as mapWalkableMatrixModule from './mapper/mapWalkableMatrix.js'
+import * as mapFinderModule from './mapper/mapFinder.js'
+import * as mapHeuristicModule from './mapper/mapHeuristic.js'
 
 describe('getPath', () => {
   let grid: SquareGrid<string>

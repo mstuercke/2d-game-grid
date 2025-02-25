@@ -1,6 +1,6 @@
-import type {Cell} from '../Cell'
-import {QueueIsEmptyError} from '../errors'
-import type {Directions} from '../Directions'
+import type {Cell} from '../Cell.js'
+import {QueueIsEmptyError} from '../errors/index.js'
+import type {Directions} from '../Directions.js'
 
 /**
  * This queue will return each cell only once

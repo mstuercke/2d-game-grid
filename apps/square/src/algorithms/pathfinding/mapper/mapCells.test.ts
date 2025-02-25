@@ -1,6 +1,6 @@
-import {SquareGrid} from '../../../SquareGrid'
-import {preInitializedGridOptionsFixture} from '../../../SquareGrid.fixture'
-import {mapCells} from './mapCells'
+import {SquareGrid} from '../../../SquareGrid.js'
+import {preInitializedGridOptionsFixture} from '../../../SquareGrid.fixture.js'
+import {mapCells} from './mapCells.js'
 
 describe('mapCells', () => {
   it('should map path to cells', async () => {

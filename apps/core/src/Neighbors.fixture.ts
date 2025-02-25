@@ -1,8 +1,8 @@
-import {Neighbors} from './Neighbors'
-import type {Coordinate} from './Coordinate'
-import type {TestNeighborDirection} from './Direction.fixture'
-import type {TestCell} from './Cell.fixture'
-import type {TestDirections} from './Directions.fixture'
+import {Neighbors} from './Neighbors.js'
+import type {Coordinate} from './Coordinate.js'
+import type {TestNeighborDirection} from './Direction.fixture.js'
+import type {TestCell} from './Cell.fixture.js'
+import type {TestDirections} from './Directions.fixture.js'
 
 export class TestNeighbors extends Neighbors<string, TestDirections, TestCell> {
   protected getOffsetCoordinate(direction: TestNeighborDirection): Coordinate {

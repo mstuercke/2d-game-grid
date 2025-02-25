@@ -9,16 +9,16 @@ runs:
       uses: actions/cache/restore@v4
       with:
         path: ./**/node_modules
-        key: node-modules|${{ hashFiles( 'bun.lockb', 'package.json', '{apps,packages}/*/package.json' ) }}
+        key: node-modules|${{ hashFiles( 'yarn.lock', 'package.json', '{apps,packages}/*/package.json' ) }}
 
     - name: Install
       if: steps.node-modules-cache.outputs.cache-hit != 'true'
       shell: bash
-      run: bun install --no-save
+      run: yarn install --pure-lockfile
 
     - name: Save node_modules cache
       if: steps.node-modules-cache.outputs.cache-hit != 'true'
       uses: actions/cache/save@v4
       with:
         path: ./**/node_modules
-        key: node-modules|${{ hashFiles( 'bun.lockb', 'package.json', '{apps,packages}/*/package.json' ) }}
+        key: node-modules|${{ hashFiles( 'yarn.lock', 'package.json', '{apps,packages}/*/package.json' ) }}

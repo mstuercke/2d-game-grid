@@ -1,2 +1,2 @@
-export * from './GridEventDispatcher'
-export * from './UniqueCellQueue'
+export * from './GridEventDispatcher.js'
+export * from './UniqueCellQueue.js'

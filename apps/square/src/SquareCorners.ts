@@ -1,7 +1,7 @@
 import {Corners, type DiagonalDirection, type Direction} from '@2d-game-grid/core'
-import type {SquareCell} from './SquareCell'
-import type {SquareGrid} from './SquareGrid'
-import type {SquareDirections} from './SquareDirections'
+import type {SquareCell} from './SquareCell.js'
+import type {SquareGrid} from './SquareGrid.js'
+import type {SquareDirections} from './SquareDirections.js'
 
 export class SquareCorners<Value> extends Corners<Value, SquareDirections, SquareCell<Value>> {
   constructor(

@@ -1,7 +1,7 @@
 import {Heuristic} from 'pathfinding'
-import {SquareGrid} from '../../../SquareGrid'
-import {preInitializedGridOptionsFixture} from '../../../SquareGrid.fixture'
-import {mapHeuristic} from './mapHeuristic'
+import {SquareGrid} from '../../../SquareGrid.js'
+import {preInitializedGridOptionsFixture} from '../../../SquareGrid.fixture.js'
+import {mapHeuristic} from './mapHeuristic.js'
 
 describe('mapHeuristic', () => {
   let grid: SquareGrid<string>

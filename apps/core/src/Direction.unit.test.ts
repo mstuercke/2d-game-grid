@@ -1,4 +1,4 @@
-import {ALL_DIRECTIONS, getOppositeDirection} from './Direction'
+import {ALL_DIRECTIONS, getOppositeDirection} from './Direction.js'
 
 describe('Direction', () => {
   it.each(ALL_DIRECTIONS)(`should get opposite direction for %s`, (direction) => {

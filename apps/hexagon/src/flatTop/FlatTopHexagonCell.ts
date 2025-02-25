@@ -1,9 +1,9 @@
 import {Cell, type Column, type Coordinate, type Row} from '@2d-game-grid/core'
-import type {FlatTopHexagonGrid} from './FlatTopHexagonGrid'
-import {FlatTopHexagonNeighbors} from './FlatTopHexagonNeighbors'
-import {FlatTopHexagonEdges} from './FlatTopHexagonEdges'
-import {FlatTopHexagonCorners} from './FlatTopHexagonCorners'
-import type {FlatTopHexagonDirections} from './FlatTopHexagonDirections'
+import type {FlatTopHexagonGrid} from './FlatTopHexagonGrid.js'
+import {FlatTopHexagonNeighbors} from './FlatTopHexagonNeighbors.js'
+import {FlatTopHexagonEdges} from './FlatTopHexagonEdges.js'
+import {FlatTopHexagonCorners} from './FlatTopHexagonCorners.js'
+import type {FlatTopHexagonDirections} from './FlatTopHexagonDirections.js'
 
 export class FlatTopHexagonCell<Value> extends Cell<Value, FlatTopHexagonDirections> {
   protected readonly grid: FlatTopHexagonGrid<Value>

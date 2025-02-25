@@ -1,5 +1,5 @@
-import type {Cell} from '../Cell'
-import type {Directions} from '../Directions'
+import type {Cell} from '../Cell.js'
+import type {Directions} from '../Directions.js'
 
 /**
  * The event that will be created when the value of a cell was changed

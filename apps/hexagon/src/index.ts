@@ -10,4 +10,4 @@ export {
   DIAGONAL_DIRECTIONS,
   ALL_DIRECTIONS,
 } from '@2d-game-grid/core'
-export * from './flatTop'
+export * from './flatTop/index.js'

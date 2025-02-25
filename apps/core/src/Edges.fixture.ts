@@ -1,8 +1,8 @@
-import {Edges} from './Edges'
-import {TestNeighbors} from './Neighbors.fixture'
-import type {TestEdgeDirection} from './Direction.fixture'
-import type {TestDirections} from './Directions.fixture'
-import type {TestCell} from './Cell.fixture'
+import {Edges} from './Edges.js'
+import {TestNeighbors} from './Neighbors.fixture.js'
+import type {TestEdgeDirection} from './Direction.fixture.js'
+import type {TestDirections} from './Directions.fixture.js'
+import type {TestCell} from './Cell.fixture.js'
 
 export class TestEdges extends Edges<string, TestDirections, TestCell> {
   protected findNeighbor(direction: TestEdgeDirection): TestCell | undefined {

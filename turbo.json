@@ -7,7 +7,7 @@
       "outputLogs": "new-only"
     },
     "build": {
-      "dependsOn": ["typecheck","^build"],
+      "dependsOn": ["typecheck", "^build"],
       "outputs": ["dist/**"],
       "outputLogs": "new-only"
     },

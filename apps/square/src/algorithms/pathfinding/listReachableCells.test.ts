@@ -1,8 +1,8 @@
-import {SquareGrid} from '../../SquareGrid'
-import {preInitializedGridOptionsFixture} from '../../SquareGrid.fixture'
-import type {SquareCell} from '../../SquareCell'
-import {listReachableCells} from './listReachableCells'
-import type {PathfindingOptions} from './PathfindingOptions'
+import {SquareGrid} from '../../SquareGrid.js'
+import {preInitializedGridOptionsFixture} from '../../SquareGrid.fixture.js'
+import type {SquareCell} from '../../SquareCell.js'
+import {listReachableCells} from './listReachableCells.js'
+import type {PathfindingOptions} from './PathfindingOptions.js'
 
 describe('listReachableCells', () => {
   let grid: SquareGrid<string>

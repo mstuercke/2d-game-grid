@@ -1,9 +1,9 @@
 import type {Cell} from '@2d-game-grid/core'
-import {NeighborDoesNotExistInGridError} from './errors'
-import type {Grid} from './Grid'
-import type {Coordinate} from './Coordinate'
-import type {NeighborCoordinate} from './NeighborCoordinate'
-import type {Directions} from './Directions'
+import {NeighborDoesNotExistInGridError} from './errors/index.js'
+import type {Grid} from './Grid.js'
+import type {Coordinate} from './Coordinate.js'
+import type {NeighborCoordinate} from './NeighborCoordinate.js'
+import type {Directions} from './Directions.js'
 
 /**
  * The representation of all neighbors of a cell

@@ -1,7 +1,7 @@
-import {SquareCell} from '../../SquareCell'
-import {SquareGrid} from '../../SquareGrid'
-import {preInitializedGridOptionsFixture} from '../../SquareGrid.fixture'
-import {listCellsInDistance} from './listCellsInDistance'
+import {SquareCell} from '../../SquareCell.js'
+import {SquareGrid} from '../../SquareGrid.js'
+import {preInitializedGridOptionsFixture} from '../../SquareGrid.fixture.js'
+import {listCellsInDistance} from './listCellsInDistance.js'
 
 describe('listCellsInDistance', () => {
   it.each`

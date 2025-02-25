@@ -1,6 +1,6 @@
-import {GridEventDispatcher} from './utils'
-import {GenericTestCell, TestCell} from './Cell.fixture'
-import {preInitializedGridOptionsFixture, TestGrid} from './Grid.fixture'
+import {GridEventDispatcher} from './utils/index.js'
+import {GenericTestCell, TestCell} from './Cell.fixture.js'
+import {preInitializedGridOptionsFixture, TestGrid} from './Grid.fixture.js'
 
 vi.mock('./utils/GridEventDispatcher')
 const GridEventDispatcherMock = vi.mocked(GridEventDispatcher)

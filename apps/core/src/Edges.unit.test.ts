@@ -1,6 +1,6 @@
-import {Edges} from './Edges'
-import {TestGrid} from './Grid.fixture'
-import {TestEdges} from './Edges.fixture'
+import {Edges} from './Edges.js'
+import {TestGrid} from './Grid.fixture.js'
+import {TestEdges} from './Edges.fixture.js'
 
 describe(Edges.name, () => {
   it.each`

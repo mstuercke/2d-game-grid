@@ -1,6 +1,6 @@
 import {Heuristic} from 'pathfinding'
-import type {SquareGrid} from '../../../SquareGrid'
-import type {HeuristicAlgorithm, HeuristicFunction} from '../PathfindingOptions'
+import type {SquareGrid} from '../../../SquareGrid.js'
+import type {HeuristicAlgorithm, HeuristicFunction} from '../PathfindingOptions.js'
 
 /**
  * @param grid The grid

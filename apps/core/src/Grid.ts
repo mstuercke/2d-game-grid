@@ -1,16 +1,16 @@
-import type {Coordinate} from './Coordinate'
-import {Row} from './Row'
-import {Column} from './Column'
+import type {Coordinate} from './Coordinate.js'
+import {Row} from './Row.js'
+import {Column} from './Column.js'
 import {
   CellDoesNotExistInGridError,
   InvalidGridSizeError,
   UnequalGridHeightError,
   UnequalGridWidthError,
-} from './errors'
-import type {Cell} from './Cell'
-import {type CellValueChangedEvent, GridEventDispatcher} from './utils'
-import type {StraightDirection} from './Direction'
-import type {Directions} from './Directions'
+} from './errors/index.js'
+import type {Cell} from './Cell.js'
+import {type CellValueChangedEvent, GridEventDispatcher} from './utils/index.js'
+import type {StraightDirection} from './Direction.js'
+import type {Directions} from './Directions.js'
 
 /**
  * Options to generate a new grid

@@ -1,2 +1,2 @@
 #!/usr/bin/env sh
-bun run test:unit
+yarn run test:unit

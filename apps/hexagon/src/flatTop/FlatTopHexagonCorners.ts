@@ -1,8 +1,8 @@
 import {Corners} from '@2d-game-grid/core'
-import type {FlatTopHexagonCell} from './FlatTopHexagonCell'
-import type {FlatTopHexagonCornerDirection, FlatTopHexagonNeighborDirection} from './FlatTopHexagonDirection'
-import type {FlatTopHexagonGrid} from './FlatTopHexagonGrid'
-import type {FlatTopHexagonDirections} from './FlatTopHexagonDirections'
+import type {FlatTopHexagonCell} from './FlatTopHexagonCell.js'
+import type {FlatTopHexagonCornerDirection, FlatTopHexagonNeighborDirection} from './FlatTopHexagonDirection.js'
+import type {FlatTopHexagonGrid} from './FlatTopHexagonGrid.js'
+import type {FlatTopHexagonDirections} from './FlatTopHexagonDirections.js'
 
 export class FlatTopHexagonCorners<Value> extends Corners<Value, FlatTopHexagonDirections, FlatTopHexagonCell<Value>> {
   constructor(

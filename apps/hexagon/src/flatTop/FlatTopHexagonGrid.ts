@@ -1,6 +1,6 @@
 import {Grid, type InitializeGridOptions} from '@2d-game-grid/core'
-import {FlatTopHexagonCell} from './FlatTopHexagonCell'
-import type {FlatTopHexagonDirections} from './FlatTopHexagonDirections'
+import {FlatTopHexagonCell} from './FlatTopHexagonCell.js'
+import type {FlatTopHexagonDirections} from './FlatTopHexagonDirections.js'
 
 export class FlatTopHexagonGrid<Value> extends Grid<Value, FlatTopHexagonDirections, FlatTopHexagonCell<Value>> {
   constructor(options: InitializeGridOptions<Value>) {

@@ -21,15 +21,13 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
-        with: { node-version: 20.x }
-
-      - uses: oven-sh/setup-bun@v2
+        with: { node-version-file: package.json }
 
       - name: Install
         uses: ./.github/workflows/actions/install
 
       - name: Fix versions
-        run: bun run versions:fix
+        run: yarn run versions:fix
 
       - name: Cache turbo
         uses: actions/cache@v4
@@ -39,4 +37,4 @@ jobs:
           restore-keys: turbo|test|
 
       - name: Run test:unit
-        run: bun run test:unit
+        run: yarn run test:unit

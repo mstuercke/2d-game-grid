@@ -1,7 +1,7 @@
-import type {Grid} from './Grid'
-import type {Cell} from './Cell'
-import {type CellValueChangedEvent, GridEventDispatcher} from './utils'
-import type {Directions} from './Directions'
+import type {Grid} from './Grid.js'
+import type {Cell} from './Cell.js'
+import {type CellValueChangedEvent, GridEventDispatcher} from './utils/index.js'
+import type {Directions} from './Directions.js'
 
 /**
  * The row of a grid contains all information of the rows' cells

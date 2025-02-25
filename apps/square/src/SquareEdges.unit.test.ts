@@ -1,6 +1,6 @@
-import {SquareEdges} from './SquareEdges'
-import {SquareGrid} from './SquareGrid'
-import {preInitializedGridOptionsFixture} from './SquareGrid.fixture'
+import {SquareEdges} from './SquareEdges.js'
+import {SquareGrid} from './SquareGrid.js'
+import {preInitializedGridOptionsFixture} from './SquareGrid.fixture.js'
 import {STRAIGHT_DIRECTIONS} from '@2d-game-grid/core'
 
 describe(SquareEdges.name, () => {

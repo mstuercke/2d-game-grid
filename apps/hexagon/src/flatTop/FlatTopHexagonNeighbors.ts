@@ -1,7 +1,7 @@
 import {type Coordinate, type NeighborCoordinate, Neighbors} from '@2d-game-grid/core'
-import {FLAT_TOP_HEXAGON_NEIGHBOR_DIRECTIONS, type FlatTopHexagonNeighborDirection} from './FlatTopHexagonDirection'
-import type {FlatTopHexagonCell} from './FlatTopHexagonCell'
-import type {FlatTopHexagonDirections} from './FlatTopHexagonDirections'
+import {FLAT_TOP_HEXAGON_NEIGHBOR_DIRECTIONS, type FlatTopHexagonNeighborDirection} from './FlatTopHexagonDirection.js'
+import type {FlatTopHexagonCell} from './FlatTopHexagonCell.js'
+import type {FlatTopHexagonDirections} from './FlatTopHexagonDirections.js'
 
 /**
  * The representation of all neighbors of a cell

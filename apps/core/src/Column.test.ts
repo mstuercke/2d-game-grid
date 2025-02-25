@@ -1,7 +1,7 @@
-import {Column} from './Column'
-import {preInitializedGridOptionsFixture, TestGrid} from './Grid.fixture'
-import type {TestDirections} from './Directions.fixture'
-import type {TestCell} from './Cell.fixture'
+import {Column} from './Column.js'
+import {preInitializedGridOptionsFixture, TestGrid} from './Grid.fixture.js'
+import type {TestDirections} from './Directions.fixture.js'
+import type {TestCell} from './Cell.fixture.js'
 
 describe('Column', () => {
   let column: Column<string, TestDirections, TestCell>

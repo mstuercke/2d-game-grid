@@ -1,7 +1,7 @@
-import type {Grid} from './Grid'
-import type {Cell} from './Cell'
-import {Edge} from './Edge'
-import type {Directions} from './Directions'
+import type {Grid} from './Grid.js'
+import type {Cell} from './Cell.js'
+import {Edge} from './Edge.js'
+import type {Directions} from './Directions.js'
 
 /**
  * The representation of all neighbors of a cell

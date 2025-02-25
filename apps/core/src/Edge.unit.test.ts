@@ -1,6 +1,6 @@
-import {Edge} from './Edge'
-import {TestEdges} from './Edges.fixture'
-import {TestGrid} from './Grid.fixture'
+import {Edge} from './Edge.js'
+import {TestEdges} from './Edges.fixture.js'
+import {TestGrid} from './Grid.fixture.js'
 
 describe(Edge.name, () => {
   it('should create the same id for source and adjacent cell', () => {

@@ -1,7 +1,7 @@
 import type {Coordinate} from '@2d-game-grid/core'
-import type {DistanceAlgorithm} from './DistanceAlgorithm'
-import {euclideanDistance} from './euclideanDistance'
-import {manhattanDistance} from './manhattanDistance'
+import type {DistanceAlgorithm} from './DistanceAlgorithm.js'
+import {euclideanDistance} from './euclideanDistance.js'
+import {manhattanDistance} from './manhattanDistance.js'
 
 /**
  * @param start The start coordinate

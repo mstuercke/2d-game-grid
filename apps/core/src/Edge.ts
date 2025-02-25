@@ -1,7 +1,7 @@
-import type {Cell} from './Cell'
-import type {Edges} from './Edges'
-import {mapShortCellId} from './utils/mapShortCellId'
-import type {Directions} from './Directions'
+import type {Cell} from './Cell.js'
+import type {Edges} from './Edges.js'
+import {mapShortCellId} from './utils/mapShortCellId.js'
+import type {Directions} from './Directions.js'
 
 /**
  * The representation of an edge of a cell

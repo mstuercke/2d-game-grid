@@ -1,5 +1,5 @@
-import type {Direction} from './Direction'
-import type {Coordinate} from './Coordinate'
+import type {Direction} from './Direction.js'
+import type {Coordinate} from './Coordinate.js'
 
 /**
  * The Coordinate defines the position of a cell inside a grid

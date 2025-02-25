@@ -1,7 +1,7 @@
-import {FlatTopHexagonEdges} from './FlatTopHexagonEdges'
-import {FLAT_TOP_HEXAGON_NEIGHBOR_DIRECTIONS} from './FlatTopHexagonDirection'
-import {FlatTopHexagonGrid} from './FlatTopHexagonGrid'
-import {preInitializedGridOptionsFixture} from './FlatTopHexagonGrid.fixture'
+import {FlatTopHexagonEdges} from './FlatTopHexagonEdges.js'
+import {FLAT_TOP_HEXAGON_NEIGHBOR_DIRECTIONS} from './FlatTopHexagonDirection.js'
+import {FlatTopHexagonGrid} from './FlatTopHexagonGrid.js'
+import {preInitializedGridOptionsFixture} from './FlatTopHexagonGrid.fixture.js'
 
 describe(FlatTopHexagonEdges.name, () => {
   it.each(FLAT_TOP_HEXAGON_NEIGHBOR_DIRECTIONS)('should have consistent previous/next directions for %s', (direction) => {

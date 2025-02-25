@@ -1,5 +1,5 @@
-import {type CellValueChangedEvent, GridEventDispatcher} from './GridEventDispatcher'
-import type {TestDirections} from '../Directions.fixture'
+import {type CellValueChangedEvent, GridEventDispatcher} from './GridEventDispatcher.js'
+import type {TestDirections} from '../Directions.fixture.js'
 
 describe('GridEventDispatcher', () => {
   let eventDispatcher: GridEventDispatcher<string, TestDirections>

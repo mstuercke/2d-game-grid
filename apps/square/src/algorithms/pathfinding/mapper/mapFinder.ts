@@ -6,7 +6,7 @@ import {
   type Finder,
   type FinderOptions,
 } from 'pathfinding'
-import type {PathfindingAlgorithm} from '../PathfindingOptions'
+import type {PathfindingAlgorithm} from '../PathfindingOptions.js'
 
 /**
  * @param algorithm The path algorithm

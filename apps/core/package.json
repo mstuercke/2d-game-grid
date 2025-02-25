@@ -1,10 +1,9 @@
 {
   "name": "@2d-game-grid/core",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "license": "MIT",
   "author": "Marvin Stürcke",
   "repository": "https://github.com/mstuercke/2d-game-grid",
-  "main": "src/index.ts",
   "files": [
     "src/",
     "!src/**/*.test.ts",
@@ -12,6 +11,8 @@
     "dist/",
     "README.md"
   ],
+  "type": "module",
+  "main": "src/index.ts",
   "exports": {
     ".": {
       "default": "./src/index.ts",
@@ -24,14 +25,13 @@
     "typecheck": "tsc --noEmit",
     "test:unit": "vitest run --coverage",
     "test:unit:watch": "vitest watch",
-    "build": "bun scripts/build.ts",
-    "release": "bun run scripts/release.ts"
+    "build:esm": "tsc -p tsconfig.build.esm.json",
+    "build:cjs": "tsc -p tsconfig.build.cjs.json",
+    "build": "yarn run build:cjs && yarn run build:esm",
+    "release": "node --no-warnings --loader ts-node/esm scripts/release.ts"
   },
   "devDependencies": {
-    "@types/pathfinding": "0.0.9",
-    "@vitest/coverage-istanbul": "^3.0.0",
-    "typescript": "5.7.3",
-    "vitest": "3.0.7"
+    "@types/pathfinding": "^0.0.9"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

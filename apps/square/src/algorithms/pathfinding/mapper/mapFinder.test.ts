@@ -1,5 +1,5 @@
 import {AStarFinder, BestFirstFinder, BreadthFirstFinder, DijkstraFinder, type Finder, type FinderOptions} from 'pathfinding'
-import {mapFinder} from './mapFinder'
+import {mapFinder} from './mapFinder.js'
 
 vi.mock('pathfinding', () => ({
   AStarFinder: vi.fn(),

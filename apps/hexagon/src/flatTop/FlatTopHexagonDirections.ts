@@ -3,7 +3,7 @@ import type {
   FlatTopHexagonCornerDirection,
   FlatTopHexagonEdgeDirection,
   FlatTopHexagonNeighborDirection,
-} from './FlatTopHexagonDirection'
+} from './FlatTopHexagonDirection.js'
 
 export type FlatTopHexagonDirections = Directions<
   FlatTopHexagonNeighborDirection,

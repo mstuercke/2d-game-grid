@@ -1,14 +1,14 @@
-import {SquareGrid} from './SquareGrid'
-import {SquareNeighbors} from './SquareNeighbors'
+import {SquareGrid} from './SquareGrid.js'
+import {SquareNeighbors} from './SquareNeighbors.js'
 import type {Coordinate} from '@2d-game-grid/core'
 import {GridEventDispatcher} from '@2d-game-grid/core'
-import {getDistance} from './algorithms/distance/getDistance'
-import {preInitializedGridOptionsFixture} from './SquareGrid.fixture'
-import {SquareCell} from './SquareCell'
-import {getPath} from './algorithms/pathfinding/getPath'
-import type {PathfindingOptions} from './algorithms'
-import {listCellsInDistance} from './algorithms/distance/listCellsInDistance'
-import {listReachableCells} from './algorithms/pathfinding/listReachableCells'
+import {getDistance} from './algorithms/distance/getDistance.js'
+import {preInitializedGridOptionsFixture} from './SquareGrid.fixture.js'
+import {SquareCell} from './SquareCell.js'
+import {getPath} from './algorithms/pathfinding/getPath.js'
+import type {PathfindingOptions} from './algorithms/index.js'
+import {listCellsInDistance} from './algorithms/distance/listCellsInDistance.js'
+import {listReachableCells} from './algorithms/pathfinding/listReachableCells.js'
 
 vi.mock('./SquareNeighbors')
 const NeighborsMock = vi.mocked(SquareNeighbors)

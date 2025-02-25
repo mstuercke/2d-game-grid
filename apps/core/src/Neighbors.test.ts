@@ -1,7 +1,7 @@
-import {preInitializedGridOptionsFixture, TestGrid} from './Grid.fixture'
-import type {Coordinate} from './Coordinate'
-import {TestNeighbors} from './Neighbors.fixture'
-import type {TestCell} from './Cell.fixture'
+import {preInitializedGridOptionsFixture, TestGrid} from './Grid.fixture.js'
+import type {Coordinate} from './Coordinate.js'
+import {TestNeighbors} from './Neighbors.fixture.js'
+import type {TestCell} from './Cell.fixture.js'
 
 describe('Neighbors', () => {
   let grid: TestGrid

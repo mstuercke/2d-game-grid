@@ -1,7 +1,7 @@
-import {releaseNpmPackage} from '@mstuercke/bun-utils/npmPackage'
-import packageJson from '../package.json'
+import {releaseNpmPackage} from '@mstuercke/node-utils/npmPackage'
+import packageJson from '../package.json' with {type: 'json'}
 
 await releaseNpmPackage({
   packageJson,
-  npmAuthToken: Bun.env.NPM_TOKEN as string,
+  npmAuthToken: process.env.NPM_TOKEN as string,
 })

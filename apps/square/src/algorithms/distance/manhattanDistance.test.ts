@@ -1,4 +1,4 @@
-import {manhattanDistance} from './manhattanDistance'
+import {manhattanDistance} from './manhattanDistance.js'
 
 describe('manhattanDistance', () => {
   it('should calculate vertical distance', async () => {

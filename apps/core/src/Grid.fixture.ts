@@ -1,7 +1,7 @@
-import {Grid, type InitializeGridOptions, type InitializeNewGridOptions, type PreInitializedGridOptions} from './Grid'
-import type {Coordinate} from './Coordinate'
-import {TestCell} from './Cell.fixture'
-import type {TestDirections} from './Directions.fixture'
+import {Grid, type InitializeGridOptions, type InitializeNewGridOptions, type PreInitializedGridOptions} from './Grid.js'
+import type {Coordinate} from './Coordinate.js'
+import {TestCell} from './Cell.fixture.js'
+import type {TestDirections} from './Directions.fixture.js'
 
 export const preInitializedGridOptionsFixture: PreInitializedGridOptions<string> = {
   grid: [

@@ -1,6 +1,6 @@
 {
   "name": "@2d-game-grid/square",
-  "version": "2.3.1",
+  "version": "2.4.0",
   "description": "A simple square grid made for games",
   "keywords": [
     "grid",
@@ -13,7 +13,6 @@
   "license": "MIT",
   "author": "Marvin Stürcke",
   "repository": "https://github.com/mstuercke/2d-game-grid",
-  "main": "src/index.ts",
   "files": [
     "src/",
     "!src/**/*.test.ts",
@@ -21,9 +20,10 @@
     "dist/",
     "README.md"
   ],
+  "type": "module",
+  "main": "src/index.ts",
   "exports": {
     ".": {
-      "default": "./src/index.ts",
       "require": "./dist/cjs/index.js",
       "import": "./dist/esm/index.js",
       "types": "./dist/types/index.d.ts"
@@ -33,17 +33,14 @@
     "typecheck": "tsc --noEmit",
     "test:unit": "vitest run --coverage",
     "test:unit:watch": "vitest watch",
-    "build": "bun scripts/build.ts",
-    "release": "bun run scripts/release.ts"
+    "build:esm": "tsc -p tsconfig.build.esm.json",
+    "build:cjs": "tsc -p tsconfig.build.cjs.json",
+    "build": "yarn run build:cjs && yarn run build:esm",
+    "release": "node --no-warnings --loader ts-node/esm scripts/release.ts"
   },
   "dependencies": {
-    "@2d-game-grid/core": "0.0.12",
-    "pathfinding": "0.4.18"
-  },
-  "devDependencies": {
-    "@vitest/coverage-istanbul": "^3.0.0",
-    "typescript": "5.7.3",
-    "vitest": "3.0.7"
+    "@2d-game-grid/core": "0.0.13",
+    "pathfinding": "^0.4.18"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
