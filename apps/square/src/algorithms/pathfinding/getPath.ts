@@ -1,4 +1,3 @@
-import {Grid as FinderGrid} from 'pathfinding'
 import type {Coordinate} from '@2d-game-grid/core'
 import type {SquareCell} from '../../SquareCell.js'
 import type {SquareGrid} from '../../SquareGrid.js'
@@ -8,6 +7,7 @@ import {mapPathfindingDiagonalMovement} from './mapper/mapPathfindingDiagonalMov
 import {mapWalkableMatrix} from './mapper/mapWalkableMatrix.js'
 import {mapFinder} from './mapper/mapFinder.js'
 import {mapHeuristic} from './mapper/mapHeuristic.js'
+import * as pathfinding from 'pathfinding'
 
 /**
  * @param grid The grid
@@ -30,7 +30,7 @@ export function getPath<Value>(
   } = options || {}
 
   const matrix = mapWalkableMatrix(grid, isWalkable)
-  const pathfindingGrid = new FinderGrid(matrix)
+  const pathfindingGrid = new pathfinding.Grid(matrix)
   const finder = mapFinder(algorithm, {
     diagonalMovement: mapPathfindingDiagonalMovement(diagonalMovement),
     heuristic: mapHeuristic(grid, heuristic),

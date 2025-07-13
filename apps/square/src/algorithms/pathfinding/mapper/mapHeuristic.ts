@@ -1,4 +1,4 @@
-import {Heuristic} from 'pathfinding'
+import * as pathfinding from 'pathfinding'
 import type {SquareGrid} from '../../../SquareGrid.js'
 import type {HeuristicAlgorithm, HeuristicFunction} from '../PathfindingOptions.js'
 
@@ -11,9 +11,9 @@ export function mapHeuristic<Value>(grid: SquareGrid<Value>, heuristic: Heuristi
   return typeof heuristic === 'function'
     ? (col: number, row: number) => heuristic(grid.getCell({row, col}))
     : {
-        MANHATTAN: Heuristic.manhattan,
-        CHEBYSHEV: Heuristic.chebyshev,
-        EUCLIDEAN: Heuristic.euclidean,
-        OCTILE: Heuristic.octile,
+        MANHATTAN: pathfinding.Heuristic.manhattan,
+        CHEBYSHEV: pathfinding.Heuristic.chebyshev,
+        EUCLIDEAN: pathfinding.Heuristic.euclidean,
+        OCTILE: pathfinding.Heuristic.octile,
       }[heuristic]
 }

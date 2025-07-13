@@ -1,4 +1,4 @@
-import {Heuristic} from 'pathfinding'
+import * as pathfinding from 'pathfinding'
 import {SquareGrid} from '../../../SquareGrid.js'
 import {preInitializedGridOptionsFixture} from '../../../SquareGrid.fixture.js'
 import {mapHeuristic} from './mapHeuristic.js'
@@ -10,19 +10,19 @@ describe('mapHeuristic', () => {
   })
 
   it('should return manhattan heuristic', async () => {
-    expect(mapHeuristic(grid, 'MANHATTAN')).toEqual(Heuristic.manhattan)
+    expect(mapHeuristic(grid, 'MANHATTAN')).toEqual(pathfinding.Heuristic.manhattan)
   })
 
   it('should return chebyshev heuristic', async () => {
-    expect(mapHeuristic(grid, 'CHEBYSHEV')).toEqual(Heuristic.chebyshev)
+    expect(mapHeuristic(grid, 'CHEBYSHEV')).toEqual(pathfinding.Heuristic.chebyshev)
   })
 
   it('should return euclidean heuristic', async () => {
-    expect(mapHeuristic(grid, 'EUCLIDEAN')).toEqual(Heuristic.euclidean)
+    expect(mapHeuristic(grid, 'EUCLIDEAN')).toEqual(pathfinding.Heuristic.euclidean)
   })
 
   it('should return octile heuristic', async () => {
-    expect(mapHeuristic(grid, 'OCTILE')).toEqual(Heuristic.octile)
+    expect(mapHeuristic(grid, 'OCTILE')).toEqual(pathfinding.Heuristic.octile)
   })
 
   it('should return custom heuristic', async () => {
