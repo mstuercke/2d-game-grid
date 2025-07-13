@@ -39,7 +39,7 @@
     "release": "node --no-warnings --loader ts-node/esm scripts/release.ts"
   },
   "dependencies": {
-    "@2d-game-grid/core": "0.0.13"
+    "@2d-game-grid/core": "0.0.14"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

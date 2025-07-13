@@ -27,6 +27,7 @@ export class TestCell extends Cell<string, TestDirections> {
     this.edges = new TestEdges(this.grid, this)
     this.corners = new TestCorners(this.grid, this)
   }
+
   getRow(): Row<string, TestDirections, TestCell> {
     return this.grid.getRow(this.row)
   }
@@ -44,9 +45,11 @@ export class GenericTestCell<TValue> extends Cell<TValue, TestDirections> {
   public get neighbors(): never {
     throw 'Not implemented'
   }
+
   public get edges(): never {
     throw 'Not implemented'
   }
+
   public get corners(): never {
     throw 'Not implemented'
   }

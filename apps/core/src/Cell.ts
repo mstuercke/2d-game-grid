@@ -54,6 +54,17 @@ export abstract class Cell<TValue, TDirections extends Directions> implements Co
   }
 
   /**
+   * @param valueOrFn The new value or a function that returns the new value
+   */
+  setValue(valueOrFn: TValue | ((currentValue: TValue) => TValue)): void {
+    if (typeof valueOrFn === 'function') {
+      this.value = (valueOrFn as (currentValue: TValue) => TValue)(this.value)
+    } else {
+      this.value = valueOrFn
+    }
+  }
+
+  /**
    * @param callback A function that should be called, when the cell value changes
    * @returns a function to unregister the callback
    */

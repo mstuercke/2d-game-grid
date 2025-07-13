@@ -31,6 +31,18 @@ describe('Cell', () => {
     expect(cell.value).toEqual('bar')
   })
 
+  describe('setCell', () => {
+    it('should set cell value', async () => {
+      cell.setValue('new')
+      expect(cell.value).toEqual('new')
+    })
+
+    it('should get cell value by function', async () => {
+      cell.setValue((current) => `${current}-new`)
+      expect(cell.value).toEqual('foo-new')
+    })
+  })
+
   describe('event: OnCellValueChanged', () => {
     it('should register callback', async () => {
       const callback = vi.fn()
