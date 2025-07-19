@@ -15,7 +15,7 @@
     "versions:fix": "syncpack fix-mismatches"
   },
   "devDependencies": {
-    "@mstuercke/biome-config": "^0.0.4",
+    "@mstuercke/biome-config": "^0.1.0",
     "@mstuercke/eslint-config": "^1.3.0",
     "@mstuercke/node-utils": "^0.0.3",
     "@mstuercke/typescript-config": "^3.0.3",
