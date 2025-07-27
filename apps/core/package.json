@@ -12,6 +12,7 @@
     "README.md"
   ],
   "type": "module",
+  "main": "src/index.ts",
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
