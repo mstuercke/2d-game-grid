@@ -3,7 +3,7 @@
   "globalDependencies": [".env"],
   "tasks": {
     "typecheck": {
-      "dependsOn": ["^typecheck"],
+      "dependsOn": ["^typecheck", "^build"],
       "outputLogs": "new-only"
     },
     "build": {
@@ -12,7 +12,7 @@
       "outputLogs": "new-only"
     },
     "test:unit": {
-      "dependsOn": ["^typecheck"],
+      "dependsOn": ["typecheck"],
       "outputs": ["coverage/**"],
       "outputLogs": "new-only"
     },
