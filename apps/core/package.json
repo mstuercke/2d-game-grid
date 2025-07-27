@@ -21,7 +21,7 @@
     }
   },
   "scripts": {
-    "typecheck": "tsc --noEmit",
+    "typeCheck": "tsc --noEmit",
     "test:unit": "vitest run --coverage",
     "test:unit:watch": "vitest watch",
     "build:esm": "tsc -p tsconfig.build.esm.json",

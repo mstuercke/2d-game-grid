@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "postinstall": "find .githooks -type f -exec chmod +x {} + && git config --local core.hooksPath .githooks",
-    "typecheck": "turbo run typecheck",
+    "typeCheck": "turbo run typeCheck",
     "lint": "npx biome check && eslint ./apps/*/src --max-warnings 0",
     "lint:fix": "npx biome check --fix && eslint ./apps/*/src --fix --max-warnings 0",
     "test:unit": "turbo run test:unit",
