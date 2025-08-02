@@ -30,7 +30,7 @@
     "release": "node --no-warnings --loader ts-node/esm scripts/release.ts"
   },
   "devDependencies": {
-    "@types/pathfinding": "^0.0.9"
+    "@types/pathfinding": "^0.1.0"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
