@@ -1,26 +1,10 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended", ":disableDependencyDashboard"],
+  "extends": ["github>mstuercke/renovate-config"],
   "timezone": "Europe/Berlin",
   "ignoreDeps": [
     "mime",
     "@types/mime",
     "eslint"
-  ],
-  "packageRules": [
-    {
-      "matchPackagePatterns": ["*"],
-      "matchUpdateTypes": ["major"]
-    },
-    {
-      "groupName": "minor/patch dependencies",
-      "groupSlug": "minor-patch",
-      "matchPackagePatterns": ["*"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "automerge": true,
-      "automergeType": "branch"
-    }
-  ],
-  "schedule": ["on saturday"],
-  "reviewers": ["mstuercke"]
+  ]
 }
