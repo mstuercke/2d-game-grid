@@ -522,10 +522,10 @@
     semver "^7.5.0"
     zod-package-json "^1.1.0"
 
-"@mstuercke/typescript-config@^3.0.3":
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/@mstuercke/typescript-config/-/typescript-config-3.0.3.tgz#2163119c69cdff934729b9d3fea471807d411dc8"
-  integrity sha512-SD56LdNbXqUxk/NoOT9ifaebCaGCRiszMl3cW6fsTeo9xIyIOijstxS32cpE9i6aApzzur3JaWhyf2ULt7XRKw==
+"@mstuercke/typescript-config@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@mstuercke/typescript-config/-/typescript-config-3.1.0.tgz#5c94d09d760a74de40e7643a86f6e27a42195860"
+  integrity sha512-t2v0E9+g/DfWhsnpCKkDcFeSjkvW5dC/yYwICaR7MdWLnNhoryULlh0L6BlG9AcfSSGxhA08Z7mquYbvPynUMA==
 
 "@napi-rs/wasm-runtime@^1.1.1":
   version "1.1.1"
