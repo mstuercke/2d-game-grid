@@ -12,7 +12,7 @@
     "build": "dotenv -- turbo run build --env-mode=loose",
     "prerelease": "yarn run versions:fix",
     "release": "dotenv -- turbo run release --env-mode=loose",
-    "versions:fix": "syncpack fix-mismatches"
+    "versions:fix": "syncpack fix"
   },
   "devDependencies": {
     "@mstuercke/biome-config": "^0.1.0",
