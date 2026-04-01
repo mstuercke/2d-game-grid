@@ -22,7 +22,10 @@ describe(FlatTopHexagonCell.name, () => {
   }
 
   beforeEach(() => {
-    GridEventDispatcherMock.mockReturnValue(eventDispatcherMock as any)
+    // biome-ignore lint/complexity/useArrowFunction: vitest
+    GridEventDispatcherMock.mockImplementation(function () {
+      return eventDispatcherMock as any
+    })
     grid = new FlatTopHexagonGrid<string>(preInitializedGridOptionsFixture)
     cell = new FlatTopHexagonCell<string>(grid, {row: 1, col: 2}, 'foo')
   })
@@ -37,7 +40,11 @@ describe(FlatTopHexagonCell.name, () => {
 
   it('should initialize neighbors', async () => {
     const neighbors = {} as FlatTopHexagonNeighbors<unknown>
-    NeighborsMock.mockReturnValueOnce(neighbors)
+
+    // biome-ignore lint/complexity/useArrowFunction: vitest
+    NeighborsMock.mockImplementation(function () {
+      return neighbors
+    })
 
     const cell = new FlatTopHexagonCell<string>(grid, {row: 1, col: 2}, 'foo')
 

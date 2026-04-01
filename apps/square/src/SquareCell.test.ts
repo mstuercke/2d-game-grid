@@ -55,7 +55,10 @@ describe('SquareCell', () => {
 
   it('should initialize neighbors', async () => {
     const neighbors = {} as SquareNeighbors<unknown>
-    NeighborsMock.mockReturnValueOnce(neighbors)
+    // biome-ignore lint/complexity/useArrowFunction: vitest
+    NeighborsMock.mockImplementation(function () {
+      return neighbors
+    })
 
     const cell = new SquareCell<string>(grid, {row: 1, col: 2}, 'foo')
 
