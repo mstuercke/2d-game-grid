@@ -13,7 +13,10 @@ describe('Cell', () => {
   }
 
   beforeEach(() => {
-    GridEventDispatcherMock.mockReturnValue(eventDispatcherMock as any)
+    // biome-ignore lint/complexity/useArrowFunction: vitest
+    GridEventDispatcherMock.mockImplementation(function () {
+      return eventDispatcherMock as any
+    })
     const grid = new TestGrid(preInitializedGridOptionsFixture)
     cell = new TestCell(grid, {row: 1, col: 2}, 'foo')
   })
