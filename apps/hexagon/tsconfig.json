@@ -1,11 +1,10 @@
 {
   "extends": "@mstuercke/typescript-config/package/tsconfig.json",
+  "references": [{
+    "path": "./tsconfig.scripts.json"
+  }],
   "compilerOptions": {
     "types": ["vitest/globals"]
   },
-  "include": [
-    "scripts",
-    "src",
-    "package.json"
-  ]
+  "include": ["src"]
 }

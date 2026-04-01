@@ -1,0 +1,12 @@
+{
+  "extends": "@mstuercke/typescript-config/package/tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "noEmit": false,
+    "types": ["node"]
+  },
+  "include": [
+    "scripts",
+    "package.json"
+  ]
+}
