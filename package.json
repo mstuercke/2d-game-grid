@@ -10,7 +10,7 @@
     "lint:fix": "npx biome check --fix && eslint ./apps/*/src --fix --max-warnings 0",
     "test:unit": "turbo run test:unit",
     "build": "dotenv -- turbo run build --env-mode=loose",
-    "prerelease": "yarn run versions:fix",
+    "prerelease": "pnpm run versions:fix",
     "release": "dotenv -- turbo run release --env-mode=loose",
     "versions:fix": "syncpack fix"
   },
@@ -29,13 +29,7 @@
     "typescript": "^6.0.0",
     "vitest": "^4.0.0"
   },
-  "workspaces": {
-    "packages": [
-      "apps/*",
-      "examples/*"
-    ]
-  },
-  "packageManager": "yarn@1.22.22",
+  "packageManager": "pnpm@11.25.0",
   "engines": {
     "node": ">=22.6.0"
   }

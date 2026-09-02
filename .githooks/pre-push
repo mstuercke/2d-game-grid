@@ -1,2 +1,2 @@
 #!/usr/bin/env sh
-yarn run test:unit
+pnpm run test:unit

@@ -35,7 +35,7 @@
     "test:unit:watch": "vitest watch",
     "build:esm": "tsc -p tsconfig.build.esm.json",
     "build:cjs": "tsc -p tsconfig.build.cjs.json",
-    "build": "yarn run build:cjs && yarn run build:esm",
+    "build": "pnpm run build:cjs && pnpm run build:esm",
     "release": "node --no-warnings --loader ts-node/esm scripts/release.ts"
   },
   "dependencies": {
