@@ -56,15 +56,28 @@ importers:
 
   apps/core:
     devDependencies:
+      '@mstuercke/node-utils':
+        specifier: ^0.0.3
+        version: 0.0.3(typescript@6.0.2)
       '@types/pathfinding':
         specifier: ^0.1.0
         version: 0.1.0
+      ts-node:
+        specifier: ^10.9.2
+        version: 10.9.2(@types/node@24.12.0)(typescript@6.0.2)
 
   apps/hexagon:
     dependencies:
       '@2d-game-grid/core':
         specifier: 0.0.15
         version: 0.0.15
+    devDependencies:
+      '@mstuercke/node-utils':
+        specifier: ^0.0.3
+        version: 0.0.3(typescript@6.0.2)
+      ts-node:
+        specifier: ^10.9.2
+        version: 10.9.2(@types/node@24.12.0)(typescript@6.0.2)
 
   apps/square:
     dependencies:
@@ -75,9 +88,15 @@ importers:
         specifier: ^0.4.18
         version: 0.4.18
     devDependencies:
+      '@mstuercke/node-utils':
+        specifier: ^0.0.3
+        version: 0.0.3(typescript@6.0.2)
       '@types/pathfinding':
         specifier: ^0.1.0
         version: 0.1.0
+      ts-node:
+        specifier: ^10.9.2
+        version: 10.9.2(@types/node@24.12.0)(typescript@6.0.2)
 
 packages:
 

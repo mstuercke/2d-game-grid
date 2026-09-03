@@ -36,14 +36,16 @@
     "build:esm": "tsc -p tsconfig.build.esm.json",
     "build:cjs": "tsc -p tsconfig.build.cjs.json",
     "build": "pnpm run build:cjs && pnpm run build:esm",
-    "release": "node --no-warnings --loader ts-node/esm scripts/release.ts"
+    "release": "node --no-warnings --import ts-node/esm scripts/release.ts"
   },
   "dependencies": {
     "@2d-game-grid/core": "0.0.15",
     "pathfinding": "^0.4.18"
   },
   "devDependencies": {
-    "@types/pathfinding": "^0.1.0"
+    "@mstuercke/node-utils": "^0.0.3",
+    "@types/pathfinding": "^0.1.0",
+    "ts-node": "^10.9.2"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
