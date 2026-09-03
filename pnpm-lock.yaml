@@ -74,20 +74,15 @@ importers:
       pathfinding:
         specifier: ^0.4.18
         version: 0.4.18
-
-  examples/square:
-    dependencies:
-      '@2d-game-grid/square':
-        specifier: 2.4.3
-        version: 2.4.3
+    devDependencies:
+      '@types/pathfinding':
+        specifier: ^0.1.0
+        version: 0.1.0
 
 packages:
 
   '@2d-game-grid/core@0.0.15':
     resolution: {integrity: sha512-OFENd5U2NGhA98siAmcohm9OR4wtL9a3G/Q5mWzgHfJoJeVeoynAtcv4siUfrSzIXaElmBwYvgq1RwjCLl4WoA==}
-
-  '@2d-game-grid/square@2.4.3':
-    resolution: {integrity: sha512-fSBPq1uN1ESUkeGJ/jeRjvglY1qqGIhN1WpoNoeMj07p+NxxC5tAsSGmSBpuHaOm3qqESOt7xbRk5BsGpuLcdg==}
 
   '@babel/code-frame@7.29.0':
     resolution: {integrity: sha512-9NhCeYjq9+3uxgdtp20LSiJXJvN0FeCtNGpJxuMFZ1Kv3cWUNb6DOhJwUvcVCzKGR66cw4njwM6hrJLqgOwbcw==}
@@ -1714,11 +1709,6 @@ packages:
 snapshots:
 
   '@2d-game-grid/core@0.0.15': {}
-
-  '@2d-game-grid/square@2.4.3':
-    dependencies:
-      '@2d-game-grid/core': 0.0.15
-      pathfinding: 0.4.18
 
   '@babel/code-frame@7.29.0':
     dependencies:

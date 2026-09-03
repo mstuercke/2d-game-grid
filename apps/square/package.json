@@ -42,6 +42,9 @@
     "@2d-game-grid/core": "0.0.15",
     "pathfinding": "^0.4.18"
   },
+  "devDependencies": {
+    "@types/pathfinding": "^0.1.0"
+  },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   }
