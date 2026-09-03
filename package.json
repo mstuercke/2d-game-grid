@@ -6,8 +6,8 @@
   "scripts": {
     "postinstall": "find .githooks -type f -exec chmod +x {} + && git config --local core.hooksPath .githooks",
     "typeCheck": "turbo run typeCheck",
-    "lint": "npx biome check && eslint ./apps/*/src --max-warnings 0",
-    "lint:fix": "npx biome check --fix && eslint ./apps/*/src --fix --max-warnings 0",
+    "lint": "biome check && eslint ./apps/*/src --max-warnings 0",
+    "lint:fix": "biome check --fix && eslint ./apps/*/src --fix --max-warnings 0",
     "test:unit": "turbo run test:unit",
     "build": "dotenv -- turbo run build --env-mode=loose",
     "prerelease": "pnpm run versions:fix",
@@ -15,6 +15,7 @@
     "versions:fix": "syncpack fix"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.0.6",
     "@mstuercke/biome-config": "^0.1.0",
     "@mstuercke/eslint-config": "^1.3.0",
     "@mstuercke/node-utils": "^0.0.3",
@@ -23,6 +24,7 @@
     "@vitest/coverage-istanbul": "^4.0.0",
     "dotenv-cli": "^11.0.0",
     "esbuild": "^0.27.0",
+    "eslint": "^8.57.1",
     "syncpack": "^14.0.0",
     "ts-node": "^10.9.2",
     "turbo": "^2.4.2",
