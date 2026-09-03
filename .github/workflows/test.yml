@@ -22,6 +22,7 @@ jobs:
       - uses: pnpm/setup@v2
         with:
           cache: true
+          runtime: node
 
       - name: Fix versions
         run: pnpm run versions:fix
