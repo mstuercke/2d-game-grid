@@ -18,12 +18,6 @@
     },
     "versions:fix": {
       "cache": false
-    },
-    "release": {
-      "dependsOn": [
-        "build"
-      ],
-      "outputLogs": "new-only"
     }
   }
 }
