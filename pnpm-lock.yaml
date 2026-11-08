@@ -12,8 +12,8 @@ importers:
         specifier: ^2.0.6
         version: 2.1.4
       '@mstuercke/biome-config':
-        specifier: ^0.1.0
-        version: 0.1.0
+        specifier: ^0.1.4
+        version: 0.1.4
       '@mstuercke/eslint-config':
         specifier: ^1.3.0
         version: 1.3.0(supports-color@7.2.0)(typescript@6.0.2)
@@ -98,19 +98,10 @@ importers:
         specifier: ^8.0.2
         version: 8.0.2(semantic-release@25.0.9(supports-color@7.2.0)(typescript@6.0.2))(supports-color@7.2.0)
 
-  examples/square:
-    dependencies:
-      '@2d-game-grid/square':
-        specifier: 2.4.3
-        version: 2.4.3
-
 packages:
 
   '@2d-game-grid/core@0.0.15':
     resolution: {integrity: sha512-OFENd5U2NGhA98siAmcohm9OR4wtL9a3G/Q5mWzgHfJoJeVeoynAtcv4siUfrSzIXaElmBwYvgq1RwjCLl4WoA==}
-
-  '@2d-game-grid/square@2.4.3':
-    resolution: {integrity: sha512-fSBPq1uN1ESUkeGJ/jeRjvglY1qqGIhN1WpoNoeMj07p+NxxC5tAsSGmSBpuHaOm3qqESOt7xbRk5BsGpuLcdg==}
 
   '@actions/core@3.0.1':
     resolution: {integrity: sha512-a6d/Nwahm9fliVGRhdhofo40HjHQasUPusmc7vBfyky+7Z+P2A1J68zyFVaNcEclc/Se+eO595oAr5nwEIoIUA==}
@@ -468,8 +459,9 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
-  '@mstuercke/biome-config@0.1.0':
-    resolution: {integrity: sha512-W/qYMp67+4dKHweNYpj/Vo5dPDNX5oYS+290dJ2ulgHgyJr4kUiHMSRZxwJR6BM57dMpi4QqSFJ5beqPy9cZLw==}
+  '@mstuercke/biome-config@0.1.4':
+    resolution: {integrity: sha512-ZbOqRHLGHJMeBUW6yhLDzS6gwuh9d8MC8EdIz1TRUSK67qh3JeQXmguCiTEiYroq+mEj+jktQnVSbMTBhq79Yg==}
+    engines: {node: '>=26.13.0'}
 
   '@mstuercke/eslint-config@1.3.0':
     resolution: {integrity: sha512-DYdnFbsWGMnpi+TT0ifiAyjB0hYI5r8wiKuYC7FC1OybpPSqRI2IlwpGFXg/A51CgDS3qLDf0Tzj5sYcI+P86Q==}
@@ -2861,11 +2853,6 @@ snapshots:
 
   '@2d-game-grid/core@0.0.15': {}
 
-  '@2d-game-grid/square@2.4.3':
-    dependencies:
-      '@2d-game-grid/core': 0.0.15
-      pathfinding: 0.4.18
-
   '@actions/core@3.0.1':
     dependencies:
       '@actions/exec': 3.0.0
@@ -3170,7 +3157,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@mstuercke/biome-config@0.1.0':
+  '@mstuercke/biome-config@0.1.4':
     dependencies:
       '@biomejs/biome': 2.1.4
 
